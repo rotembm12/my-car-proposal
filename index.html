@@ -1569,140 +1569,233 @@
 
 <!-- SLIDE 14: Divider - Roadmap -->
 <div class="divider">
-  <h2>Phased <span class="accent">Roadmap</span></h2>
-  <p>Ship value early. Layer on capabilities. Build toward international scale.<br><span style="color:var(--text-muted); font-size: 15px; margin-top: 12px; display: inline-block;">Based on 1 frontend developer + dedicated QA + UI/UX designer + DevOps</span></p>
+  <h2>Integrated <span class="accent">Roadmap</span></h2>
+  <p>Design and development as one unified delivery. UI/UX leads, development follows. Every phase includes both design and implementation.</p>
   <div class="stat-row" style="margin-top: 40px; justify-content: center;">
     <div class="stat">
       <div class="stat-value">~12</div>
       <div class="stat-label">Months Total</div>
     </div>
+    <div class="stat">
+      <div class="stat-value">2</div>
+      <div class="stat-label">Parallel Tracks</div>
+    </div>
   </div>
   <div class="slide-number">14</div>
 </div>
 
-<!-- SLIDE 15: Phase 1 Detail -->
+<!-- SLIDE 14b: How Design + Dev Work Together -->
 <div class="slide">
   <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
-  <h4>Roadmap</h4>
-  <h2>Phase 1: <span class="accent">MVP</span> <span style="font-size: 28px; color: var(--text-muted); font-weight: 400;">~20 weeks</span></h2>
-  <p style="margin-bottom: 24px;">The complete core rental experience. Users can register, find, book, rent, report damage, and pay. All estimates include writing tests, QA cycles, and cross-platform verification (iOS + Android + Web).</p>
-  <table class="compare-table">
+  <h4>Delivery Model</h4>
+  <h2>Design <span class="accent">Leads</span>, Dev Follows</h2>
+  <p style="margin-bottom: 24px;">UI/UX and development run as two parallel tracks. Design works ~2-3 weeks ahead of development, delivering Figma handoffs that feed directly into implementation sprints.</p>
+  <div class="grid-2">
+    <div class="card" style="border-color: var(--orange);">
+      <span class="card-icon" style="font-size: 28px;">&#127912;</span>
+      <div class="card-title" style="color: var(--orange);">UI/UX Design Track</div>
+      <div class="card-desc" style="margin-bottom: 12px;">50% availability (~20 hrs/week). Starts from scratch - no existing Figma, flow docs, or design assets.</div>
+      <ul class="bullet-list" style="margin-top: 0;">
+        <li>Discovery & audit come first - validate assumptions before designing</li>
+        <li>Design system (tokens, components) built once, used everywhere</li>
+        <li>Each flow delivered as annotated Figma with behavior notes & spacing</li>
+        <li>2 revision rounds included per deliverable, 20% buffer per phase</li>
+        <li>Weekly sync with project owner + stakeholder for feedback</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color: var(--accent);">
+      <span class="card-icon" style="font-size: 28px;">&#128187;</span>
+      <div class="card-title" style="color: var(--accent);">Development Track</div>
+      <div class="card-desc" style="margin-bottom: 12px;">1 frontend developer, full-time. Builds against finalized Figma handoffs. QA validates each module.</div>
+      <ul class="bullet-list" style="margin-top: 0;">
+        <li>Monorepo setup & design system implementation starts in parallel with UX discovery</li>
+        <li>Each dev sprint starts after corresponding design handoff is approved</li>
+        <li>Shared component library (React Native + Web) built from Figma tokens</li>
+        <li>Tests written per module, QA cycle after each major flow</li>
+        <li>Web parity built in parallel via shared components</li>
+      </ul>
+    </div>
+  </div>
+  <div class="highlight-box" style="margin-top: 16px;">
+    <p>The 2-3 week design lead means development is never blocked waiting for designs, and design has time to incorporate feedback from development before the next handoff. This staggered approach is more efficient than waterfall (all design then all dev) or fully parallel (constant context switching).</p>
+  </div>
+  <div class="slide-number">14b</div>
+</div>
+
+<!-- SLIDE 15: Phase 1 Integrated -->
+<div class="slide">
+  <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
+  <h4>Phase 1 &mdash; MVP</h4>
+  <h2>Design + Dev: <span class="accent">Integrated View</span></h2>
+  <p style="margin-bottom: 20px;">Design leads by 2-3 weeks. Each row shows the UX deliverable and corresponding dev implementation side by side.</p>
+  <table class="compare-table" style="font-size: 13px;">
     <thead>
       <tr>
         <th>Module</th>
-        <th>What's Included & Why This Estimate</th>
-        <th style="text-align: center; white-space: nowrap;">Dev Weeks</th>
+        <th style="color: var(--orange);">UI/UX Design</th>
+        <th style="text-align: center; color: var(--orange); white-space: nowrap;">UX Hrs</th>
+        <th style="color: var(--accent);">Development</th>
+        <th style="text-align: center; color: var(--accent); white-space: nowrap;">Dev Wks</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>Project Setup & Design System</td>
-        <td><strong>Week 1:</strong> Monorepo scaffold (Turborepo/Nx), Expo project init, Next.js project init, shared package structure (@mycar/ui, @mycar/api, @mycar/shared), CI/CD pipeline, linting/formatting config. <strong>Week 2-3:</strong> Core component library from Figma tokens - buttons (5 variants), text inputs (with validation states), cards, bottom sheets, modals, navigation shell (bottom tabs), RTL layout engine, typography scale, color system with theme context. <em>This is the foundation everything else builds on - investing 3 weeks here pays off in every subsequent module.</em></td>
-        <td style="text-align: center; color: var(--accent); font-weight: 700;">3</td>
+        <td>Discovery & Foundations</td>
+        <td><strong>Discovery + Feedback Audit:</strong> Customer feedback analysis, flow mapping, competitive audit, MVP scope definition. <strong>IA + User Flows:</strong> Screen map, information hierarchy, navigation structure - basis for all screens.</td>
+        <td style="text-align: center; color: var(--orange); font-weight: 700;">14-18</td>
+        <td><strong>Monorepo scaffold</strong> (Turborepo/Nx), Expo + Next.js init, shared packages (@mycar/ui, @mycar/api, @mycar/shared), CI/CD pipeline, linting, navigation shell. <em>Runs in parallel with UX discovery.</em></td>
+        <td style="text-align: center; color: var(--accent); font-weight: 700;">1</td>
       </tr>
       <tr>
-        <td>Auth</td>
-        <td><strong>Week 1:</strong> Phone input with country code, OTP request/verify API integration, SMS auto-fill, 6-digit code input component, resend timer, error handling (invalid code, expired, rate limit). <strong>Week 2:</strong> Biometric enrollment flow (Face ID / Touch ID via Expo LocalAuthentication), secure token storage (Expo SecureStore on mobile, httpOnly cookies on web), session refresh logic, logout, unapproved-user gating (read-only map access, "Book" button shows approval status). <em>2 weeks because biometric + secure storage + session management across 3 platforms (iOS/Android/Web) requires careful implementation.</em></td>
+        <td>Design System</td>
+        <td><strong>Tokens + Components:</strong> Color palette, typography scale, spacing system, iconography. Component library in Figma: buttons (5 variants), inputs, cards, bottom sheets, modals, chips, badges. RTL-ready. All components with states (default, hover, pressed, disabled, error).</td>
+        <td style="text-align: center; color: var(--orange); font-weight: 700;">12-14</td>
+        <td><strong>Implementation from Figma tokens:</strong> Theme context (light mode, RTL), all components as React Native + Web shared library, typography scale, color system, bottom tab navigator. <em>Foundation for everything - 2 weeks investment pays off across all modules.</em></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">2</td>
       </tr>
       <tr>
-        <td>Registration</td>
-        <td><strong>Week 1:</strong> Multi-step form architecture with progress stepper, local state persistence (AsyncStorage), step 1 (personal details form: name, DOB, gender with validation), step 2 (address with Google Maps Places autocomplete, city/street/number auto-parse). <strong>Week 2:</strong> Step 3 (guided camera for license photo with overlay frame, selfie capture with face detection hint, photo preview & retake), passport flow variant for non-Israeli IDs. <strong>Week 3:</strong> Step 4 (rules carousel - swipeable cards with key policies), step 5 (contract viewer with scroll-to-bottom requirement + signature pad component), form submission, success/error states, API integration for all steps. <em>3 weeks because the camera overlay, signature pad, and Google Maps integration each involve native module configuration that takes longer than typical UI work.</em></td>
-        <td style="text-align: center; color: var(--accent); font-weight: 700;">3</td>
+        <td>Auth + Registration</td>
+        <td><strong>Registration + Auth Flow (Figma):</strong> Login screen, OTP verification, 5-step registration (personal details, document upload with camera guidance, contract signature, payment, rules carousel). All edge cases: validation errors, missing fields, passport variant. Progress indicator design.</td>
+        <td style="text-align: center; color: var(--orange); font-weight: 700;">10-12</td>
+        <td><strong>Auth:</strong> Phone + OTP, biometric (Face ID/Touch ID), session persistence, unapproved-user gating. <strong>Registration:</strong> 5-step form, Google Maps autocomplete, guided camera overlay, signature pad, resumable state. <em>5 weeks total: auth is 2 (biometric + secure storage across 3 platforms), registration is 3 (camera overlay, signature, Maps each need native config).</em></td>
+        <td style="text-align: center; color: var(--accent); font-weight: 700;">5</td>
       </tr>
       <tr>
-        <td>Map & Discovery</td>
-        <td><strong>Week 1:</strong> Map integration (provider-agnostic wrapper), user location permissions, car marker rendering with clustering (100+ markers must perform smoothly), color-coded markers by category (economy=blue, standard=green, premium=gold, electric=teal), marker tap interaction. <strong>Week 2:</strong> Car detail bottom sheet (photo, model, category, station name, walking distance, per-hour rate), snap points (peek/half/full), list view alternative with sort controls. <strong>Week 3:</strong> Filter chip bar (car type multi-select, price range, distance radius), location search bar with Places autocomplete, polling mechanism for real-time availability updates (configurable interval), empty states, loading skeletons. <em>3 weeks because map performance tuning with many markers, the bottom sheet interaction, and filter logic with live polling require careful coordination.</em></td>
-        <td style="text-align: center; color: var(--accent); font-weight: 700;">3</td>
+        <td>Core Flow &mdash; Booking</td>
+        <td><strong>Booking Flow (Figma):</strong> Map with car markers (category color-coding), car detail bottom sheet, filter chips, list view. Immediate + scheduled booking, one-way drop-off selection, price estimator breakdown, confirmation. "My Bookings" list with extend/cancel. All edge cases included.</td>
+        <td style="text-align: center; color: var(--orange); font-weight: 700;">10-12</td>
+        <td><strong>Map & Discovery:</strong> Provider-agnostic map, clustered markers (100+), bottom sheet, filter system, location search, polling. <strong>Booking:</strong> Immediate/scheduled/one-way flows, price estimator, confirmation, "My Bookings" tab, extend/cancel/insurance. <em>6 weeks total: map is 3 (performance tuning, bottom sheet, polling), booking is 3 (3 distinct flows + management screens).</em></td>
+        <td style="text-align: center; color: var(--accent); font-weight: 700;">6</td>
       </tr>
       <tr>
-        <td>Booking</td>
-        <td><strong>Week 1:</strong> "Book Now" flow (immediate booking from bottom sheet), scheduled booking (date/time pickers for start + end, min/max duration validation), one-way rental (drop-off station selector with map + list view of valid return locations). <strong>Week 2:</strong> Price estimator (calculate estimated cost based on duration + average km, show breakdown before confirmation), confirmation screen (all booking details + booking number), push notification scheduling (booking confirmed, reminder before start). <strong>Week 3:</strong> "My Bookings" tab (upcoming list with status badges), booking detail view, extend end time, cancel booking (with fee calculation and confirmation), toggle self-participation insurance, API integration for all CRUD operations. <em>3 weeks due to the number of distinct flows (immediate/scheduled/one-way) plus the management screens (list/detail/extend/cancel).</em></td>
-        <td style="text-align: center; color: var(--accent); font-weight: 700;">3</td>
+        <td>Active Rental + End</td>
+        <td><strong>Active Rental (Figma):</strong> Dashboard with prominent unlock code, countdown timer (color transitions), car info, navigate-to-car CTA. Extension flow. End rental confirmation with trip summary. Damage photo flow (5 guided angles with overlay frames, progress indicator). Key pain points addressed.</td>
+        <td style="text-align: center; color: var(--orange); font-weight: 700;">8-10</td>
+        <td><strong>Active Rental:</strong> Dashboard, code display, timer, navigate deep-link, extend, end rental. <strong>Damage Reporting:</strong> Guided 5-angle photo flow, camera overlays, before+after enforcement, background upload. <em>4 weeks total: rental dashboard is 2 (state management across tabs/restarts), damage is 2 (camera APIs differ per platform, enforcement logic).</em></td>
+        <td style="text-align: center; color: var(--accent); font-weight: 700;">4</td>
       </tr>
       <tr>
-        <td>Active Rental</td>
-        <td><strong>Week 1:</strong> Rental dashboard layout (prominent unlock code with copy button, countdown timer with color transitions green>orange>red, car photo + model + station info), "Navigate to car" deep link (detect Apple Maps / Google Maps / Waze, pass coordinates). <strong>Week 2:</strong> Extend rental (in-line time picker, availability check, price update), end rental flow (confirmation dialog with trip summary, "car returned" success state), state management (dashboard replaces Map tab when rental is active, persistent banner when navigating away). <em>2 weeks because it's a single screen with well-defined interactions. The complexity is in state management (active rental state persists across app restarts and tab switches), not in the number of screens.</em></td>
-        <td style="text-align: center; color: var(--accent); font-weight: 700;">2</td>
-      </tr>
-      <tr>
-        <td>Damage Reporting</td>
-        <td><strong>Week 1:</strong> Guided photo capture flow (5 sequential steps: front, rear, left side, right side, interior), camera component with overlay frame showing expected composition for each angle, photo preview with accept/retake, progress indicator (3/5 done). <strong>Week 2:</strong> Optional text notes per photo, before-pickup enforcement (must complete before code is shown), after-return enforcement (must complete before rental is closed), background photo upload with progress bar, retry on failure, association with rental ID in API. <em>2 weeks because the camera overlay component needs to work on both iOS and Android (different camera APIs), and the enforcement logic (blocking code reveal / rental close until photos are submitted) needs careful state management.</em></td>
-        <td style="text-align: center; color: var(--accent); font-weight: 700;">2</td>
-      </tr>
-      <tr>
-        <td>Profile & Payments</td>
-        <td><strong>Week 1:</strong> Unified profile screen (bottom tab), personal info section (view + inline edit), license section (view details + upload new photo on renewal), address update with autocomplete, self-service phone/email change (with OTP verification). <strong>Week 2:</strong> Payment provider abstraction layer (PaymentProvider interface with tokenizeCard, getPaymentMethods, deletePaymentMethod), first provider implementation, Apple Pay + Google Pay integration (Expo or Stripe SDK), native card entry form, payment methods list (add/remove/set default), credits display. <em>2 weeks because the payment abstraction layer needs to be designed for multi-provider support from the start. The actual card UI is straightforward, but the provider-switching architecture requires upfront design.</em></td>
+        <td>Handoff + Profile/Payments</td>
+        <td><strong>Handoff + Annotations:</strong> Complete Figma file with behavior notes, spacing specs, interaction annotations for dev. Organized by flow. Includes priority document for implementation order.</td>
+        <td style="text-align: center; color: var(--orange); font-weight: 700;">6-8</td>
+        <td><strong>Profile:</strong> Unified screen, inline editing, license renewal, self-service contact change. <strong>Payments:</strong> Provider abstraction layer, Apple Pay / Google Pay, native card entry. <em>2 weeks: payment abstraction designed for multi-provider from the start.</em></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">2</td>
       </tr>
     </tbody>
   </table>
-  <div class="highlight-box" style="margin-top: 16px;">
-    <p>Web parity is built in parallel via shared monorepo components. ~2 weeks are embedded in the estimates above for web-specific work (responsive breakpoints, SSR considerations, browser-specific testing). Each module's estimate includes unit/integration tests for that module's core flows.</p>
+  <div style="display: flex; gap: 16px; margin-top: 16px;">
+    <div class="kpi-card" style="flex: 1;">
+      <div class="kpi-value" style="color: var(--orange);">60-74<span class="kpi-unit">h</span></div>
+      <div class="kpi-label">UX Design Hours</div>
+    </div>
+    <div class="kpi-card" style="flex: 1;">
+      <div class="kpi-value">20<span class="kpi-unit">w</span></div>
+      <div class="kpi-label">Dev Weeks</div>
+    </div>
+    <div class="kpi-card" style="flex: 1;">
+      <div class="kpi-value" style="color: var(--text);">6-8<span class="kpi-unit">w</span></div>
+      <div class="kpi-label">UX Duration (50%)</div>
+    </div>
+    <div class="kpi-card" style="flex: 1;">
+      <div class="kpi-value" style="color: var(--text);">~22<span class="kpi-unit">w</span></div>
+      <div class="kpi-label">Total Phase Duration</div>
+    </div>
   </div>
   <div class="slide-number">15</div>
 </div>
 
-<!-- SLIDE 16: Phase 2 Detail -->
+<!-- SLIDE 16: Phase 2 Integrated -->
 <div class="slide">
   <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
-  <h4>Roadmap</h4>
-  <h2>Phase 2: <span class="accent">Operations & Polish</span> <span style="font-size: 28px; color: var(--text-muted); font-weight: 400;">~12 weeks</span></h2>
-  <p style="margin-bottom: 24px;">Admin capabilities for staff and fleet partners, user-facing history and refinements. Phase 2 builds on the stable MVP foundation.</p>
-  <table class="compare-table">
+  <h4>Phase 2 &mdash; Full Product</h4>
+  <h2>Design + Dev: <span class="accent">Operations & Polish</span></h2>
+  <p style="margin-bottom: 20px;">Profile, history, web platform adaptation, admin panel. UX designs the customer-facing screens; admin panel is dev-led with standard UI patterns.</p>
+  <table class="compare-table" style="font-size: 13px;">
     <thead>
       <tr>
         <th>Module</th>
-        <th>What's Included & Why This Estimate</th>
-        <th style="text-align: center; white-space: nowrap;">Dev Weeks</th>
+        <th style="color: var(--orange);">UI/UX Design</th>
+        <th style="text-align: center; color: var(--orange); white-space: nowrap;">UX Hrs</th>
+        <th style="color: var(--accent);">Development</th>
+        <th style="text-align: center; color: var(--accent); white-space: nowrap;">Dev Wks</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>Admin Panel - Staff</td>
-        <td><strong>Week 1:</strong> Next.js admin app scaffold (within monorepo, shares @mycar/ui), admin auth + role-based access control, layout shell (sidebar nav, top bar). <strong>Week 2:</strong> User approval queue (document viewer with zoom/rotate for license + selfie photos, approve/reject with notes, search + filter by status), user management (search, suspend, add credits, reset documents). <strong>Week 3:</strong> Fleet management (CRUD for cars - add model/plate/station, update availability, bulk operations), station management, pricing rules editor (per-category rates, seasonal surcharge calendar, add-on toggles). <strong>Week 4:</strong> Damage report review (side-by-side before/after photo comparison, flag/resolve workflow), push notification composer (audience selector: all/city/segment, schedule or send now), promo code creator. <em>4 weeks because the admin panel is a full web application with 6+ CRUD interfaces, each with table views, detail views, filters, and form validation. The document viewer and photo comparison tools require custom components.</em></td>
+        <td>Profile + Details</td>
+        <td><strong>Profile screens (Figma):</strong> Personal info view/edit, license section, selfie update, missing details prompts, contact change flow. Consistent with P1 design system.</td>
+        <td style="text-align: center; color: var(--orange); font-weight: 700;">8-10</td>
+        <td>Already built in P1 (profile module). This UX deliverable refines the existing screens - <em>dev cost absorbed into P1 estimate. Only iteration/polish here (~0.5 weeks).</em></td>
+        <td style="text-align: center; color: var(--accent); font-weight: 700;">0.5</td>
+      </tr>
+      <tr>
+        <td>History + Bookings</td>
+        <td><strong>History + Future Bookings (Figma):</strong> Rental history list, booking detail with cost breakdown, damage photos. Future bookings management - extend, cancel, view. Empty states.</td>
+        <td style="text-align: center; color: var(--orange); font-weight: 700;">8-10</td>
+        <td><strong>History & Receipts:</strong> Paginated list, detail view with cost line items, PDF receipt generation, share sheet. <strong>Cost Ticker:</strong> Animated counter, backend polling, edge cases. <strong>Credits:</strong> View/apply credits, promo codes, admin promo engine.</td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">4</td>
       </tr>
       <tr>
-        <td>Admin Panel - Fleet Partners</td>
-        <td><strong>Week 1:</strong> Fleet partner role + login, dashboard (only their cars' bookings, utilization rate, revenue), car list with status indicators, availability calendar (block windows for maintenance). <strong>Week 2:</strong> Damage reports filtered to their fleet (view photos, add notes), revenue reports (per car, per period, payout summaries), export to CSV. <em>2 weeks because it reuses the admin shell and many components from the staff panel, but with scoped data access and a simplified interface. The role-based data filtering is the main complexity.</em></td>
+        <td>Payments + Benefits</td>
+        <td><strong>Credit Card + Benefits (Figma):</strong> Card management screens, credits/coupons display, benefit redemption flow. Connected to payment provider interface.</td>
+        <td style="text-align: center; color: var(--orange); font-weight: 700;">6-8</td>
+        <td>Payment UI built in P1. Credits/promo system included above. <em>UX deliverable informs polish and edge case handling - dev cost absorbed into rows above.</em></td>
+        <td style="text-align: center; color: var(--accent); font-weight: 700;">&mdash;</td>
+      </tr>
+      <tr>
+        <td>Web Platform</td>
+        <td><strong>Web Adaptation (Figma):</strong> Desktop and mobile-web responsive layouts for ALL flows. Not a copy of mobile - adapted navigation, wider layouts, hover states, keyboard interactions. Full design system adaptation.</td>
+        <td style="text-align: center; color: var(--orange); font-weight: 700;">20-28</td>
+        <td>Web parity built via shared monorepo in P1. This UX work ensures <strong>web-specific responsive layouts</strong> are designed (not just mobile screens scaled up). Dev implements web-specific breakpoints and interactions.</td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">2</td>
       </tr>
       <tr>
-        <td>History & Receipts</td>
-        <td><strong>Week 1:</strong> Rental history list (paginated, sorted by date, summary cards showing date/car/duration/cost), detail view (full cost breakdown with line items: base time charge, km charge, insurance, credits applied, surcharges, total), damage report photos linked to the rental, empty state with CTA. <strong>Remaining:</strong> Downloadable PDF receipt (generated client-side or via API), share receipt (native share sheet), filter by date range. <em>1.5 weeks because it's primarily read-only list + detail views. The PDF generation adds some complexity but is a well-solved problem.</em></td>
-        <td style="text-align: center; color: var(--accent); font-weight: 700;">1.5</td>
+        <td>Admin Panel</td>
+        <td><strong>Not in UX scope</strong> - admin uses standard data-table patterns. Dev-led with shared component library. No custom UX design needed.</td>
+        <td style="text-align: center; color: var(--text-muted); font-weight: 700;">&mdash;</td>
+        <td><strong>Staff admin:</strong> User approval, fleet CRUD, pricing editor, damage review, notifications, promos. <strong>Fleet partner portal:</strong> Scoped dashboard, availability, revenue reports. <em>6 weeks total (4 staff + 2 partner).</em></td>
+        <td style="text-align: center; color: var(--accent); font-weight: 700;">6</td>
       </tr>
       <tr>
-        <td>Real-Time Cost Ticker</td>
-        <td>Animated cost counter on the active rental dashboard. Polls backend every 30s for actual accrued cost (time-based + km from car's GPS). Smooth number animation between updates. Handles edge cases: rental extension (cost resets projection), network loss (shows "last updated" timestamp), timezone transitions. <em>1 week because the UI component is simple (animated number), but the polling logic, sync with backend calculations, and edge case handling need careful implementation.</em></td>
-        <td style="text-align: center; color: var(--accent); font-weight: 700;">1</td>
-      </tr>
-      <tr>
-        <td>Credits & Promotions</td>
-        <td><strong>Week 1:</strong> Credits section in profile (list of credits with amount, expiry, source), apply credits during booking checkout (auto-apply best available or manual selection), promo code input field at checkout. <strong>Remaining:</strong> Admin-side promo management (create codes, set rules: % or fixed discount, expiry, usage limits, eligible car categories), push notification composer for promo campaigns. <em>1.5 weeks because the user-facing part is simple (view + apply), but the admin promo rule engine with conditional logic adds moderate complexity.</em></td>
-        <td style="text-align: center; color: var(--accent); font-weight: 700;">1.5</td>
-      </tr>
-      <tr>
-        <td>Dark Mode</td>
-        <td>Full dark theme token set (backgrounds, surfaces, text colors, accent adjustments, shadows), theme toggle in profile settings, system preference auto-detection (prefers-color-scheme), persistent user preference. Must audit every screen - some components may need different border/shadow values in dark mode. Map tiles need dark variant. All status colors (success green, error red, warning orange) need dark-mode contrast verification. <em>2 weeks because dark mode affects every single screen and component. It's not just swapping colors - it requires visual QA of all 30+ screens to ensure proper contrast, readable text, and correct status color visibility in both themes.</em></td>
+        <td>Polish + Handoff</td>
+        <td><strong>Consistency Pass:</strong> Audit all screens for color, spacing, micro-copy consistency. <strong>Final Handoff:</strong> Design system documentation, file organization for dev team. Dark mode token set.</td>
+        <td style="text-align: center; color: var(--orange); font-weight: 700;">10-14</td>
+        <td><strong>Dark Mode:</strong> Full dark theme, every screen audited, map tile variant, status color contrast verification. Theme toggle + system preference detection. <em>2 weeks - affects all 30+ screens.</em></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">2</td>
       </tr>
     </tbody>
   </table>
+  <div style="display: flex; gap: 16px; margin-top: 16px;">
+    <div class="kpi-card" style="flex: 1;">
+      <div class="kpi-value" style="color: var(--orange);">52-70<span class="kpi-unit">h</span></div>
+      <div class="kpi-label">UX Design Hours</div>
+    </div>
+    <div class="kpi-card" style="flex: 1;">
+      <div class="kpi-value">14.5<span class="kpi-unit">w</span></div>
+      <div class="kpi-label">Dev Weeks</div>
+    </div>
+    <div class="kpi-card" style="flex: 1;">
+      <div class="kpi-value" style="color: var(--text);">4-6<span class="kpi-unit">w</span></div>
+      <div class="kpi-label">UX Duration (50%)</div>
+    </div>
+    <div class="kpi-card" style="flex: 1;">
+      <div class="kpi-value" style="color: var(--text);">~16<span class="kpi-unit">w</span></div>
+      <div class="kpi-label">Total Phase Duration</div>
+    </div>
+  </div>
   <div class="slide-number">16</div>
 </div>
 
-<!-- SLIDE 17: Phases 3-4 Detail -->
+<!-- SLIDE 17: Phases 3-4 (Dev only) -->
 <div class="slide">
   <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
-  <h4>Roadmap</h4>
-  <h2>Phases <span class="accent">3 & 4</span></h2>
-  <p style="margin-bottom: 20px;">Later phases build on the stable foundation. These can be reordered based on business priority.</p>
+  <h4>Phases 3 & 4</h4>
+  <h2>Development <span class="accent">Only</span></h2>
+  <p style="margin-bottom: 12px;">UX design scope covers Phases 1-2 (120-160 hours). Phases 3-4 use the established design system - new screens follow existing patterns. Additional UX hours can be scoped separately if needed.</p>
   <div class="grid-2">
     <div>
       <h3 style="margin-bottom: 8px;">Phase 3: Engagement & Support</h3>
-      <p style="font-size: 16px; margin-bottom: 16px; color: var(--purple); font-weight: 600;">~8 weeks</p>
+      <p style="font-size: 16px; margin-bottom: 16px; color: var(--purple); font-weight: 600;">~8 dev weeks</p>
       <table class="compare-table" style="font-size: 13px;">
         <thead>
           <tr>
@@ -1714,32 +1807,32 @@
         <tbody>
           <tr>
             <td>Favorites & Recents</td>
-            <td>Save/unsave stations, recent trips list, quick rebook. Lightweight - mostly local storage + simple UI.</td>
+            <td>Save/unsave stations, recent trips, quick rebook. Lightweight.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">1</td>
           </tr>
           <tr>
             <td>In-App Support</td>
-            <td>Chat SDK integration (e.g., Intercom/Zendesk) or ticket-based form with photo attachment. Requires SDK config per platform.</td>
+            <td>Chat SDK integration (Intercom/Zendesk) or ticket form. Per-platform SDK config.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">2</td>
           </tr>
           <tr>
             <td>Multi-Language</td>
-            <td>Full English string review (300+ keys), RTL/LTR dynamic switching, date/number/currency locale formatting, layout QA in both directions.</td>
+            <td>Full English review (300+ keys), RTL/LTR switching, locale formatting, layout QA.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">1.5</td>
           </tr>
           <tr>
             <td>Analytics Dashboard</td>
-            <td>Charts (Recharts): bookings/day, revenue trends, utilization heatmap, user growth. Data aggregation queries + responsive chart layouts.</td>
+            <td>Charts (Recharts): bookings, revenue, utilization, growth. Admin web only.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">1.5</td>
           </tr>
           <tr>
             <td>Subscriptions</td>
-            <td>Plan selection UI, pricing cards, payment integration for recurring charges, plan status in profile. Depends on backend subscription logic.</td>
+            <td>Plan selection, pricing cards, recurring payment. Depends on backend logic.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">1</td>
           </tr>
           <tr>
             <td>Car Ratings</td>
-            <td>Post-rental rating prompt (1-5 stars + optional comment), average rating on car cards, admin view of ratings. Simple CRUD.</td>
+            <td>Post-rental prompt (1-5 stars), average on car cards, admin view. Simple CRUD.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">1</td>
           </tr>
         </tbody>
@@ -1747,7 +1840,7 @@
     </div>
     <div>
       <h3 style="margin-bottom: 8px;">Phase 4: Scale & Expand</h3>
-      <p style="font-size: 16px; margin-bottom: 16px; color: var(--orange); font-weight: 600;">~10 weeks</p>
+      <p style="font-size: 16px; margin-bottom: 16px; color: var(--orange); font-weight: 600;">~10 dev weeks</p>
       <table class="compare-table" style="font-size: 13px;">
         <thead>
           <tr>
@@ -1759,27 +1852,27 @@
         <tbody>
           <tr>
             <td>International</td>
-            <td>Additional languages (translation pipeline), country-specific ID documents (EU cards, int'l licenses), local payment providers. Architecture is ready from P1, but each country needs config + QA.</td>
+            <td>Languages, country-specific IDs, local payment providers. Framework + first country.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">3</td>
           </tr>
           <tr>
             <td>BLE/NFC Unlock</td>
-            <td>Bluetooth LE car communication protocol, NFC fallback, native module for iOS + Android (Expo module or bare workflow), hardware partner SDK integration, security (encrypted handshake). <strong>High uncertainty</strong> - depends on car hardware partner.</td>
+            <td>Bluetooth LE protocol, NFC fallback, native modules, hardware partner SDK. <strong>High uncertainty.</strong></td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">3</td>
           </tr>
           <tr>
             <td>In-App Navigation</td>
-            <td>Mapbox Navigation SDK or Google Directions API, turn-by-turn UI overlay, walking directions to car location. Moderate - SDK handles heavy lifting.</td>
+            <td>Mapbox/Google Directions SDK, turn-by-turn overlay, walking directions.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">1.5</td>
           </tr>
           <tr>
             <td>Business Accounts</td>
-            <td>Company profile, employee management (invite/remove), centralized billing, expense tagging per rental, admin reporting per company. Moderate - new user role + billing logic.</td>
+            <td>Company profiles, employee management, centralized billing, expense tagging.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">1.5</td>
           </tr>
           <tr>
             <td>Public API</td>
-            <td>API documentation site, developer portal, API key management, rate limiting UI. Assumes backend API already exists - this is the developer-facing layer.</td>
+            <td>Docs site, developer portal, API key management. Backend API assumed to exist.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">1</td>
           </tr>
         </tbody>
@@ -1787,75 +1880,98 @@
     </div>
   </div>
   <div class="highlight-box" style="margin-top: 16px;">
-    <p>Phase 3 & 4 estimates assume the P1-P2 foundation is stable. BLE/NFC unlock has the highest uncertainty due to hardware partner dependency - estimate could expand to 5 weeks if the car's SDK is poorly documented. International expansion is per-country: the 3-week estimate covers the framework + first country; each additional country adds ~1 week.</p>
+    <p>Phases 3-4 follow the design system established in P1-P2. If new UX design is needed for specific features (e.g., subscription flow, in-app navigation), it can be scoped as an add-on engagement. BLE/NFC could expand to 5 weeks depending on hardware partner SDK quality.</p>
   </div>
   <div class="slide-number">17</div>
 </div>
 
-<!-- SLIDE 18: Full Timeline View -->
+<!-- SLIDE 18: Integrated Timeline -->
 <div class="slide">
   <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
-  <h4>Timeline</h4>
-  <h2>Full Project <span class="accent">Timeline</span></h2>
-  <p style="margin-bottom: 24px;">Team: 1 Frontend Dev + QA + UI/UX Designer + DevOps. All estimates include testing and QA cycles.</p>
-  <div style="margin-top: 20px;">
-    <!-- Phase bars -->
-    <div style="display: flex; align-items: center; margin-bottom: 20px; gap: 16px;">
-      <div style="width: 120px; text-align: right; font-weight: 700; font-size: 14px; color: var(--text-muted);">PHASE 1</div>
-      <div style="flex: 20; background: var(--accent); border-radius: 8px; padding: 14px 20px; position: relative;">
-        <div style="font-weight: 800; font-size: 15px; color: #fff;">MVP - Core Rental Experience</div>
-        <div style="font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 2px;">Weeks 1-20 &bull; Auth, Registration, Map, Booking, Rental, Damage, Profile, Payments, Web Parity</div>
-      </div>
-      <div style="width: 60px; text-align: center; font-weight: 900; font-size: 18px; color: var(--accent);">20w</div>
-    </div>
-    <div style="display: flex; align-items: center; margin-bottom: 20px; gap: 16px;">
-      <div style="width: 120px; text-align: right; font-weight: 700; font-size: 14px; color: var(--text-muted);">PHASE 2</div>
-      <div style="flex: 12; background: var(--blue); border-radius: 8px; padding: 14px 20px;">
-        <div style="font-weight: 800; font-size: 15px; color: white;">Operations & Polish</div>
-        <div style="font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 2px;">Weeks 21-32 &bull; Admin Panel (Staff + Fleet), History, Cost Ticker, Credits, Dark Mode</div>
-      </div>
-      <div style="flex: 8;"></div>
-      <div style="width: 60px; text-align: center; font-weight: 900; font-size: 18px; color: var(--blue);">12w</div>
-    </div>
-    <div style="display: flex; align-items: center; margin-bottom: 20px; gap: 16px;">
-      <div style="width: 120px; text-align: right; font-weight: 700; font-size: 14px; color: var(--text-muted);">PHASE 3</div>
-      <div style="flex: 8; background: var(--purple); border-radius: 8px; padding: 14px 20px;">
-        <div style="font-weight: 800; font-size: 15px; color: white;">Engagement & Support</div>
-        <div style="font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 2px;">Weeks 33-40 &bull; Favorites, In-App Chat, i18n, Analytics, Subscriptions, Ratings</div>
+  <h4>Full Timeline</h4>
+  <h2>Unified <span class="accent">Project View</span></h2>
+  <p style="margin-bottom: 16px;">Two parallel tracks converging into one delivery. Design at 50% capacity, dev at 100%.</p>
+  <div style="margin-top: 16px;">
+    <!-- UX Track -->
+    <div style="font-weight: 700; font-size: 12px; color: var(--orange); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; padding-left: 136px;">UI/UX Design Track (50% &bull; ~20 hrs/week)</div>
+    <div style="display: flex; align-items: center; margin-bottom: 6px; gap: 16px;">
+      <div style="width: 120px; text-align: right; font-weight: 700; font-size: 13px; color: var(--text-muted);">UX P1</div>
+      <div style="flex: 8; background: var(--orange); border-radius: 6px; padding: 8px 14px;">
+        <div style="font-weight: 700; font-size: 13px; color: #fff;">MVP Design &bull; 60-74 hrs</div>
+        <div style="font-size: 11px; color: rgba(255,255,255,0.7);">Discovery, IA, Design System, Auth+Reg, Booking, Rental, Handoff</div>
       </div>
       <div style="flex: 12;"></div>
-      <div style="width: 60px; text-align: center; font-weight: 900; font-size: 18px; color: var(--purple);">8w</div>
+      <div style="width: 60px; text-align: center; font-weight: 800; font-size: 14px; color: var(--orange);">6-8w</div>
     </div>
-    <div style="display: flex; align-items: center; margin-bottom: 20px; gap: 16px;">
-      <div style="width: 120px; text-align: right; font-weight: 700; font-size: 14px; color: var(--text-muted);">PHASE 4</div>
-      <div style="flex: 10; background: var(--orange); border-radius: 8px; padding: 14px 20px;">
-        <div style="font-weight: 800; font-size: 15px; color: #fff;">Scale & Expand</div>
-        <div style="font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 2px;">Weeks 41-50 &bull; International, BLE/NFC Unlock, Navigation, Business Accounts, Public API</div>
+    <div style="display: flex; align-items: center; margin-bottom: 16px; gap: 16px;">
+      <div style="width: 120px; text-align: right; font-weight: 700; font-size: 13px; color: var(--text-muted);">UX P2</div>
+      <div style="flex: 0 0 120px;"></div>
+      <div style="flex: 6; background: var(--orange); opacity: 0.8; border-radius: 6px; padding: 8px 14px;">
+        <div style="font-weight: 700; font-size: 13px; color: #fff;">Full Product Design &bull; 52-70 hrs</div>
+        <div style="font-size: 11px; color: rgba(255,255,255,0.7);">Profile, History, Payments, Web Platform, Polish, Final Handoff</div>
       </div>
-      <div style="flex: 10;"></div>
-      <div style="width: 60px; text-align: center; font-weight: 900; font-size: 18px; color: var(--orange);">10w</div>
+      <div style="flex: 8;"></div>
+      <div style="width: 60px; text-align: center; font-weight: 800; font-size: 14px; color: var(--orange);">4-6w</div>
+    </div>
+    <!-- Dev Track -->
+    <div style="font-weight: 700; font-size: 12px; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; padding-left: 136px;">Development Track (100% &bull; 1 Frontend Dev + QA)</div>
+    <div style="display: flex; align-items: center; margin-bottom: 6px; gap: 16px;">
+      <div style="width: 120px; text-align: right; font-weight: 700; font-size: 13px; color: var(--text-muted);">DEV P1</div>
+      <div style="flex: 2;"></div>
+      <div style="flex: 20; background: var(--accent); border-radius: 6px; padding: 8px 14px;">
+        <div style="font-weight: 700; font-size: 13px; color: #fff;">MVP Development &bull; 20 weeks</div>
+        <div style="font-size: 11px; color: rgba(255,255,255,0.7);">Setup, Design System, Auth, Registration, Map, Booking, Rental, Damage, Profile, Payments</div>
+      </div>
+      <div style="width: 60px; text-align: center; font-weight: 800; font-size: 14px; color: var(--accent);">20w</div>
+    </div>
+    <div style="display: flex; align-items: center; margin-bottom: 6px; gap: 16px;">
+      <div style="width: 120px; text-align: right; font-weight: 700; font-size: 13px; color: var(--text-muted);">DEV P2</div>
+      <div style="flex: 22;"></div>
+      <div style="flex: 14.5; background: var(--blue); border-radius: 6px; padding: 8px 14px;">
+        <div style="font-weight: 700; font-size: 13px; color: #fff;">Operations & Polish &bull; 14.5 weeks</div>
+        <div style="font-size: 11px; color: rgba(255,255,255,0.7);">Admin, History, Cost Ticker, Credits, Web Polish, Dark Mode</div>
+      </div>
+      <div style="width: 60px; text-align: center; font-weight: 800; font-size: 14px; color: var(--blue);">14.5w</div>
+    </div>
+    <div style="display: flex; align-items: center; margin-bottom: 6px; gap: 16px;">
+      <div style="width: 120px; text-align: right; font-weight: 700; font-size: 13px; color: var(--text-muted);">DEV P3</div>
+      <div style="flex: 36.5;"></div>
+      <div style="flex: 8; background: var(--purple); border-radius: 6px; padding: 8px 14px;">
+        <div style="font-weight: 700; font-size: 13px; color: #fff;">Engagement &bull; 8w</div>
+      </div>
+      <div style="width: 60px; text-align: center; font-weight: 800; font-size: 14px; color: var(--purple);">8w</div>
+    </div>
+    <div style="display: flex; align-items: center; margin-bottom: 6px; gap: 16px;">
+      <div style="width: 120px; text-align: right; font-weight: 700; font-size: 13px; color: var(--text-muted);">DEV P4</div>
+      <div style="flex: 44.5;"></div>
+      <div style="flex: 10; background: var(--orange); border-radius: 6px; padding: 8px 14px;">
+        <div style="font-weight: 700; font-size: 13px; color: #fff;">Scale &bull; 10w</div>
+      </div>
+      <div style="width: 60px; text-align: center; font-weight: 800; font-size: 14px; color: var(--orange);">10w</div>
     </div>
   </div>
-  <div class="kpi-grid" style="margin-top: 16px;">
+  <!-- Totals -->
+  <h3 style="margin-top: 24px;">Combined Project Totals</h3>
+  <div class="kpi-grid" style="margin-top: 12px;">
     <div class="kpi-card">
-      <div class="kpi-value">50<span class="kpi-unit">w</span></div>
+      <div class="kpi-value" style="color: var(--orange); font-size: 28px;">120-160<span class="kpi-unit">h</span></div>
+      <div class="kpi-label">Total UX Hours</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value" style="font-size: 28px;">52.5<span class="kpi-unit">w</span></div>
       <div class="kpi-label">Total Dev Weeks</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-value">~12<span class="kpi-unit">mo</span></div>
-      <div class="kpi-label">Total Duration</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-value">20<span class="kpi-unit">w</span></div>
+      <div class="kpi-value" style="font-size: 28px;">~5<span class="kpi-unit">mo</span></div>
       <div class="kpi-label">Time to MVP</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-value">5<span class="kpi-unit">mo</span></div>
-      <div class="kpi-label">MVP in Market</div>
+      <div class="kpi-value" style="font-size: 28px;">~14<span class="kpi-unit">mo</span></div>
+      <div class="kpi-label">Full Delivery</div>
     </div>
   </div>
-  <div class="highlight-box" style="margin-top: 16px;">
-    <p>Estimates include buffer for QA cycles, bug fixes, and design iteration. Adding a second frontend dev could compress Phases 1-2 by ~30%. Phases 3-4 can run in parallel with ongoing maintenance of Phases 1-2.</p>
+  <div class="highlight-box" style="margin-top: 12px;">
+    <p>UX design (120-160 hours) covers Phases 1-2 completely. Phases 3-4 follow the established design system. Admin panel is dev-led (not in UX scope). Adding a second frontend dev could compress dev Phases 1-2 by ~30%.</p>
   </div>
   <div class="slide-number">18</div>
 </div>
