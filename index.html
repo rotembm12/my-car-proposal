@@ -1164,7 +1164,7 @@
       <div class="stat-label">Screens Documented</div>
     </div>
     <div class="stat">
-      <div class="stat-value">11</div>
+      <div class="stat-value">9</div>
       <div class="stat-label">Core Modules</div>
     </div>
     <div class="stat">
@@ -1387,11 +1387,6 @@
         <td class="old">Limited functionality, breaks to web views</td>
         <td>Full feature parity with mobile</td>
       </tr>
-      <tr>
-        <td>Admin Panel</td>
-        <td class="old">Internal staff only</td>
-        <td>Staff + fleet partner portal</td>
-      </tr>
     </tbody>
   </table>
   <div class="slide-number">06</div>
@@ -1599,13 +1594,6 @@
         <div class="module-desc">Unified screen via bottom tab. Edit personal info, license, payment methods, credits. Self-service contact changes.</div>
       </div>
     </div>
-    <div class="module-item">
-      <div class="module-icon">&#128202;</div>
-      <div>
-        <div class="module-name">Admin Panel <span style="color: var(--accent); font-size: 12px; font-weight: 600;">3.5w</span></div>
-        <div class="module-desc">Web-only frontend dashboard. Consumes existing admin APIs. Role-based views: internal staff + fleet partners. UI for approvals, fleet, pricing, analytics, damage review.</div>
-      </div>
-    </div>
   </div>
   <div class="slide-number">10</div>
 </div>
@@ -1623,7 +1611,7 @@
     </div>
     <div class="tech-card">
       <div class="tech-name">Next.js + React</div>
-      <div class="tech-role">Web App + Admin</div>
+      <div class="tech-role">Web App</div>
     </div>
     <div class="tech-card">
       <div class="tech-name">Turborepo / Nx</div>
@@ -1656,7 +1644,7 @@
   <div class="grid-3">
     <div class="card">
       <div class="card-title">@mycar/ui</div>
-      <div class="card-desc">Shared design system components. Used by mobile, web, and admin. Themed, dark mode, RTL-ready.</div>
+      <div class="card-desc">Shared design system components. Used by mobile and web. Themed, dark mode, RTL-ready.</div>
     </div>
     <div class="card">
       <div class="card-title">@mycar/api</div>
@@ -1704,44 +1692,7 @@
   <div class="slide-number">12</div>
 </div>
 
-<!-- SLIDE 13: Admin Panel -->
-<div class="slide">
-  <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
-  <h4>Admin</h4>
-  <h2>Admin <span class="accent">Panel</span> <span style="font-size: 20px; color: var(--text-muted); font-weight: 400;">(Frontend Only)</span></h2>
-  <p style="margin-bottom: 24px;">Web-only frontend dashboard consuming existing admin APIs. All data operations (CRUD, approvals, notifications) are handled by the existing backend - we build the UI layer.</p>
-  <div class="two-col">
-    <div>
-      <h3>Internal Staff UI</h3>
-      <ul class="bullet-list">
-        <li>User approval queue - document viewer UI for license + selfie review</li>
-        <li>Fleet management UI - forms for car CRUD, station assignment, availability</li>
-        <li>Pricing configuration UI - rate editor, seasonal surcharge calendar</li>
-        <li>Damage report viewer - side-by-side before/after photo comparison</li>
-        <li>Analytics dashboards - charts visualizing data from existing APIs</li>
-        <li>User management UI - search, suspend, credit adjustment forms</li>
-        <li>Push notification form - audience selector, message composer (sends via existing push service)</li>
-        <li>Promo code management UI - create/edit forms against existing promo API</li>
-      </ul>
-    </div>
-    <div>
-      <h3>Fleet Partner UI</h3>
-      <ul class="bullet-list">
-        <li>Scoped dashboard - car performance data from existing APIs</li>
-        <li>Utilization metrics - charts per vehicle</li>
-        <li>Availability calendar - UI to set maintenance windows</li>
-        <li>Damage reports - photo viewer filtered to their fleet</li>
-        <li>Revenue reports - payout tables with CSV export</li>
-      </ul>
-      <div class="highlight-box" style="margin-top: 16px;">
-        <p><strong>Assumption:</strong> All admin APIs (user approval, fleet CRUD, pricing, push, promos) already exist in the backend. If any are missing, backend development is a separate scope.</p>
-      </div>
-    </div>
-  </div>
-  <div class="slide-number">13</div>
-</div>
-
-<!-- SLIDE 14: Divider - Roadmap -->
+<!-- SLIDE 13: Divider - Roadmap -->
 <div class="divider">
   <h2>Integrated <span class="accent">Roadmap</span></h2>
   <p>Full product in Phase 1. No MVP cut. Design and development as one unified delivery.</p>
@@ -1751,7 +1702,7 @@
       <div class="stat-label">Phases</div>
     </div>
     <div class="stat">
-      <div class="stat-value">~6</div>
+      <div class="stat-value">~5</div>
       <div class="stat-label">Months to Full Product</div>
     </div>
   </div>
@@ -1801,7 +1752,7 @@
   <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
   <h4>Phase 1 &mdash; Full Product</h4>
   <h2>Design + Dev: <span class="accent">Complete Delivery</span></h2>
-  <p style="margin-bottom: 16px;">Everything in one phase. Core rental flows, admin panel, history, dark mode, web parity. No MVP cut - the full product ships together.</p>
+  <p style="margin-bottom: 16px;">Everything in one phase. Core rental flows, history, dark mode, web parity. No MVP cut - the full product ships together.</p>
   <table class="compare-table" style="font-size: 12px;">
     <thead>
       <tr>
@@ -1862,13 +1813,6 @@
         <td><details><summary>Web-specific breakpoints, hover states, keyboard nav (1w)</summary><div class="detail-content">Shared monorepo components handle 80%. Most web work already done via shared components.</div></details></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">1</td>
       </tr>
-      <tr>
-        <td>Admin Panel (Frontend)</td>
-        <td style="color: var(--text-muted);">Not in UX scope</td>
-        <td style="text-align: center; color: var(--text-muted); font-weight: 700;">&mdash;</td>
-        <td><details><summary>Staff UI (2.5w) + Fleet UI (1w) against existing APIs</summary><div class="detail-content">Refine.dev/shadcn tables. Custom: document viewer, photo comparison. Fleet: scoped views reusing staff shell. Assumes admin APIs exist.</div></details></td>
-        <td style="text-align: center; color: var(--accent); font-weight: 700;">3.5</td>
-      </tr>
     </tbody>
   </table>
   <div style="display: flex; gap: 16px; margin-top: 12px;">
@@ -1877,7 +1821,7 @@
       <div class="kpi-label">UX Design Days</div>
     </div>
     <div class="kpi-card" style="flex: 1;">
-      <div class="kpi-value">23<span class="kpi-unit">w</span></div>
+      <div class="kpi-value">19.5<span class="kpi-unit">w</span></div>
       <div class="kpi-label">Dev Weeks</div>
     </div>
     <div class="kpi-card" style="flex: 1;">
@@ -1885,12 +1829,12 @@
       <div class="kpi-label">UX Hours</div>
     </div>
     <div class="kpi-card" style="flex: 1;">
-      <div class="kpi-value" style="color: var(--text);">~25<span class="kpi-unit">w</span></div>
+      <div class="kpi-value" style="color: var(--text);">~22<span class="kpi-unit">w</span></div>
       <div class="kpi-label">Total Phase Duration</div>
     </div>
   </div>
   <div class="highlight-box" style="margin-top: 12px;">
-    <p>Full product in one phase - no MVP cut. Design leads dev by 2-3 weeks. UX covers all customer-facing screens; admin panel is dev-led. All 23 dev weeks are client-side only, consuming existing backend APIs.</p>
+    <p>Full product in one phase - no MVP cut. Design leads dev by 2-3 weeks. All 19.5 dev weeks are client-side only, consuming existing backend APIs. Admin panel is out of scope.</p>
   </div>
   <div class="slide-number">15</div>
 </div>
@@ -1931,7 +1875,7 @@
           </tr>
           <tr>
             <td>Analytics Dashboard</td>
-            <td>Frontend charts (Recharts) visualizing data from existing APIs. Admin web only.</td>
+            <td>Frontend charts (Recharts) visualizing data from existing APIs.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">1</td>
           </tr>
           <tr>
@@ -2012,11 +1956,11 @@
     <div style="display: flex; align-items: center; margin-bottom: 6px; gap: 16px;">
       <div style="width: 120px; text-align: right; font-weight: 700; font-size: 13px; color: var(--text-muted);">PHASE 1</div>
       <div style="flex: 2;"></div>
-      <div style="flex: 23; background: var(--accent); border-radius: 6px; padding: 8px 14px;">
-        <div style="font-weight: 700; font-size: 13px; color: #fff;">Full Product &bull; 23 weeks</div>
-        <div style="font-size: 11px; color: rgba(255,255,255,0.7);">All Flows, Admin, History, Credits, Web, Dark Mode, Profile, Payments</div>
+      <div style="flex: 19.5; background: var(--accent); border-radius: 6px; padding: 8px 14px;">
+        <div style="font-weight: 700; font-size: 13px; color: #fff;">Full Product &bull; 19.5 weeks</div>
+        <div style="font-size: 11px; color: rgba(255,255,255,0.7);">All Flows, History, Credits, Web, Dark Mode, Profile, Payments</div>
       </div>
-      <div style="width: 60px; text-align: center; font-weight: 800; font-size: 14px; color: var(--accent);">23w</div>
+      <div style="width: 60px; text-align: center; font-weight: 800; font-size: 14px; color: var(--accent);">19.5w</div>
     </div>
     <div style="display: flex; align-items: center; margin-bottom: 6px; gap: 16px;">
       <div style="width: 120px; text-align: right; font-weight: 700; font-size: 13px; color: var(--text-muted);">PHASE 2</div>
@@ -2044,20 +1988,20 @@
       <div class="kpi-label">Total UX Days</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-value" style="font-size: 28px;">38<span class="kpi-unit">w</span></div>
+      <div class="kpi-value" style="font-size: 28px;">34.5<span class="kpi-unit">w</span></div>
       <div class="kpi-label">Total Dev Weeks</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-value" style="font-size: 28px;">~6<span class="kpi-unit">mo</span></div>
+      <div class="kpi-value" style="font-size: 28px;">~5<span class="kpi-unit">mo</span></div>
       <div class="kpi-label">Full Product Live</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-value" style="font-size: 28px;">~10<span class="kpi-unit">mo</span></div>
+      <div class="kpi-value" style="font-size: 28px;">~9<span class="kpi-unit">mo</span></div>
       <div class="kpi-label">All Phases Done</div>
     </div>
   </div>
   <div class="highlight-box" style="margin-top: 12px;">
-    <p>All 38 dev weeks are client-side only (React Native + Next.js). No backend development included. Assumes all APIs exist. If backend changes are needed, that is a separate scope. UX design: ~21 working days (120-160 hours).</p>
+    <p>All 34.5 dev weeks are client-side only (React Native + Next.js). No backend or admin panel development included. Assumes all APIs exist. UX design: ~21 working days (120-160 hours).</p>
   </div>
   <div class="slide-number">18</div>
 </div>
@@ -2123,7 +2067,6 @@
         <li>Damage reporting: all 5 angles, skip prevention, upload retry</li>
         <li>Payment: provider abstraction, card entry, Apple/Google Pay</li>
         <li>Map: filters, view toggle, bottom sheet, location search</li>
-        <li>Admin: role-based access, CRUD operations, approval flow</li>
       </ul>
     </div>
     <div>
@@ -2138,7 +2081,7 @@
       </div>
       <div class="card">
         <div class="card-title">Playwright</div>
-        <div class="card-desc">End-to-end tests for the web app and admin panel.</div>
+        <div class="card-desc">End-to-end tests for the web app.</div>
       </div>
     </div>
   </div>
@@ -2165,7 +2108,7 @@
       <ul class="bullet-list">
         <li><strong>UI/UX Brand Guidelines:</strong> Design system depends on guidelines currently in development. Can start with placeholder tokens.</li>
         <li><strong>API Documentation:</strong> Comprehensive docs for all existing backend endpoints required before dev starts.</li>
-        <li><strong>Existing APIs:</strong> All backend APIs assumed to exist (auth, booking, fleet, payments, admin, push). Missing APIs are a separate backend scope.</li>
+        <li><strong>Existing APIs:</strong> All backend APIs assumed to exist (auth, booking, fleet, payments, push). Missing APIs are a separate backend scope.</li>
         <li><strong>App Store Accounts:</strong> Existing Apple Developer and Google Play Console accounts.</li>
         <li><strong>No Backend Work:</strong> This proposal covers client-side only. Backend modifications (new endpoints, schema changes) are out of scope.</li>
       </ul>
@@ -2185,7 +2128,7 @@
       <div class="stat-label">User Stories</div>
     </div>
     <div class="stat">
-      <div class="stat-value">11</div>
+      <div class="stat-value">9</div>
       <div class="stat-label">Modules</div>
     </div>
     <div class="stat">
@@ -2251,9 +2194,9 @@
     { id: 'problem', start: 2 },
     { id: 'solution', start: 6 },
     { id: 'architecture', start: 10 },
-    { id: 'roadmap', start: 14 },
-    { id: 'quality', start: 19 },
-    { id: 'closing', start: 21 }
+    { id: 'roadmap', start: 13 },
+    { id: 'quality', start: 17 },
+    { id: 'closing', start: 19 }
   ];
 
   const slides = document.querySelectorAll('.slide, .divider');
