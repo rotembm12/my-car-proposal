@@ -5,24 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Car - App Rewrite Proposal</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
   :root {
-    --bg: #FDFAF6;
-    --surface: #FFFFFF;
-    --surface-2: #F7F3EE;
-    --surface-3: #EFE9E1;
-    --accent: #E8683F;
-    --accent-dim: #C7552F;
-    --accent-glow: rgba(232, 104, 63, 0.1);
-    --text: #1A1A1A;
-    --text-secondary: #555555;
-    --text-muted: #999999;
-    --red: #D94040;
-    --orange: #E8943F;
-    --blue: #2563EB;
-    --purple: #7C3AED;
-    --border: #E5DDD4;
+    --bg: #0B0E14;
+    --surface: #12151E;
+    --surface-2: #1A1E2A;
+    --surface-3: #222738;
+    --accent: #FF6B4A;
+    --accent-dim: #CC5038;
+    --accent-bright: #FF8C70;
+    --accent-glow: rgba(255, 107, 74, 0.15);
+    --secondary: #A78BFA;
+    --secondary-glow: rgba(167, 139, 250, 0.12);
+    --text: #F1F3F8;
+    --text-secondary: #A0A6B8;
+    --text-muted: #5C6278;
+    --red: #EF4444;
+    --orange: #FBBF24;
+    --blue: #60A5FA;
+    --purple: #A78BFA;
+    --border: rgba(255, 255, 255, 0.06);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -38,6 +41,10 @@
     color: var(--text);
     line-height: 1.6;
     overflow-x: hidden;
+  }
+
+  h1, h2, h3, .stat-value, .kpi-value {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
   }
 
   .slide {
@@ -58,8 +65,10 @@
     left: 0;
     right: 0;
     bottom: 0;
-    opacity: 0.03;
-    background: radial-gradient(circle at 30% 40%, var(--accent), transparent 50%);
+    opacity: 1;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(255, 107, 74, 0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(167, 139, 250, 0.03) 0%, transparent 50%);
     pointer-events: none;
   }
 
@@ -88,8 +97,8 @@
     border-radius: 2px;
   }
 
-  .logo-bar .bar-1 { background: #C7552F; }
-  .logo-bar .bar-2 { background: var(--accent); }
+  .logo-bar .bar-1 { background: var(--accent); }
+  .logo-bar .bar-2 { background: var(--secondary); }
 
   .logo-bar span {
     font-weight: 700;
@@ -109,7 +118,7 @@
 
   .slide-title h1 {
     font-size: 72px;
-    font-weight: 900;
+    font-weight: 700;
     letter-spacing: -3px;
     margin-bottom: 16px;
     background: linear-gradient(135deg, var(--text), var(--accent));
@@ -192,16 +201,16 @@
 
   /* Cards */
   .card {
-    background: var(--surface);
+    background: linear-gradient(160deg, var(--surface) 0%, var(--surface-2) 100%);
     border: 1px solid var(--border);
     border-radius: 16px;
     padding: 28px;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .card:hover {
-    border-color: var(--accent);
-    box-shadow: 0 4px 20px rgba(232, 104, 63, 0.12);
+    border-color: rgba(255, 107, 74, 0.2);
+    box-shadow: 0 0 20px var(--accent-glow);
     transform: translateY(-2px);
   }
 
@@ -224,14 +233,16 @@
     line-height: 1.6;
   }
 
-  /* Problem Cards */
+  /* Problem Cards - Glassmorphism + danger glow */
   .problem-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-left: 4px solid var(--red);
+    background: rgba(239, 68, 68, 0.04);
+    border: 1px solid rgba(239, 68, 68, 0.15);
+    border-left: 3px solid var(--red);
     border-radius: 0 12px 12px 0;
     padding: 24px 28px;
     margin-bottom: 16px;
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.06);
+    backdrop-filter: blur(12px);
   }
 
   .problem-card .problem-title {
@@ -291,7 +302,8 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     color: var(--text-muted);
-    border-bottom: 2px solid var(--border);
+    border-bottom: 2px solid rgba(255,255,255,0.08);
+    background: var(--surface-3);
   }
 
   .compare-table th:last-child {
@@ -300,7 +312,7 @@
 
   .compare-table td {
     padding: 14px 20px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
     color: var(--text-secondary);
   }
 
@@ -426,13 +438,19 @@
     border: 1px solid var(--border);
   }
 
-  /* Tech Stack */
+  /* Tech Stack - Ghost/outlined style */
   .tech-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     padding: 20px;
     text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .tech-card:hover {
+    border-color: rgba(167, 139, 250, 0.3);
+    background: rgba(167, 139, 250, 0.04);
   }
 
   .tech-card .tech-name {
@@ -458,8 +476,9 @@
 
   .module-item {
     background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
+    border: none;
+    border-left: 3px solid var(--accent);
+    border-radius: 0 12px 12px 0;
     padding: 20px 24px;
     display: flex;
     align-items: flex-start;
@@ -492,9 +511,10 @@
   }
 
   .kpi-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
+    background: transparent;
+    border: none;
+    border-left: 2px solid var(--accent);
+    border-radius: 0;
     padding: 24px;
     text-align: center;
   }
@@ -584,14 +604,14 @@
 
   .highlight-box {
     background: var(--accent-glow);
-    border: 1px solid rgba(0, 212, 126, 0.2);
+    border: 1px solid rgba(255, 107, 74, 0.2);
     border-radius: 12px;
     padding: 20px 24px;
     margin: 16px 0;
   }
 
   .highlight-box p {
-    color: #9A3A1A;
+    color: var(--accent-bright);
     font-weight: 500;
     font-size: 15px;
   }
@@ -913,6 +933,11 @@
     .slide-title[style*="background"] h1 {
       font-size: 32px !important;
     }
+
+    /* Hide side nav on mobile */
+    .side-nav {
+      display: none;
+    }
   }
 
   /* Small phones */
@@ -948,17 +973,112 @@
     }
   }
 
-  .card, .problem-card, .module-item, .tech-card, .kpi-card {
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  /* Luminous section separator */
+  .divider::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,107,74,0.3), rgba(167,139,250,0.3), transparent);
+    box-shadow: 0 0 8px rgba(255,107,74,0.1), 0 0 8px rgba(167,139,250,0.1);
+  }
+
+  /* Scroll reveal animations */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Right-side navigation */
+  .side-nav {
+    position: fixed;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-end;
+  }
+
+  .side-nav a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .side-nav .nav-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    opacity: 0;
+    transform: translateX(4px);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .side-nav a:hover .nav-label,
+  .side-nav a.active .nav-label {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .side-nav a.active .nav-label {
+    color: var(--text);
+  }
+
+  .side-nav .nav-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .side-nav a.active .nav-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent-glow);
+  }
+
+  .side-nav a:hover .nav-dot {
+    background: var(--text-secondary);
+  }
+
+  /* Top progress bar */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--secondary));
+    z-index: 101;
+    transition: width 0.3s ease;
+    width: 0%;
   }
 
   /* Print Styles */
   @media print {
     .slide { page-break-after: always; }
-    .card, .problem-card, .module-item, .tech-card, .kpi-card {
-      border: 1px solid #ddd;
-      background: #f9f9f9;
-    }
+    body { background: white; color: #111; }
+    .side-nav, .progress-bar { display: none; }
   }
 </style>
 </head>
@@ -2093,9 +2213,9 @@
 </div>
 
 <!-- SLIDE 22: Summary / CTA -->
-<div class="slide slide-title" style="background: linear-gradient(135deg, var(--bg), #FDF0E9);">
+<div class="slide slide-title" style="background: linear-gradient(135deg, var(--bg), #0F1220);">
   <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
-  <h1 style="font-size: 56px;">Let's Build<br><span style="background: linear-gradient(135deg, var(--accent), #C7552F); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">My Car 2.0</span></h1>
+  <h1 style="font-size: 56px;">Let's Build<br><span style="background: linear-gradient(135deg, var(--accent), var(--secondary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">My Car 2.0</span></h1>
   <p class="subtitle" style="margin-top: 24px;">Modern design. Streamlined flows.<br>Full platform parity. Built to scale.</p>
   <div class="stat-row" style="margin-top: 48px; justify-content: center;">
     <div class="stat">
@@ -2117,6 +2237,107 @@
   </div>
   <div class="slide-number">22</div>
 </div>
+
+<!-- Progress bar -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Right-side navigation -->
+<nav class="side-nav" id="sideNav">
+  <a href="#s-overview" data-section="overview"><span class="nav-label">Overview</span><span class="nav-dot"></span></a>
+  <a href="#s-problem" data-section="problem"><span class="nav-label">Problem</span><span class="nav-dot"></span></a>
+  <a href="#s-solution" data-section="solution"><span class="nav-label">Solution</span><span class="nav-dot"></span></a>
+  <a href="#s-architecture" data-section="architecture"><span class="nav-label">Architecture</span><span class="nav-dot"></span></a>
+  <a href="#s-roadmap" data-section="roadmap"><span class="nav-label">Roadmap</span><span class="nav-dot"></span></a>
+  <a href="#s-quality" data-section="quality"><span class="nav-label">Quality</span><span class="nav-dot"></span></a>
+  <a href="#s-closing" data-section="closing"><span class="nav-label">Let's Go</span><span class="nav-dot"></span></a>
+</nav>
+
+<script>
+(function() {
+  // Scroll reveal with stagger
+  const revealEls = document.querySelectorAll('.card, .problem-card, .module-item, .tech-card, .kpi-card, .flow-step, .phase, h2, h3, h4, .stat-row, .highlight-box, .compare-table, .bullet-list');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('reveal', 'visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  revealEls.forEach((el, i) => {
+    el.classList.add('reveal');
+    const parent = el.parentElement;
+    const siblings = parent ? Array.from(parent.children).filter(c => c.classList.contains('reveal') || revealEls.indexOf !== undefined) : [];
+    const idx = siblings.indexOf(el);
+    if (idx > 0) el.style.transitionDelay = (idx * 80) + 'ms';
+    observer.observe(el);
+  });
+
+  // Progress bar
+  const progressBar = document.getElementById('progressBar');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / docHeight) * 100;
+    progressBar.style.width = progress + '%';
+  });
+
+  // Side navigation active state
+  const sections = [
+    { id: 'overview', start: 0 },
+    { id: 'problem', start: 2 },
+    { id: 'solution', start: 6 },
+    { id: 'architecture', start: 10 },
+    { id: 'roadmap', start: 14 },
+    { id: 'quality', start: 19 },
+    { id: 'closing', start: 21 }
+  ];
+
+  const slides = document.querySelectorAll('.slide, .divider');
+  const navLinks = document.querySelectorAll('.side-nav a');
+
+  // Add section IDs to slides
+  sections.forEach(s => {
+    if (slides[s.start]) slides[s.start].id = 's-' + s.id;
+  });
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(s => {
+    if (slides[s.start]) sectionObserver.observe(slides[s.start]);
+  });
+
+  // Smooth scroll for nav clicks
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+      e.preventDefault();
+      window.scrollBy({ top: -window.innerHeight, behavior: 'smooth' });
+    }
+  });
+})();
+</script>
 
 </body>
 </html>
