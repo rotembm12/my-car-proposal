@@ -973,6 +973,57 @@
     }
   }
 
+  /* Expandable details */
+  details {
+    cursor: pointer;
+  }
+
+  details summary {
+    list-style: none;
+    display: inline;
+    color: var(--text-secondary);
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  details summary::-webkit-details-marker { display: none; }
+
+  details summary::after {
+    content: ' +';
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 12px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  details[open] summary::after {
+    content: ' \2212';
+  }
+
+  details summary:hover::after {
+    opacity: 1;
+  }
+
+  details > .detail-content {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    color: var(--text-secondary);
+    font-size: 13px;
+    line-height: 1.5;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .problem-card details > .detail-content {
+    border-top-color: rgba(239, 68, 68, 0.1);
+  }
+
   /* Luminous section separator */
   .divider::after {
     content: '';
@@ -1163,29 +1214,29 @@
     <div>
       <div class="problem-card">
         <div class="problem-title">3-Part Fragmented Onboarding</div>
-        <div class="problem-desc"><strong>Part 1:</strong> Personal details form (name, address, ID). <strong>Part 2:</strong> Driving license info, contract viewing as a raw PDF, digital signature with no context ("you're signing the contract" never appears). <strong>Part 3:</strong> Document uploads (license photo, selfie, passport for non-Israelis) on separate screens. Each part feels like starting over.</div>
+        <div class="problem-desc"><details><summary>Registration split across 3 disconnected parts - each feels like starting over.</summary><div class="detail-content"><strong>Part 1:</strong> Personal details form. <strong>Part 2:</strong> License info, raw PDF contract, signature with no context. <strong>Part 3:</strong> Document uploads (license photo, selfie, passport) on separate screens.</div></details></div>
       </div>
       <div class="problem-card">
         <div class="problem-title">Information Walls Before Action</div>
-        <div class="problem-desc">Before users can even fill in details, they're shown 3 consecutive info screens: "Things to know about pricing" (tariff structure, Shabbat policy), "Important rules" (parking rules, fuel policy), and "Nice to meet you" (fill details). Each requires reading and tapping "Next". Users who just want to sign up are forced to read marketing content first.</div>
+        <div class="problem-desc"><details><summary>3 consecutive info screens force users to read before they can sign up.</summary><div class="detail-content">"Things to know about pricing", "Important rules", "Nice to meet you" - each requires reading and tapping "Next". Users who just want to register are blocked by marketing content.</div></details></div>
       </div>
       <div class="problem-card">
         <div class="problem-title">Iframe Payment Experience</div>
-        <div class="problem-desc">Credit card entry is handled via Tranzila iframe - a third-party payment page embedded inside the app. It uses a different visual style, has a different font, and doesn't match the app's UI. Users see a "verification charge of 100 NIS" warning. On mobile, iframe forms are notoriously hard to fill (auto-fill doesn't work, keyboard overlap issues). No Apple Pay or Google Pay alternative.</div>
+        <div class="problem-desc"><details><summary>Credit card entry via third-party iframe - different UI, no Apple/Google Pay.</summary><div class="detail-content">Tranzila iframe uses different visual style and font. Shows "verification charge of 100 NIS" warning. On mobile, auto-fill doesn't work and keyboard overlaps the form.</div></details></div>
       </div>
     </div>
     <div>
       <div class="problem-card">
         <div class="problem-title">No Progress Indicator</div>
-        <div class="problem-desc">Users have no idea how many steps remain. They see individual screens but have no sense of "I'm on step 3 of 5" or "almost done". This is a well-documented UX anti-pattern - without a progress bar, users overestimate remaining effort and abandon at higher rates.</div>
+        <div class="problem-desc"><details><summary>Users have no idea how many steps remain - leads to higher abandonment.</summary><div class="detail-content">No "step 3 of 5" or progress bar. Without visible progress, users overestimate remaining effort and abandon at higher rates.</div></details></div>
       </div>
       <div class="problem-card">
         <div class="problem-title">Document Upload is Sequential & Blind</div>
-        <div class="problem-desc">License photo and selfie upload happen on separate screens. There's no camera overlay guide showing users how to frame their license. The selfie screen shows a static example photo of a man holding an ID, but no live camera frame guide. If the photo is rejected later by admin, users must redo the entire upload - there's no inline validation or quality check.</div>
+        <div class="problem-desc"><details><summary>No camera guides, no inline validation - rejected photos require full redo.</summary><div class="detail-content">License photo and selfie on separate screens. No camera overlay guide for framing. If rejected by admin later, users must redo the entire upload with no specifics about what was wrong.</div></details></div>
       </div>
       <div class="problem-card">
         <div class="problem-title">Post-Registration Limbo</div>
-        <div class="problem-desc">After completing all 15+ screens, users see "Thank you for registering! Your registration will be approved shortly" - with no estimated timeline, no status tracking, and no ability to use the app while waiting. They've invested significant time and are now locked out completely until manual admin approval. If details are wrong, they get a popup saying "some details already exist in the system" with no specifics about what to fix.</div>
+        <div class="problem-desc"><details><summary>After 15+ screens, users are locked out with no timeline or status tracking.</summary><div class="detail-content">"Your registration will be approved shortly" - no estimated time, no status page, no ability to browse the app while waiting. Errors show "details already exist" with no specifics.</div></details></div>
       </div>
     </div>
   </div>
@@ -1202,29 +1253,29 @@
     <div>
       <div class="problem-card">
         <div class="problem-title">8-Tap Booking Flow</div>
-        <div class="problem-desc">To book a car, a user must: <strong>(1)</strong> tap "Book Vehicle" button, <strong>(2)</strong> select pickup location on map, <strong>(3)</strong> pick start date/time via date picker, <strong>(4)</strong> pick end date/time via separate date picker (no duration shortcut), <strong>(5)</strong> tap "Search", <strong>(6)</strong> wait for a loading animation, <strong>(7)</strong> view the found car's details and pricing, <strong>(8)</strong> confirm booking. Competitors like Zipcar and Share Now accomplish this in 2-3 taps via map marker > bottom sheet > book.</div>
+        <div class="problem-desc"><details><summary>Booking requires 8 taps across disconnected screens. Competitors do it in 2-3.</summary><div class="detail-content">(1) Tap "Book Vehicle", (2) select location, (3) pick start date, (4) pick end date, (5) tap "Search", (6) wait for loading, (7) view car details, (8) confirm. Zipcar/Share Now: map marker > bottom sheet > book.</div></details></div>
       </div>
       <div class="problem-card">
         <div class="problem-title">No Price Visibility Until the End</div>
-        <div class="problem-desc">Users go through the entire booking flow before seeing what it will cost. There's no price estimator, no "starting from X/hour" on the map, and no cost preview during car selection. The pricing table exists as a separate menu item with a complex matrix of per-category hourly and per-km rates, seasonal surcharges, and add-ons - but it's disconnected from the booking flow. Users must mentally calculate their expected cost.</div>
+        <div class="problem-desc"><details><summary>Users complete the entire booking flow before seeing what it costs.</summary><div class="detail-content">No price estimator, no "from X/hour" on map markers. Pricing table exists as a separate menu item with complex per-category rates - disconnected from booking. Users must mentally calculate.</div></details></div>
       </div>
       <div class="problem-card">
-        <div class="problem-title">Hidden Unlock Code + Non-Standard Gesture</div>
-        <div class="problem-desc">During an active rental, the car's unlock code is hidden behind a "slide right to reveal" gesture. This is not a standard mobile interaction pattern - users standing at the car, possibly in a hurry or in bad weather, must discover this gesture on their own. There is no tooltip, no animation hint, and no fallback. If a user taps instead of slides, nothing happens. The code should be the most prominent element on the active rental screen.</div>
+        <div class="problem-title">Hidden Unlock Code</div>
+        <div class="problem-desc"><details><summary>Car code hidden behind "slide right" - a non-standard gesture users must discover.</summary><div class="detail-content">No tooltip, no animation hint. If users tap instead of slide, nothing happens. Standing at the car in a hurry, this creates frustration. The code should be the most prominent element on screen.</div></details></div>
       </div>
     </div>
     <div>
       <div class="problem-card">
         <div class="problem-title">No Real-Time Cost During Rental</div>
-        <div class="problem-desc">While renting, users see a countdown timer but have zero visibility into how much they're spending. The pricing model is complex (per-hour base + per-km charge), yet the app shows no running total. Users only discover the actual cost after returning the car. This creates anxiety and distrust, especially for first-time users. The order summary screen at the end is dense with line items but comes too late to influence behavior.</div>
+        <div class="problem-desc"><details><summary>Zero cost visibility while renting - users discover the total only after returning.</summary><div class="detail-content">Complex pricing (per-hour + per-km), yet no running total shown. Creates anxiety and distrust, especially for first-time users. Summary comes too late to influence behavior.</div></details></div>
       </div>
       <div class="problem-card">
         <div class="problem-title">Round-Trip Only, No One-Way</div>
-        <div class="problem-desc">Users must return the car to the same station they picked it up from. This is a significant limitation for point-to-point use cases (e.g., driving from home to the airport). Competitors increasingly support one-way drops, and the lack of this feature eliminates an entire category of potential bookings.</div>
+        <div class="problem-desc"><details><summary>Must return to same station. Eliminates point-to-point use cases entirely.</summary><div class="detail-content">No support for picking up at A and dropping at B (e.g., home to airport). Competitors increasingly support one-way, and lacking it removes an entire booking category.</div></details></div>
       </div>
       <div class="problem-card">
         <div class="problem-title">No Damage Documentation</div>
-        <div class="problem-desc">There is no pre-rental or post-rental damage reporting flow. Users have no way to document existing damage before pickup, which means they can be held responsible for damage they didn't cause. This creates disputes, requires manual investigation by support, and erodes user trust. Industry standard for shared mobility is mandatory photo inspection before and after each rental.</div>
+        <div class="problem-desc"><details><summary>No pre/post-rental photo inspection. Users can be blamed for pre-existing damage.</summary><div class="detail-content">No way to document damage before pickup. Creates disputes, manual support investigations, and erodes trust. Industry standard is mandatory photo inspection before and after each rental.</div></details></div>
       </div>
     </div>
   </div>
@@ -1241,29 +1292,29 @@
     <div>
       <div class="problem-card">
         <div class="problem-title">Outdated Visual Identity</div>
-        <div class="problem-desc">The app uses a flat mint/emerald green color scheme with no depth, shadows, or visual hierarchy. Buttons are solid-color rounded rectangles with no states (pressed, disabled, loading). Modal dialogs resemble browser alerts (plain white box, centered text, single button) rather than native components. Car illustrations are generic clip-art style. There is no dark mode support despite ~80% of mobile users preferring dark mode at night. The overall look communicates "built in 2018" rather than "premium shared mobility service".</div>
+        <div class="problem-desc"><details><summary>Flat green scheme, no depth, no dark mode. Looks "built in 2018".</summary><div class="detail-content">Buttons with no states (pressed/disabled/loading). Modal dialogs resemble browser alerts. Generic clip-art car illustrations. No dark mode despite ~80% of users preferring it at night.</div></details></div>
       </div>
       <div class="problem-card">
         <div class="problem-title">Hamburger Menu Hides Core Features</div>
-        <div class="problem-desc">Primary actions are buried in a slide-out side menu: profile, history, future bookings, pricing, support, and terms. There are no bottom tabs. Users must tap the hamburger icon, scan the menu, and tap again to reach anything beyond the map. UX research consistently shows that hamburger menus reduce feature discoverability by 50%+ compared to visible tab bars. Key features like "My Bookings" should be one tap away, not two.</div>
+        <div class="problem-desc"><details><summary>Primary actions buried in side menu. No bottom tabs - everything is 2+ taps away.</summary><div class="detail-content">Profile, history, bookings, pricing, support all hidden in hamburger. Research shows hamburger menus reduce discoverability by 50%+ vs visible tab bars.</div></details></div>
       </div>
       <div class="problem-card">
         <div class="problem-title">No Biometric Authentication</div>
-        <div class="problem-desc">Every login requires phone number + OTP via SMS. There is no Face ID, Touch ID, or fingerprint option. For returning users who open the app daily, this means waiting for an SMS every time. The OTP has a 30-second retry cooldown, adding further delay. Most modern apps offer biometric login after initial setup, reducing re-authentication to under 1 second.</div>
+        <div class="problem-desc"><details><summary>Every login requires SMS OTP. No Face ID or fingerprint option.</summary><div class="detail-content">Returning users wait for SMS every time. 30-second retry cooldown adds delay. Modern apps reduce re-auth to under 1 second via biometrics.</div></details></div>
       </div>
     </div>
     <div>
       <div class="problem-card">
-        <div class="problem-title">Web Views Break the Native Experience</div>
-        <div class="problem-desc">At least 3 critical screens are not native: <strong>(1)</strong> The pricing table opens as an embedded web page with a completely different layout and typography. <strong>(2)</strong> The terms of use redirect to the company website in an in-app browser. <strong>(3)</strong> The payment form is a Tranzila iframe. These transitions are jarring - users lose the app's navigation, back button behavior changes, and the visual language shifts. Each web view is a moment where users feel they've "left" the app.</div>
+        <div class="problem-title">Web Views Break Native Experience</div>
+        <div class="problem-desc"><details><summary>3 critical screens open as embedded web pages - jarring transitions, broken navigation.</summary><div class="detail-content">Pricing table, terms of use, and payment form all use different layouts and typography. Users lose app navigation and feel they've "left" the app.</div></details></div>
       </div>
       <div class="problem-card">
         <div class="problem-title">Web App Cannot Complete Core Flows</div>
-        <div class="problem-desc">The web application is limited - it handles registration but cannot perform the full booking flow, view active rentals, or manage all profile features. Users who prefer desktop (common for pre-planning rentals) or who can't install the app are underserved. This also means the web can't serve as a fallback when the mobile app has issues. A modern shared mobility service should offer full functionality on both platforms.</div>
+        <div class="problem-desc"><details><summary>Web handles registration only - no booking, no rentals, no full profile management.</summary><div class="detail-content">Desktop users (common for pre-planning) and users who can't install the app are underserved. Web can't serve as fallback when mobile has issues.</div></details></div>
       </div>
       <div class="problem-card">
-        <div class="problem-title">Profile Management is Scattered & Restrictive</div>
-        <div class="problem-desc">Personal info, license details, credit card management, and contact info are all separate menu items leading to separate screens. Updating phone number or email requires contacting support (users see "to update phone or email, contact customer service") - there's no self-service option. The profile screen shows data in read-only mode with small pencil icons per section, each opening a different edit flow. Users who need to update an expired license must navigate through 3 screens to reach the upload form.</div>
+        <div class="problem-title">Profile Management is Scattered</div>
+        <div class="problem-desc"><details><summary>Personal info, license, cards, contact - all separate screens. Phone/email changes require support.</summary><div class="detail-content">No self-service for contact updates ("contact customer service"). Read-only profile with small pencil icons opening different edit flows. License renewal requires navigating 3 screens.</div></details></div>
       </div>
     </div>
   </div>
@@ -1740,7 +1791,7 @@
     </div>
   </div>
   <div class="highlight-box" style="margin-top: 16px;">
-    <p>The 2-3 week design lead means development is never blocked waiting for designs, and design has time to incorporate feedback from development before the next handoff. This staggered approach is more efficient than waterfall (all design then all dev) or fully parallel (constant context switching).</p>
+    <p><details><summary>Design leads by 2-3 weeks - dev is never blocked, design gets feedback before next handoff.</summary><div class="detail-content" style="color: var(--accent-bright);">More efficient than waterfall (all design then all dev) or fully parallel (constant context switching). Each handoff is approved before dev starts that module.</div></details></p>
   </div>
   <div class="slide-number">14b</div>
 </div>
@@ -1764,58 +1815,58 @@
     <tbody>
       <tr>
         <td>Discovery & Foundations</td>
-        <td><strong>Discovery + Feedback Audit:</strong> Customer feedback analysis, flow mapping, competitive audit, product scope. <strong>IA + User Flows:</strong> Screen map, information hierarchy, navigation structure.</td>
+        <td><details><summary>Feedback audit, flow mapping, IA, screen map</summary><div class="detail-content">Customer feedback analysis, competitive audit, product scope definition. Screen map, information hierarchy, navigation structure - basis for all screens.</div></details></td>
         <td style="text-align: center; color: var(--orange); font-weight: 700;">2.5-3</td>
-        <td><strong>Monorepo scaffold</strong> (Turborepo/Nx), Expo + Next.js init, shared packages, CI/CD pipeline, linting, navigation shell + <strong>core design system</strong> (theme context, RTL, buttons, inputs). <em>Runs in parallel with UX discovery.</em></td>
+        <td><details><summary>Monorepo scaffold, Expo + Next.js, CI/CD, core components</summary><div class="detail-content">Turborepo/Nx monorepo, shared packages (@mycar/ui, api, shared), linting, navigation shell, theme context, RTL, base components. Runs in parallel with UX discovery.</div></details></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">2</td>
       </tr>
       <tr>
         <td>Design System</td>
-        <td><strong>Tokens + Components:</strong> Color palette, typography, spacing, iconography. Full Figma component library. RTL-ready. All states (default, hover, pressed, disabled, error). Dark mode token set included.</td>
+        <td><details><summary>Figma tokens, full component library, dark mode tokens</summary><div class="detail-content">Color palette, typography, spacing, iconography. All component states (default, hover, pressed, disabled, error). RTL-ready. Dark mode token set included.</div></details></td>
         <td style="text-align: center; color: var(--orange); font-weight: 700;">2</td>
-        <td><em>Built incrementally during module work below. Each module implements its needed components from Figma. Dark mode = theme token swap (1w). Avoids building unused components upfront.</em></td>
+        <td><details><summary>Incremental build from Figma + dark mode (1w)</summary><div class="detail-content">Each module implements its needed components. Dark mode = theme token swap. Avoids building unused components upfront.</div></details></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">1</td>
       </tr>
       <tr>
         <td>Auth + Registration</td>
-        <td><strong>Registration + Auth Flow (Figma):</strong> Login, OTP, 5-step registration (personal details, document upload with camera guidance, contract signature, payment, rules carousel). All edge cases, progress indicator.</td>
+        <td><details><summary>Login, OTP, 5-step registration, all edge cases</summary><div class="detail-content">Personal details, document upload with camera guidance, contract signature, payment, rules carousel. Validation errors, missing fields, passport variant.</div></details></td>
         <td style="text-align: center; color: var(--orange); font-weight: 700;">2</td>
-        <td><strong>Auth (1.5w):</strong> Expo LocalAuthentication for biometrics. OTP, session persistence, unapproved-user gating. <strong>Registration (2.5w):</strong> Signature pad, Maps autocomplete, guided camera overlay. <em>4w total.</em></td>
+        <td><details><summary>Biometrics, OTP, 5-step form, camera overlay, signature</summary><div class="detail-content">Auth (1.5w): Expo LocalAuthentication, session persistence, unapproved-user gating. Registration (2.5w): Signature pad, Maps autocomplete, guided camera.</div></details></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">4</td>
       </tr>
       <tr>
         <td>Core Flow &mdash; Booking</td>
-        <td><strong>Booking Flow (Figma):</strong> Map with car markers, bottom sheet, filter chips, list view. Immediate + scheduled + one-way booking, price estimator, confirmation. "My Bookings" with extend/cancel.</td>
+        <td><details><summary>Map, bottom sheet, filters, 3 booking types, price estimator</summary><div class="detail-content">Car markers (color-coded), list view. Immediate + scheduled + one-way booking, confirmation. "My Bookings" with extend/cancel/insurance.</div></details></td>
         <td style="text-align: center; color: var(--orange); font-weight: 700;">2</td>
-        <td><strong>Map (2w):</strong> Clustered markers, bottom sheet, filters, location search, polling. <strong>Booking (2.5w):</strong> 3 booking flows + management screens. <em>4.5w total.</em></td>
+        <td><details><summary>Map (2w) + Booking flows (2.5w)</summary><div class="detail-content">Clustered markers, bottom sheet, filters, location search, polling. 3 booking flows, price estimator, management screens.</div></details></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">4.5</td>
       </tr>
       <tr>
         <td>Active Rental + Damage</td>
-        <td><strong>Active Rental (Figma):</strong> Dashboard with unlock code, timer, cost ticker, navigate-to-car. Extension, end rental. Damage photo flow (5 guided angles). Pain points addressed.</td>
+        <td><details><summary>Dashboard, unlock code, timer, cost ticker, 5-angle photo flow</summary><div class="detail-content">Navigate-to-car, extension, end rental confirmation. Mandatory guided damage photos with overlay frames.</div></details></td>
         <td style="text-align: center; color: var(--orange); font-weight: 700;">1.5</td>
-        <td><strong>Rental (1.5w):</strong> Dashboard, timer, cost ticker (polling), deep link, extend, end. <strong>Damage (1.5w):</strong> Guided photo flow, camera overlay reuse, before+after enforcement. <em>3w total.</em></td>
+        <td><details><summary>Rental dashboard (1.5w) + Damage photos (1.5w)</summary><div class="detail-content">Timer, cost ticker polling, deep link, extend, end rental. Camera overlay reuse from registration, before+after enforcement.</div></details></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">3</td>
       </tr>
       <tr>
         <td>Profile + Payments + History</td>
-        <td><strong>Profile (Figma):</strong> Personal info, license, selfie, contact change. <strong>History (Figma):</strong> Rental list, cost breakdown, damage photos. <strong>Payments (Figma):</strong> Card management, credits/coupons. Handoff with annotations.</td>
+        <td><details><summary>Profile, history, payments, credits - all screens + handoff</summary><div class="detail-content">Personal info, license, selfie, contact change. Rental list, cost breakdown. Card management, credits/coupons. Annotated Figma handoff.</div></details></td>
         <td style="text-align: center; color: var(--orange); font-weight: 700;">5</td>
-        <td><strong>Profile (1w):</strong> CRUD forms. <strong>Payments (0.5w):</strong> Stripe SDK, Apple/Google Pay. <strong>History (1w):</strong> List + detail views, PDF receipt. <strong>Cost Ticker (0.5w):</strong> Animated counter. <strong>Credits (1w):</strong> View/apply UI + admin promo forms. <em>4w total.</em></td>
+        <td><details><summary>Profile (1w), Payments (0.5w), History (1w), Credits (1w), Ticker (0.5w)</summary><div class="detail-content">CRUD forms, Stripe SDK + Apple/Google Pay, list + detail views, PDF receipts, animated cost counter, promo management UI.</div></details></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">4</td>
       </tr>
       <tr>
         <td>Web Platform</td>
-        <td><strong>Web Adaptation (Figma):</strong> Desktop + mobile-web responsive layouts for all flows. Adapted navigation, wider layouts, hover states, keyboard interactions. Not a mobile copy.</td>
+        <td><details><summary>Desktop + mobile-web responsive layouts for all flows</summary><div class="detail-content">Adapted navigation, wider layouts, hover states, keyboard interactions. Not a mobile copy - full design system adaptation.</div></details></td>
         <td style="text-align: center; color: var(--orange); font-weight: 700;">3.5-5</td>
-        <td>Shared monorepo components handle 80%. Dev adds web-specific breakpoints, hover states, keyboard nav. <em>1w - most web work done via shared components.</em></td>
+        <td><details><summary>Web-specific breakpoints, hover states, keyboard nav (1w)</summary><div class="detail-content">Shared monorepo components handle 80%. Most web work already done via shared components.</div></details></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">1</td>
       </tr>
       <tr>
         <td>Admin Panel (Frontend)</td>
-        <td><strong>Not in UX scope</strong> - uses standard data-table patterns. Dev-led with admin UI framework.</td>
+        <td style="color: var(--text-muted);">Not in UX scope</td>
         <td style="text-align: center; color: var(--text-muted); font-weight: 700;">&mdash;</td>
-        <td><strong>Staff UI (2.5w):</strong> Refine.dev/shadcn against existing APIs. Document viewer, photo comparison. <strong>Fleet UI (1w):</strong> Scoped views reusing staff shell. <em>3.5w. Assumes admin APIs exist.</em></td>
+        <td><details><summary>Staff UI (2.5w) + Fleet UI (1w) against existing APIs</summary><div class="detail-content">Refine.dev/shadcn tables. Custom: document viewer, photo comparison. Fleet: scoped views reusing staff shell. Assumes admin APIs exist.</div></details></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">3.5</td>
       </tr>
     </tbody>
