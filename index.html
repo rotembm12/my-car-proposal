@@ -595,6 +595,358 @@
     font-size: 15px;
   }
 
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .slide {
+      padding: 80px 24px 60px;
+      min-height: auto;
+      min-height: 100vh;
+    }
+
+    .divider {
+      padding: 80px 24px 60px;
+    }
+
+    .logo-bar {
+      top: 20px;
+      left: 24px;
+    }
+
+    .slide-number {
+      bottom: 20px;
+      right: 24px;
+    }
+
+    /* Typography */
+    .slide-title h1 {
+      font-size: 40px;
+      letter-spacing: -1.5px;
+    }
+
+    .slide-title .subtitle {
+      font-size: 17px;
+      margin-bottom: 32px;
+    }
+
+    .slide-title .meta {
+      font-size: 11px;
+    }
+
+    h2 {
+      font-size: 28px;
+      letter-spacing: -1px;
+      margin-bottom: 20px;
+    }
+
+    h2 span[style*="font-size: 28px"] {
+      font-size: 18px !important;
+    }
+
+    .divider h2 {
+      font-size: 36px;
+    }
+
+    h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+
+    h4 {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-size: 15px;
+    }
+
+    /* Grids collapse to 1 column */
+    .grid-2,
+    .grid-3,
+    .grid-4,
+    .module-grid,
+    .kpi-grid,
+    .two-col {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .kpi-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* Cards */
+    .card {
+      padding: 20px;
+      border-radius: 12px;
+    }
+
+    .card .card-icon {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .card .card-title {
+      font-size: 15px;
+    }
+
+    .card .card-desc {
+      font-size: 13px;
+    }
+
+    .card:hover {
+      transform: none;
+    }
+
+    /* Problem Cards */
+    .problem-card {
+      padding: 16px 18px;
+      margin-bottom: 10px;
+    }
+
+    .problem-card .problem-title {
+      font-size: 14px;
+    }
+
+    .problem-card .problem-desc {
+      font-size: 13px;
+    }
+
+    /* Stats */
+    .stat-row {
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .stat .stat-value {
+      font-size: 36px;
+    }
+
+    .stat .stat-label {
+      font-size: 11px;
+    }
+
+    /* Tables */
+    .compare-table {
+      font-size: 12px;
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .compare-table th {
+      padding: 10px 12px;
+      font-size: 10px;
+      white-space: nowrap;
+    }
+
+    .compare-table td {
+      padding: 10px 12px;
+      font-size: 12px;
+    }
+
+    /* Flow Steps - vertical on mobile */
+    .flow {
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .flow-arrow {
+      transform: rotate(90deg);
+      text-align: center;
+      padding: 0;
+      font-size: 20px;
+    }
+
+    .flow-step {
+      display: flex;
+      align-items: center;
+      text-align: left;
+      gap: 12px;
+    }
+
+    .flow-step .step-num {
+      width: 36px;
+      height: 36px;
+      font-size: 14px;
+      margin: 0;
+      flex-shrink: 0;
+    }
+
+    .flow-step .step-title {
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .flow-step .step-desc {
+      font-size: 11px;
+    }
+
+    /* Modules */
+    .module-item {
+      padding: 16px;
+      gap: 12px;
+    }
+
+    .module-item .module-icon {
+      font-size: 22px;
+    }
+
+    .module-item .module-name {
+      font-size: 14px;
+    }
+
+    .module-item .module-desc {
+      font-size: 12px;
+    }
+
+    /* Tech Cards */
+    .tech-card {
+      padding: 14px;
+    }
+
+    .tech-card .tech-name {
+      font-size: 14px;
+    }
+
+    .tech-card .tech-role {
+      font-size: 10px;
+    }
+
+    /* KPI */
+    .kpi-card {
+      padding: 16px;
+    }
+
+    .kpi-card .kpi-value {
+      font-size: 28px;
+    }
+
+    .kpi-card .kpi-label {
+      font-size: 10px;
+    }
+
+    /* Highlight Box */
+    .highlight-box {
+      padding: 14px 16px;
+    }
+
+    .highlight-box p {
+      font-size: 13px;
+    }
+
+    /* Bullet List */
+    .bullet-list li {
+      font-size: 13px;
+      padding-left: 20px;
+    }
+
+    .bullet-list li::before {
+      width: 6px;
+      height: 6px;
+      top: 14px;
+    }
+
+    /* Tags */
+    .tag {
+      font-size: 11px;
+      padding: 3px 8px;
+    }
+
+    /* Two Col */
+    .two-col {
+      gap: 24px;
+    }
+
+    /* Phase timeline bars */
+    .phase {
+      gap: 12px;
+    }
+
+    .phase-marker {
+      width: 50px;
+    }
+
+    .phase-marker .phase-badge {
+      font-size: 11px;
+      padding: 4px 10px;
+    }
+
+    .phase-content h3 {
+      font-size: 16px;
+    }
+
+    .phase-content p {
+      font-size: 12px;
+    }
+
+    /* Gantt-style timeline bars on mobile */
+    .slide div[style*="display: flex"][style*="align-items: center"][style*="margin-bottom: 20px"] {
+      flex-wrap: wrap;
+    }
+
+    .slide div[style*="display: flex"][style*="align-items: center"][style*="margin-bottom: 20px"] > div[style*="width: 120px"] {
+      width: 100% !important;
+      text-align: left !important;
+      margin-bottom: 4px;
+    }
+
+    .slide div[style*="display: flex"][style*="align-items: center"][style*="margin-bottom: 20px"] > div[style*="width: 60px"] {
+      width: auto !important;
+      position: absolute;
+      right: 24px;
+      margin-top: -34px;
+    }
+
+    .slide div[style*="display: flex"][style*="align-items: center"][style*="margin-bottom: 20px"] > div[style*="border-radius: 8px"] {
+      flex: 1 1 100% !important;
+    }
+
+    .slide div[style*="display: flex"][style*="align-items: center"][style*="margin-bottom: 20px"] > div[style*="flex:"][style*=";"]:not([style*="border-radius"]):not([style*="width"]) {
+      display: none;
+    }
+
+    /* Summary slide */
+    .slide-title[style*="background"] h1 {
+      font-size: 32px !important;
+    }
+  }
+
+  /* Small phones */
+  @media (max-width: 380px) {
+    .slide {
+      padding: 70px 16px 50px;
+    }
+
+    .slide-title h1 {
+      font-size: 32px;
+    }
+
+    h2 {
+      font-size: 24px;
+    }
+
+    .divider h2 {
+      font-size: 28px;
+    }
+
+    .stat .stat-value {
+      font-size: 28px;
+    }
+
+    .kpi-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .compare-table td,
+    .compare-table th {
+      padding: 8px 8px;
+      font-size: 11px;
+    }
+  }
+
   /* Print Styles */
   @media print {
     .slide { page-break-after: always; }
