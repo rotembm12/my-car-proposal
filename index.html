@@ -1273,7 +1273,7 @@
 <!-- SLIDE 5: Divider - The Solution -->
 <div class="divider">
   <h2>The <span class="accent">Solution</span></h2>
-  <p>A complete client-side rewrite with consolidated flows, modern design system, and full platform parity. Same backend, entirely new experience.</p>
+  <p>A complete client-side rewrite consuming existing backend APIs. New design system, streamlined flows, full platform parity. Zero backend changes required.</p>
   <div class="slide-number">05</div>
 </div>
 
@@ -1517,7 +1517,7 @@
       <div class="module-icon">&#128197;</div>
       <div>
         <div class="module-name">Booking <span style="color: var(--accent); font-size: 12px; font-weight: 600;">3w</span></div>
-        <div class="module-desc">Immediate + scheduled, one-way rentals, price estimator, cancel/extend, insurance toggle, push notifications.</div>
+        <div class="module-desc">Immediate + scheduled, one-way rentals, price estimator, cancel/extend, insurance toggle. Push notification registration (client-side).</div>
       </div>
     </div>
     <div class="module-item">
@@ -1551,8 +1551,8 @@
     <div class="module-item">
       <div class="module-icon">&#128202;</div>
       <div>
-        <div class="module-name">Admin Panel <span style="color: var(--blue); font-size: 12px; font-weight: 600;">P2: 6w</span></div>
-        <div class="module-desc">Web-only. Role-based: internal staff (full control) + fleet partners (own cars only). Approvals, fleet, pricing, analytics, damage review.</div>
+        <div class="module-name">Admin Panel <span style="color: var(--blue); font-size: 12px; font-weight: 600;">P2: 3.5w</span></div>
+        <div class="module-desc">Web-only frontend dashboard. Consumes existing admin APIs. Role-based views: internal staff + fleet partners. UI for approvals, fleet, pricing, analytics, damage review.</div>
       </div>
     </div>
   </div>
@@ -1564,7 +1564,7 @@
   <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
   <h4>Technology</h4>
   <h2>Tech <span class="accent">Stack</span></h2>
-  <p style="margin-bottom: 32px;">Client-side rewrite only. Existing backend retained. Monorepo with shared packages across platforms.</p>
+  <p style="margin-bottom: 32px;">Client-side only - all apps consume existing backend APIs. No server-side development included. Monorepo with shared packages across platforms.</p>
   <div class="grid-4">
     <div class="tech-card">
       <div class="tech-name">React Native + Expo</div>
@@ -1657,31 +1657,34 @@
 <div class="slide">
   <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
   <h4>Admin</h4>
-  <h2>Admin <span class="accent">Panel</span></h2>
-  <p style="margin-bottom: 24px;">Web-only admin with role-based access for internal staff and fleet partners.</p>
+  <h2>Admin <span class="accent">Panel</span> <span style="font-size: 20px; color: var(--text-muted); font-weight: 400;">(Frontend Only)</span></h2>
+  <p style="margin-bottom: 24px;">Web-only frontend dashboard consuming existing admin APIs. All data operations (CRUD, approvals, notifications) are handled by the existing backend - we build the UI layer.</p>
   <div class="two-col">
     <div>
-      <h3>Internal Staff</h3>
+      <h3>Internal Staff UI</h3>
       <ul class="bullet-list">
-        <li>User registration approval queue with document viewer</li>
-        <li>Fleet management (add/remove cars, assign stations, update availability)</li>
-        <li>Pricing configuration (per category, seasonal surcharges, promotions)</li>
-        <li>Damage report review (side-by-side before/after photos)</li>
-        <li>Analytics dashboards (bookings, revenue, utilization, growth)</li>
-        <li>User account management (suspend, credits, document reset)</li>
-        <li>Push notification composer (all users or segments)</li>
-        <li>Promo codes and credit management</li>
+        <li>User approval queue - document viewer UI for license + selfie review</li>
+        <li>Fleet management UI - forms for car CRUD, station assignment, availability</li>
+        <li>Pricing configuration UI - rate editor, seasonal surcharge calendar</li>
+        <li>Damage report viewer - side-by-side before/after photo comparison</li>
+        <li>Analytics dashboards - charts visualizing data from existing APIs</li>
+        <li>User management UI - search, suspend, credit adjustment forms</li>
+        <li>Push notification form - audience selector, message composer (sends via existing push service)</li>
+        <li>Promo code management UI - create/edit forms against existing promo API</li>
       </ul>
     </div>
     <div>
-      <h3>Fleet Partners</h3>
+      <h3>Fleet Partner UI</h3>
       <ul class="bullet-list">
-        <li>Dashboard showing only their cars' performance</li>
-        <li>Booking and utilization metrics per vehicle</li>
-        <li>Availability window management (block for maintenance)</li>
-        <li>Damage reports with photos for their fleet</li>
-        <li>Revenue reports and payout summaries</li>
+        <li>Scoped dashboard - car performance data from existing APIs</li>
+        <li>Utilization metrics - charts per vehicle</li>
+        <li>Availability calendar - UI to set maintenance windows</li>
+        <li>Damage reports - photo viewer filtered to their fleet</li>
+        <li>Revenue reports - payout tables with CSV export</li>
       </ul>
+      <div class="highlight-box" style="margin-top: 16px;">
+        <p><strong>Assumption:</strong> All admin APIs (user approval, fleet CRUD, pricing, push, promos) already exist in the backend. If any are missing, backend development is a separate scope.</p>
+      </div>
     </div>
   </div>
   <div class="slide-number">13</div>
@@ -1855,7 +1858,7 @@
         <td>History + Bookings</td>
         <td><strong>History + Future Bookings (Figma):</strong> Rental history list, booking detail with cost breakdown, damage photos. Future bookings management - extend, cancel, view. Empty states.</td>
         <td style="text-align: center; color: var(--orange); font-weight: 700;">8-10</td>
-        <td><strong>History (1w):</strong> Read-only list + detail views using existing card/list components. PDF receipt via library. <strong>Cost Ticker (0.5w):</strong> Animated number component + polling interval. Simple. <strong>Credits (1w):</strong> View/apply UI is lightweight. Admin promo engine uses admin framework's form builder.</td>
+        <td><strong>History (1w):</strong> Read-only list + detail views consuming existing history API. PDF receipt via library. <strong>Cost Ticker (0.5w):</strong> Animated number component polling existing cost API. <strong>Credits (1w):</strong> View/apply UI consuming credits API. Admin promo forms against existing promo API.</td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">2.5</td>
       </tr>
       <tr>
@@ -1873,10 +1876,10 @@
         <td style="text-align: center; color: var(--accent); font-weight: 700;">1</td>
       </tr>
       <tr>
-        <td>Admin Panel</td>
+        <td>Admin Panel (Frontend)</td>
         <td><strong>Not in UX scope</strong> - admin uses standard data-table patterns. Dev-led with admin UI framework.</td>
         <td style="text-align: center; color: var(--text-muted); font-weight: 700;">&mdash;</td>
-        <td><strong>Staff (2.5w):</strong> Using Refine.dev or shadcn/ui tables - CRUD scaffolding is 70% automated. Custom work: document viewer, photo comparison. <strong>Fleet (1w):</strong> Reuses staff admin shell with scoped data. <em>3.5w total - saved 2.5w via admin UI framework.</em></td>
+        <td><strong>Staff UI (2.5w):</strong> Frontend dashboard using Refine.dev or shadcn/ui tables against existing admin APIs. Custom components: document viewer, photo comparison. <strong>Fleet UI (1w):</strong> Scoped views reusing staff shell. <em>3.5w total. Assumes all admin APIs exist.</em></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">3.5</td>
       </tr>
       <tr>
@@ -1935,22 +1938,22 @@
           </tr>
           <tr>
             <td>In-App Support</td>
-            <td>Chat SDK (Intercom/Zendesk) handles UI. Config per platform.</td>
+            <td>Client-side chat SDK integration (Intercom/Zendesk). Config per platform.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">1.5</td>
           </tr>
           <tr>
             <td>Multi-Language</td>
-            <td>i18next set up in P1. Polish: string review, locale formatting, layout QA.</td>
+            <td>i18next set up in P1. String review, locale formatting, layout QA. Client-side only.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">1</td>
           </tr>
           <tr>
             <td>Analytics Dashboard</td>
-            <td>Recharts in admin framework. Standard chart types. Admin-only.</td>
+            <td>Frontend charts (Recharts) visualizing data from existing APIs. Admin web only.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">1</td>
           </tr>
           <tr>
             <td>Subscriptions</td>
-            <td>Plan cards + payment integration. Depends on backend logic.</td>
+            <td>Plan selection UI + payment SDK integration. Assumes backend subscription API exists.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">1</td>
           </tr>
           <tr>
@@ -1963,7 +1966,7 @@
     </div>
     <div>
       <h3 style="margin-bottom: 8px;">Phase 4: Scale & Expand</h3>
-      <p style="font-size: 16px; margin-bottom: 16px; color: var(--orange); font-weight: 600;">~10 dev weeks</p>
+      <p style="font-size: 16px; margin-bottom: 16px; color: var(--orange); font-weight: 600;">~9 dev weeks</p>
       <table class="compare-table" style="font-size: 13px;">
         <thead>
           <tr>
@@ -1975,35 +1978,30 @@
         <tbody>
           <tr>
             <td>International</td>
-            <td>Languages, country-specific IDs, local payment providers. Framework + first country.</td>
+            <td>Client-side: additional language packs, country-specific ID upload forms, local payment SDK integrations. Framework + first country.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">3</td>
           </tr>
           <tr>
             <td>BLE/NFC Unlock</td>
-            <td>Bluetooth LE protocol, NFC fallback, native modules, hardware partner SDK. <strong>High uncertainty.</strong></td>
+            <td>Client-side native modules: Bluetooth LE + NFC communication with car hardware. Expo native module or bare workflow. <strong>High uncertainty</strong> - depends on hardware partner SDK.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">3</td>
           </tr>
           <tr>
             <td>In-App Navigation</td>
-            <td>Mapbox/Google Directions SDK, turn-by-turn overlay, walking directions.</td>
+            <td>Client-side map SDK integration: Mapbox Navigation or Google Directions, turn-by-turn overlay, walking directions to car.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">1.5</td>
           </tr>
           <tr>
-            <td>Business Accounts</td>
-            <td>Company profiles, employee management, centralized billing, expense tagging.</td>
+            <td>Business Accounts UI</td>
+            <td>Frontend: company profile screens, employee list UI, expense tagging per rental. Assumes backend business account APIs exist.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">1.5</td>
-          </tr>
-          <tr>
-            <td>Public API</td>
-            <td>Docs site, developer portal, API key management. Backend API assumed to exist.</td>
-            <td style="text-align: center; color: var(--accent); font-weight: 700;">1</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
   <div class="highlight-box" style="margin-top: 16px;">
-    <p>Phases 3-4 follow the design system established in P1-P2. If new UX design is needed for specific features (e.g., subscription flow, in-app navigation), it can be scoped as an add-on engagement. BLE/NFC could expand to 5 weeks depending on hardware partner SDK quality.</p>
+    <p>All phases are client-side only. Phases 3-4 follow the design system from P1-P2. BLE/NFC could expand to 5 weeks depending on hardware SDK. Business accounts and subscriptions assume backend APIs exist - if not, backend work is a separate scope.</p>
   </div>
   <div class="slide-number">17</div>
 </div>
@@ -2070,10 +2068,10 @@
     <div style="display: flex; align-items: center; margin-bottom: 6px; gap: 16px;">
       <div style="width: 120px; text-align: right; font-weight: 700; font-size: 13px; color: var(--text-muted);">DEV P4</div>
       <div style="flex: 31;"></div>
-      <div style="flex: 10; background: var(--orange); border-radius: 6px; padding: 8px 14px;">
-        <div style="font-weight: 700; font-size: 13px; color: #fff;">Scale &bull; 10w</div>
+      <div style="flex: 9; background: var(--orange); border-radius: 6px; padding: 8px 14px;">
+        <div style="font-weight: 700; font-size: 13px; color: #fff;">Scale &bull; 9w</div>
       </div>
-      <div style="width: 60px; text-align: center; font-weight: 800; font-size: 14px; color: var(--orange);">10w</div>
+      <div style="width: 60px; text-align: center; font-weight: 800; font-size: 14px; color: var(--orange);">9w</div>
     </div>
   </div>
   <!-- Totals -->
@@ -2084,7 +2082,7 @@
       <div class="kpi-label">Total UX Hours</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-value" style="font-size: 28px;">39<span class="kpi-unit">w</span></div>
+      <div class="kpi-value" style="font-size: 28px;">38<span class="kpi-unit">w</span></div>
       <div class="kpi-label">Total Dev Weeks</div>
     </div>
     <div class="kpi-card">
@@ -2097,7 +2095,7 @@
     </div>
   </div>
   <div class="highlight-box" style="margin-top: 12px;">
-    <p>Compressed from 52.5w to 39 dev weeks (26% reduction) via: incremental design system, mature RN libraries, cross-module component reuse, admin UI framework, and theming baked in from day 1. UX scope unchanged (120-160h). Adding a second frontend dev could further compress P1-P2 by ~30%.</p>
+    <p>All 38 dev weeks are client-side only (React Native + Next.js). No backend development included. Assumes all APIs exist. If backend changes are needed for new features (one-way rentals, damage photos, etc.), that is a separate scope. UX design unchanged at 120-160h.</p>
   </div>
   <div class="slide-number">18</div>
 </div>
@@ -2201,11 +2199,13 @@
       </ul>
     </div>
     <div>
-      <h3>Dependencies</h3>
+      <h3>Dependencies & Assumptions</h3>
       <ul class="bullet-list">
-        <li><strong>UI/UX Brand Guidelines:</strong> New design system depends on guidelines currently in development. Component work can start with placeholder tokens.</li>
-        <li><strong>API Documentation:</strong> Comprehensive docs needed for existing backend endpoints.</li>
+        <li><strong>UI/UX Brand Guidelines:</strong> Design system depends on guidelines currently in development. Can start with placeholder tokens.</li>
+        <li><strong>API Documentation:</strong> Comprehensive docs for all existing backend endpoints required before dev starts.</li>
+        <li><strong>Existing APIs:</strong> All backend APIs assumed to exist (auth, booking, fleet, payments, admin, push). Missing APIs are a separate backend scope.</li>
         <li><strong>App Store Accounts:</strong> Existing Apple Developer and Google Play Console accounts.</li>
+        <li><strong>No Backend Work:</strong> This proposal covers client-side only. Backend modifications (new endpoints, schema changes) are out of scope.</li>
       </ul>
     </div>
   </div>
