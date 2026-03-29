@@ -1046,6 +1046,174 @@
     transform: translateY(0);
   }
 
+  /* Title slide animated gradient */
+  .slide-title h1 {
+    background-size: 200% 200%;
+    animation: gradientShift 6s ease-in-out infinite alternate;
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+  }
+
+  /* Logo fade in */
+  .logo-bar {
+    opacity: 0;
+    animation: logoFade 0.8s 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes logoFade {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Divider text entrance */
+  .divider h2 {
+    opacity: 0;
+    animation: dividerReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .divider p {
+    opacity: 0;
+    animation: dividerReveal 0.8s 0.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .divider .stat-row {
+    opacity: 0;
+    animation: dividerReveal 0.8s 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes dividerReveal {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Luminous line entrance */
+  .divider::after {
+    transform: translateX(-50%) scaleX(0);
+    animation: lineGrow 0.8s 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes lineGrow {
+    to { transform: translateX(-50%) scaleX(1); }
+  }
+
+  /* KPI number scale entrance */
+  .kpi-value {
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal.visible .kpi-value {
+    animation: kpiPop 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes kpiPop {
+    0% { transform: scale(0.7); opacity: 0; }
+    60% { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  /* Stat value count-up feel */
+  .stat-value {
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal.visible .stat-value {
+    animation: statPop 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes statPop {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  /* Flow step sequential entrance */
+  .flow-step:nth-child(1) { transition-delay: 0ms; }
+  .flow-step:nth-child(2) { transition-delay: 60ms; }
+  .flow-step:nth-child(3) { transition-delay: 120ms; }
+  .flow-step:nth-child(4) { transition-delay: 180ms; }
+  .flow-step:nth-child(5) { transition-delay: 240ms; }
+
+  .flow-arrow {
+    opacity: 0;
+    transition: opacity 0.4s 0.3s ease;
+  }
+
+  .reveal.visible ~ .flow-arrow,
+  .flow.reveal.visible .flow-arrow {
+    opacity: 1;
+  }
+
+  /* Problem card slide-in from left */
+  .problem-card.reveal {
+    transform: translateX(-20px);
+  }
+
+  .problem-card.reveal.visible {
+    transform: translateX(0);
+  }
+
+  /* Card hover glow pulse */
+  @keyframes glowPulse {
+    0%, 100% { box-shadow: 0 0 16px var(--accent-glow); }
+    50% { box-shadow: 0 0 24px var(--accent-glow), 0 0 48px rgba(255,107,74,0.05); }
+  }
+
+  .card:hover {
+    animation: glowPulse 2s ease-in-out infinite;
+  }
+
+  /* Compare table row fade */
+  .compare-table tbody tr {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .compare-table.reveal.visible tbody tr {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .compare-table.reveal.visible tbody tr:nth-child(1) { transition-delay: 0ms; }
+  .compare-table.reveal.visible tbody tr:nth-child(2) { transition-delay: 50ms; }
+  .compare-table.reveal.visible tbody tr:nth-child(3) { transition-delay: 100ms; }
+  .compare-table.reveal.visible tbody tr:nth-child(4) { transition-delay: 150ms; }
+  .compare-table.reveal.visible tbody tr:nth-child(5) { transition-delay: 200ms; }
+  .compare-table.reveal.visible tbody tr:nth-child(6) { transition-delay: 250ms; }
+  .compare-table.reveal.visible tbody tr:nth-child(7) { transition-delay: 300ms; }
+  .compare-table.reveal.visible tbody tr:nth-child(8) { transition-delay: 350ms; }
+  .compare-table.reveal.visible tbody tr:nth-child(9) { transition-delay: 400ms; }
+
+  /* Slide number fade */
+  .slide-number {
+    opacity: 0;
+    transition: opacity 0.5s 0.4s ease;
+  }
+
+  .slide:hover .slide-number,
+  .divider:hover .slide-number {
+    opacity: 1;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    .reveal { opacity: 1; transform: none; }
+    .logo-bar { opacity: 1; }
+    .divider h2, .divider p, .divider .stat-row { opacity: 1; }
+    .divider::after { transform: translateX(-50%) scaleX(1); }
+    .compare-table tbody tr { opacity: 1; transform: none; }
+    .slide-number { opacity: 1; }
+    .flow-arrow { opacity: 1; }
+  }
+
   /* Right-side navigation */
   .side-nav {
     position: fixed;
@@ -2155,24 +2323,49 @@
 <script>
 (function() {
   // Scroll reveal with stagger
-  const revealEls = document.querySelectorAll('.card, .problem-card, .module-item, .tech-card, .kpi-card, .flow-step, .phase, h2, h3, h4, .stat-row, .highlight-box, .compare-table, .bullet-list');
+  const revealEls = document.querySelectorAll('.card, .problem-card, .module-item, .tech-card, .kpi-card, .flow-step, .phase, .stat-row, .highlight-box, .compare-table, .bullet-list, .flow');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('reveal', 'visible');
+        entry.target.classList.add('visible');
         observer.unobserve(entry.target);
       }
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-  revealEls.forEach((el, i) => {
+  revealEls.forEach(el => {
     el.classList.add('reveal');
+    // Stagger children within grid containers
     const parent = el.parentElement;
-    const siblings = parent ? Array.from(parent.children).filter(c => c.classList.contains('reveal') || revealEls.indexOf !== undefined) : [];
-    const idx = siblings.indexOf(el);
-    if (idx > 0) el.style.transitionDelay = (idx * 80) + 'ms';
+    if (parent && (parent.classList.contains('grid-2') || parent.classList.contains('grid-3') ||
+        parent.classList.contains('grid-4') || parent.classList.contains('module-grid') ||
+        parent.classList.contains('kpi-grid'))) {
+      const siblings = Array.from(parent.children);
+      const idx = siblings.indexOf(el);
+      el.style.transitionDelay = Math.min(idx * 80, 400) + 'ms';
+    }
+    // Stagger problem cards within their container
+    if (el.classList.contains('problem-card')) {
+      const siblings = Array.from(parent.querySelectorAll('.problem-card'));
+      const idx = siblings.indexOf(el);
+      el.style.transitionDelay = (idx * 100) + 'ms';
+    }
     observer.observe(el);
   });
+
+  // Reveal flow arrows when flow container is visible
+  const flows = document.querySelectorAll('.flow');
+  const flowObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.flow-arrow').forEach((arrow, i) => {
+          setTimeout(() => { arrow.style.opacity = '1'; }, 200 + i * 100);
+        });
+        flowObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  flows.forEach(f => flowObserver.observe(f));
 
   // Progress bar
   const progressBar = document.getElementById('progressBar');
