@@ -1025,52 +1025,131 @@
 <!-- SLIDE 3: Divider - The Problem -->
 <div class="divider">
   <h2>The <span class="accent">Problem</span></h2>
-  <p>The current app works, but it's showing its age. Every friction point is a lost customer.</p>
+  <p>We audited all 91 screens of the current app. Here's what we found: friction at every stage of the customer journey, from first open to rental return.</p>
   <div class="slide-number">03</div>
 </div>
 
-<!-- SLIDE 4: Current Problems -->
+<!-- SLIDE 4: Current Problems - Onboarding & Registration -->
 <div class="slide">
   <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
-  <h4>Current State</h4>
-  <h2>What's <span style="color:var(--red)">Broken</span></h2>
+  <h4>Problem Area 1</h4>
+  <h2>Registration <span style="color:var(--red)">Dropout</span></h2>
+  <p style="margin-bottom: 24px;">The current registration spans 15+ screens across 3 separate parts. Each friction point is an exit opportunity.</p>
   <div class="grid-2">
     <div>
       <div class="problem-card">
-        <div class="problem-title">15+ Screen Registration</div>
-        <div class="problem-desc">3-part onboarding with info walls, separate document uploads, and an iframe payment form. Users drop off before finishing.</div>
+        <div class="problem-title">3-Part Fragmented Onboarding</div>
+        <div class="problem-desc"><strong>Part 1:</strong> Personal details form (name, address, ID). <strong>Part 2:</strong> Driving license info, contract viewing as a raw PDF, digital signature with no context ("you're signing the contract" never appears). <strong>Part 3:</strong> Document uploads (license photo, selfie, passport for non-Israelis) on separate screens. Each part feels like starting over.</div>
       </div>
       <div class="problem-card">
-        <div class="problem-title">8-Tap Booking Flow</div>
-        <div class="problem-desc">Location > dates > search > loading > result > pricing > confirm > done. Every extra tap loses users.</div>
+        <div class="problem-title">Information Walls Before Action</div>
+        <div class="problem-desc">Before users can even fill in details, they're shown 3 consecutive info screens: "Things to know about pricing" (tariff structure, Shabbat policy), "Important rules" (parking rules, fuel policy), and "Nice to meet you" (fill details). Each requires reading and tapping "Next". Users who just want to sign up are forced to read marketing content first.</div>
       </div>
       <div class="problem-card">
-        <div class="problem-title">Hidden Unlock Code</div>
-        <div class="problem-desc">Users must "slide right" to reveal the car code - a non-standard gesture that confuses first-timers standing at the car.</div>
+        <div class="problem-title">Iframe Payment Experience</div>
+        <div class="problem-desc">Credit card entry is handled via Tranzila iframe - a third-party payment page embedded inside the app. It uses a different visual style, has a different font, and doesn't match the app's UI. Users see a "verification charge of 100 NIS" warning. On mobile, iframe forms are notoriously hard to fill (auto-fill doesn't work, keyboard overlap issues). No Apple Pay or Google Pay alternative.</div>
       </div>
     </div>
     <div>
       <div class="problem-card">
-        <div class="problem-title">Dated Visual Design</div>
-        <div class="problem-desc">Flat mint green, generic illustrations, browser-alert modals, no dark mode. Doesn't inspire trust in a premium service.</div>
+        <div class="problem-title">No Progress Indicator</div>
+        <div class="problem-desc">Users have no idea how many steps remain. They see individual screens but have no sense of "I'm on step 3 of 5" or "almost done". This is a well-documented UX anti-pattern - without a progress bar, users overestimate remaining effort and abandon at higher rates.</div>
       </div>
       <div class="problem-card">
-        <div class="problem-title">Broken Web Experience</div>
-        <div class="problem-desc">Pricing tables, terms, and payments open in embedded web views that break the native feel. Web app can't do full booking.</div>
+        <div class="problem-title">Document Upload is Sequential & Blind</div>
+        <div class="problem-desc">License photo and selfie upload happen on separate screens. There's no camera overlay guide showing users how to frame their license. The selfie screen shows a static example photo of a man holding an ID, but no live camera frame guide. If the photo is rejected later by admin, users must redo the entire upload - there's no inline validation or quality check.</div>
       </div>
       <div class="problem-card">
-        <div class="problem-title">No Modern Auth or Payments</div>
-        <div class="problem-desc">No biometric login (Face ID / fingerprint). No Apple Pay or Google Pay. Payment via Tranzila iframe feels insecure.</div>
+        <div class="problem-title">Post-Registration Limbo</div>
+        <div class="problem-desc">After completing all 15+ screens, users see "Thank you for registering! Your registration will be approved shortly" - with no estimated timeline, no status tracking, and no ability to use the app while waiting. They've invested significant time and are now locked out completely until manual admin approval. If details are wrong, they get a popup saying "some details already exist in the system" with no specifics about what to fix.</div>
       </div>
     </div>
   </div>
   <div class="slide-number">04</div>
 </div>
 
+<!-- SLIDE 4b: Current Problems - Core Experience -->
+<div class="slide">
+  <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
+  <h4>Problem Area 2</h4>
+  <h2>Booking & Rental <span style="color:var(--red)">Friction</span></h2>
+  <p style="margin-bottom: 24px;">Once registered, users face unnecessary complexity in finding, booking, and managing their rental.</p>
+  <div class="grid-2">
+    <div>
+      <div class="problem-card">
+        <div class="problem-title">8-Tap Booking Flow</div>
+        <div class="problem-desc">To book a car, a user must: <strong>(1)</strong> tap "Book Vehicle" button, <strong>(2)</strong> select pickup location on map, <strong>(3)</strong> pick start date/time via date picker, <strong>(4)</strong> pick end date/time via separate date picker (no duration shortcut), <strong>(5)</strong> tap "Search", <strong>(6)</strong> wait for a loading animation, <strong>(7)</strong> view the found car's details and pricing, <strong>(8)</strong> confirm booking. Competitors like Zipcar and Share Now accomplish this in 2-3 taps via map marker > bottom sheet > book.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-title">No Price Visibility Until the End</div>
+        <div class="problem-desc">Users go through the entire booking flow before seeing what it will cost. There's no price estimator, no "starting from X/hour" on the map, and no cost preview during car selection. The pricing table exists as a separate menu item with a complex matrix of per-category hourly and per-km rates, seasonal surcharges, and add-ons - but it's disconnected from the booking flow. Users must mentally calculate their expected cost.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-title">Hidden Unlock Code + Non-Standard Gesture</div>
+        <div class="problem-desc">During an active rental, the car's unlock code is hidden behind a "slide right to reveal" gesture. This is not a standard mobile interaction pattern - users standing at the car, possibly in a hurry or in bad weather, must discover this gesture on their own. There is no tooltip, no animation hint, and no fallback. If a user taps instead of slides, nothing happens. The code should be the most prominent element on the active rental screen.</div>
+      </div>
+    </div>
+    <div>
+      <div class="problem-card">
+        <div class="problem-title">No Real-Time Cost During Rental</div>
+        <div class="problem-desc">While renting, users see a countdown timer but have zero visibility into how much they're spending. The pricing model is complex (per-hour base + per-km charge), yet the app shows no running total. Users only discover the actual cost after returning the car. This creates anxiety and distrust, especially for first-time users. The order summary screen at the end is dense with line items but comes too late to influence behavior.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-title">Round-Trip Only, No One-Way</div>
+        <div class="problem-desc">Users must return the car to the same station they picked it up from. This is a significant limitation for point-to-point use cases (e.g., driving from home to the airport). Competitors increasingly support one-way drops, and the lack of this feature eliminates an entire category of potential bookings.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-title">No Damage Documentation</div>
+        <div class="problem-desc">There is no pre-rental or post-rental damage reporting flow. Users have no way to document existing damage before pickup, which means they can be held responsible for damage they didn't cause. This creates disputes, requires manual investigation by support, and erodes user trust. Industry standard for shared mobility is mandatory photo inspection before and after each rental.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-number">04b</div>
+</div>
+
+<!-- SLIDE 4c: Current Problems - Platform & Design -->
+<div class="slide">
+  <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
+  <h4>Problem Area 3</h4>
+  <h2>Platform & <span style="color:var(--red)">Design Debt</span></h2>
+  <p style="margin-bottom: 24px;">Systemic issues that affect every interaction - from visual identity to navigation to cross-platform consistency.</p>
+  <div class="grid-2">
+    <div>
+      <div class="problem-card">
+        <div class="problem-title">Outdated Visual Identity</div>
+        <div class="problem-desc">The app uses a flat mint/emerald green color scheme with no depth, shadows, or visual hierarchy. Buttons are solid-color rounded rectangles with no states (pressed, disabled, loading). Modal dialogs resemble browser alerts (plain white box, centered text, single button) rather than native components. Car illustrations are generic clip-art style. There is no dark mode support despite ~80% of mobile users preferring dark mode at night. The overall look communicates "built in 2018" rather than "premium shared mobility service".</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-title">Hamburger Menu Hides Core Features</div>
+        <div class="problem-desc">Primary actions are buried in a slide-out side menu: profile, history, future bookings, pricing, support, and terms. There are no bottom tabs. Users must tap the hamburger icon, scan the menu, and tap again to reach anything beyond the map. UX research consistently shows that hamburger menus reduce feature discoverability by 50%+ compared to visible tab bars. Key features like "My Bookings" should be one tap away, not two.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-title">No Biometric Authentication</div>
+        <div class="problem-desc">Every login requires phone number + OTP via SMS. There is no Face ID, Touch ID, or fingerprint option. For returning users who open the app daily, this means waiting for an SMS every time. The OTP has a 30-second retry cooldown, adding further delay. Most modern apps offer biometric login after initial setup, reducing re-authentication to under 1 second.</div>
+      </div>
+    </div>
+    <div>
+      <div class="problem-card">
+        <div class="problem-title">Web Views Break the Native Experience</div>
+        <div class="problem-desc">At least 3 critical screens are not native: <strong>(1)</strong> The pricing table opens as an embedded web page with a completely different layout and typography. <strong>(2)</strong> The terms of use redirect to the company website in an in-app browser. <strong>(3)</strong> The payment form is a Tranzila iframe. These transitions are jarring - users lose the app's navigation, back button behavior changes, and the visual language shifts. Each web view is a moment where users feel they've "left" the app.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-title">Web App Cannot Complete Core Flows</div>
+        <div class="problem-desc">The web application is limited - it handles registration but cannot perform the full booking flow, view active rentals, or manage all profile features. Users who prefer desktop (common for pre-planning rentals) or who can't install the app are underserved. This also means the web can't serve as a fallback when the mobile app has issues. A modern shared mobility service should offer full functionality on both platforms.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-title">Profile Management is Scattered & Restrictive</div>
+        <div class="problem-desc">Personal info, license details, credit card management, and contact info are all separate menu items leading to separate screens. Updating phone number or email requires contacting support (users see "to update phone or email, contact customer service") - there's no self-service option. The profile screen shows data in read-only mode with small pencil icons per section, each opening a different edit flow. Users who need to update an expired license must navigate through 3 screens to reach the upload form.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-number">04c</div>
+</div>
+
 <!-- SLIDE 5: Divider - The Solution -->
 <div class="divider">
   <h2>The <span class="accent">Solution</span></h2>
-  <p>A complete rewrite. New design system. Streamlined flows. Modern stack. Full platform parity.</p>
+  <p>A complete client-side rewrite with consolidated flows, modern design system, and full platform parity. Same backend, entirely new experience.</p>
   <div class="slide-number">05</div>
 </div>
 
@@ -1502,60 +1581,60 @@
   <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
   <h4>Roadmap</h4>
   <h2>Phase 1: <span class="accent">MVP</span> <span style="font-size: 28px; color: var(--text-muted); font-weight: 400;">~20 weeks</span></h2>
-  <p style="margin-bottom: 24px;">The complete core rental experience. Users can register, find, book, rent, report damage, and pay.</p>
+  <p style="margin-bottom: 24px;">The complete core rental experience. Users can register, find, book, rent, report damage, and pay. All estimates include writing tests, QA cycles, and cross-platform verification (iOS + Android + Web).</p>
   <table class="compare-table">
     <thead>
       <tr>
         <th>Module</th>
-        <th>Scope</th>
-        <th style="text-align: center;">Dev Weeks</th>
+        <th>What's Included & Why This Estimate</th>
+        <th style="text-align: center; white-space: nowrap;">Dev Weeks</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>Project Setup & Design System</td>
-        <td>Monorepo, Expo + Next.js scaffold, shared component library (buttons, inputs, cards, bottom sheets, modals), Figma token integration, RTL support, navigation structure</td>
+        <td><strong>Week 1:</strong> Monorepo scaffold (Turborepo/Nx), Expo project init, Next.js project init, shared package structure (@mycar/ui, @mycar/api, @mycar/shared), CI/CD pipeline, linting/formatting config. <strong>Week 2-3:</strong> Core component library from Figma tokens - buttons (5 variants), text inputs (with validation states), cards, bottom sheets, modals, navigation shell (bottom tabs), RTL layout engine, typography scale, color system with theme context. <em>This is the foundation everything else builds on - investing 3 weeks here pays off in every subsequent module.</em></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">3</td>
       </tr>
       <tr>
         <td>Auth</td>
-        <td>Phone + OTP flow, session persistence (SecureStore / cookies), biometric login, unapproved user read-only gating</td>
+        <td><strong>Week 1:</strong> Phone input with country code, OTP request/verify API integration, SMS auto-fill, 6-digit code input component, resend timer, error handling (invalid code, expired, rate limit). <strong>Week 2:</strong> Biometric enrollment flow (Face ID / Touch ID via Expo LocalAuthentication), secure token storage (Expo SecureStore on mobile, httpOnly cookies on web), session refresh logic, logout, unapproved-user gating (read-only map access, "Book" button shows approval status). <em>2 weeks because biometric + secure storage + session management across 3 platforms (iOS/Android/Web) requires careful implementation.</em></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">2</td>
       </tr>
       <tr>
         <td>Registration</td>
-        <td>5-step form with progress indicator, Google Maps autocomplete, guided camera overlay for license + selfie, digital signature pad, resumable form state</td>
+        <td><strong>Week 1:</strong> Multi-step form architecture with progress stepper, local state persistence (AsyncStorage), step 1 (personal details form: name, DOB, gender with validation), step 2 (address with Google Maps Places autocomplete, city/street/number auto-parse). <strong>Week 2:</strong> Step 3 (guided camera for license photo with overlay frame, selfie capture with face detection hint, photo preview & retake), passport flow variant for non-Israeli IDs. <strong>Week 3:</strong> Step 4 (rules carousel - swipeable cards with key policies), step 5 (contract viewer with scroll-to-bottom requirement + signature pad component), form submission, success/error states, API integration for all steps. <em>3 weeks because the camera overlay, signature pad, and Google Maps integration each involve native module configuration that takes longer than typical UI work.</em></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">3</td>
       </tr>
       <tr>
         <td>Map & Discovery</td>
-        <td>Map with clustered car markers (color-coded by category), list view toggle, filter chips (type, price, distance), location search, car detail bottom sheet, polling for availability</td>
+        <td><strong>Week 1:</strong> Map integration (provider-agnostic wrapper), user location permissions, car marker rendering with clustering (100+ markers must perform smoothly), color-coded markers by category (economy=blue, standard=green, premium=gold, electric=teal), marker tap interaction. <strong>Week 2:</strong> Car detail bottom sheet (photo, model, category, station name, walking distance, per-hour rate), snap points (peek/half/full), list view alternative with sort controls. <strong>Week 3:</strong> Filter chip bar (car type multi-select, price range, distance radius), location search bar with Places autocomplete, polling mechanism for real-time availability updates (configurable interval), empty states, loading skeletons. <em>3 weeks because map performance tuning with many markers, the bottom sheet interaction, and filter logic with live polling require careful coordination.</em></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">3</td>
       </tr>
       <tr>
         <td>Booking</td>
-        <td>Immediate + scheduled booking, one-way rental with drop-off selector, price estimator, confirmation screen, upcoming bookings list, cancel/extend/insurance toggle</td>
+        <td><strong>Week 1:</strong> "Book Now" flow (immediate booking from bottom sheet), scheduled booking (date/time pickers for start + end, min/max duration validation), one-way rental (drop-off station selector with map + list view of valid return locations). <strong>Week 2:</strong> Price estimator (calculate estimated cost based on duration + average km, show breakdown before confirmation), confirmation screen (all booking details + booking number), push notification scheduling (booking confirmed, reminder before start). <strong>Week 3:</strong> "My Bookings" tab (upcoming list with status badges), booking detail view, extend end time, cancel booking (with fee calculation and confirmation), toggle self-participation insurance, API integration for all CRUD operations. <em>3 weeks due to the number of distinct flows (immediate/scheduled/one-way) plus the management screens (list/detail/extend/cancel).</em></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">3</td>
       </tr>
       <tr>
         <td>Active Rental</td>
-        <td>Dashboard with prominent code, countdown timer, navigate-to-car deep link, extend rental, end rental with confirmation dialog</td>
+        <td><strong>Week 1:</strong> Rental dashboard layout (prominent unlock code with copy button, countdown timer with color transitions green>orange>red, car photo + model + station info), "Navigate to car" deep link (detect Apple Maps / Google Maps / Waze, pass coordinates). <strong>Week 2:</strong> Extend rental (in-line time picker, availability check, price update), end rental flow (confirmation dialog with trip summary, "car returned" success state), state management (dashboard replaces Map tab when rental is active, persistent banner when navigating away). <em>2 weeks because it's a single screen with well-defined interactions. The complexity is in state management (active rental state persists across app restarts and tab switches), not in the number of screens.</em></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">2</td>
       </tr>
       <tr>
         <td>Damage Reporting</td>
-        <td>Mandatory guided photo flow (5 angles), frame overlay guides, optional notes, before + after enforcement, progress indicator, background upload</td>
+        <td><strong>Week 1:</strong> Guided photo capture flow (5 sequential steps: front, rear, left side, right side, interior), camera component with overlay frame showing expected composition for each angle, photo preview with accept/retake, progress indicator (3/5 done). <strong>Week 2:</strong> Optional text notes per photo, before-pickup enforcement (must complete before code is shown), after-return enforcement (must complete before rental is closed), background photo upload with progress bar, retry on failure, association with rental ID in API. <em>2 weeks because the camera overlay component needs to work on both iOS and Android (different camera APIs), and the enforcement logic (blocking code reveal / rental close until photos are submitted) needs careful state management.</em></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">2</td>
       </tr>
       <tr>
         <td>Profile & Payments</td>
-        <td>Unified profile screen, edit personal info/license/payment methods. Payment provider abstraction layer, Apple Pay / Google Pay, native card entry</td>
+        <td><strong>Week 1:</strong> Unified profile screen (bottom tab), personal info section (view + inline edit), license section (view details + upload new photo on renewal), address update with autocomplete, self-service phone/email change (with OTP verification). <strong>Week 2:</strong> Payment provider abstraction layer (PaymentProvider interface with tokenizeCard, getPaymentMethods, deletePaymentMethod), first provider implementation, Apple Pay + Google Pay integration (Expo or Stripe SDK), native card entry form, payment methods list (add/remove/set default), credits display. <em>2 weeks because the payment abstraction layer needs to be designed for multi-provider support from the start. The actual card UI is straightforward, but the provider-switching architecture requires upfront design.</em></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">2</td>
       </tr>
     </tbody>
   </table>
   <div class="highlight-box" style="margin-top: 16px;">
-    <p>Web parity is built in parallel - shared monorepo components mean most screens work on both platforms. Add ~2 weeks for web-specific adjustments (responsive layouts, SSR, SEO). Total includes integration testing with QA.</p>
+    <p>Web parity is built in parallel via shared monorepo components. ~2 weeks are embedded in the estimates above for web-specific work (responsive breakpoints, SSR considerations, browser-specific testing). Each module's estimate includes unit/integration tests for that module's core flows.</p>
   </div>
   <div class="slide-number">15</div>
 </div>
@@ -1565,44 +1644,44 @@
   <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
   <h4>Roadmap</h4>
   <h2>Phase 2: <span class="accent">Operations & Polish</span> <span style="font-size: 28px; color: var(--text-muted); font-weight: 400;">~12 weeks</span></h2>
-  <p style="margin-bottom: 24px;">Admin capabilities, history, and user-facing refinements.</p>
+  <p style="margin-bottom: 24px;">Admin capabilities for staff and fleet partners, user-facing history and refinements. Phase 2 builds on the stable MVP foundation.</p>
   <table class="compare-table">
     <thead>
       <tr>
         <th>Module</th>
-        <th>Scope</th>
-        <th style="text-align: center;">Dev Weeks</th>
+        <th>What's Included & Why This Estimate</th>
+        <th style="text-align: center; white-space: nowrap;">Dev Weeks</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>Admin Panel - Staff</td>
-        <td>Next.js admin app. User approval queue with document viewer, fleet CRUD, pricing rules editor, damage report review (side-by-side photos), user management (suspend/credits/reset)</td>
+        <td><strong>Week 1:</strong> Next.js admin app scaffold (within monorepo, shares @mycar/ui), admin auth + role-based access control, layout shell (sidebar nav, top bar). <strong>Week 2:</strong> User approval queue (document viewer with zoom/rotate for license + selfie photos, approve/reject with notes, search + filter by status), user management (search, suspend, add credits, reset documents). <strong>Week 3:</strong> Fleet management (CRUD for cars - add model/plate/station, update availability, bulk operations), station management, pricing rules editor (per-category rates, seasonal surcharge calendar, add-on toggles). <strong>Week 4:</strong> Damage report review (side-by-side before/after photo comparison, flag/resolve workflow), push notification composer (audience selector: all/city/segment, schedule or send now), promo code creator. <em>4 weeks because the admin panel is a full web application with 6+ CRUD interfaces, each with table views, detail views, filters, and form validation. The document viewer and photo comparison tools require custom components.</em></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">4</td>
       </tr>
       <tr>
         <td>Admin Panel - Fleet Partners</td>
-        <td>Role-based portal. Car performance dashboard, availability management, damage reports, revenue/payout summaries</td>
+        <td><strong>Week 1:</strong> Fleet partner role + login, dashboard (only their cars' bookings, utilization rate, revenue), car list with status indicators, availability calendar (block windows for maintenance). <strong>Week 2:</strong> Damage reports filtered to their fleet (view photos, add notes), revenue reports (per car, per period, payout summaries), export to CSV. <em>2 weeks because it reuses the admin shell and many components from the staff panel, but with scoped data access and a simplified interface. The role-based data filtering is the main complexity.</em></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">2</td>
       </tr>
       <tr>
         <td>History & Receipts</td>
-        <td>Rental history list (sorted by date), detail view with full cost breakdown + damage photos, downloadable/shareable receipts, empty state</td>
+        <td><strong>Week 1:</strong> Rental history list (paginated, sorted by date, summary cards showing date/car/duration/cost), detail view (full cost breakdown with line items: base time charge, km charge, insurance, credits applied, surcharges, total), damage report photos linked to the rental, empty state with CTA. <strong>Remaining:</strong> Downloadable PDF receipt (generated client-side or via API), share receipt (native share sheet), filter by date range. <em>1.5 weeks because it's primarily read-only list + detail views. The PDF generation adds some complexity but is a well-solved problem.</em></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">1.5</td>
       </tr>
       <tr>
         <td>Real-Time Cost Ticker</td>
-        <td>Live cost updates during active rental via backend polling, time + estimated km calculation, synced display</td>
+        <td>Animated cost counter on the active rental dashboard. Polls backend every 30s for actual accrued cost (time-based + km from car's GPS). Smooth number animation between updates. Handles edge cases: rental extension (cost resets projection), network loss (shows "last updated" timestamp), timezone transitions. <em>1 week because the UI component is simple (animated number), but the polling logic, sync with backend calculations, and edge case handling need careful implementation.</em></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">1</td>
       </tr>
       <tr>
         <td>Credits & Promotions</td>
-        <td>View credits in profile, apply credits at booking, admin promo code/credit management, push notification composer</td>
+        <td><strong>Week 1:</strong> Credits section in profile (list of credits with amount, expiry, source), apply credits during booking checkout (auto-apply best available or manual selection), promo code input field at checkout. <strong>Remaining:</strong> Admin-side promo management (create codes, set rules: % or fixed discount, expiry, usage limits, eligible car categories), push notification composer for promo campaigns. <em>1.5 weeks because the user-facing part is simple (view + apply), but the admin promo rule engine with conditional logic adds moderate complexity.</em></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">1.5</td>
       </tr>
       <tr>
         <td>Dark Mode</td>
-        <td>Full dark theme across all screens, theme toggle in settings, system preference detection</td>
+        <td>Full dark theme token set (backgrounds, surfaces, text colors, accent adjustments, shadows), theme toggle in profile settings, system preference auto-detection (prefers-color-scheme), persistent user preference. Must audit every screen - some components may need different border/shadow values in dark mode. Map tiles need dark variant. All status colors (success green, error red, warning orange) need dark-mode contrast verification. <em>2 weeks because dark mode affects every single screen and component. It's not just swapping colors - it requires visual QA of all 30+ screens to ensure proper contrast, readable text, and correct status color visibility in both themes.</em></td>
         <td style="text-align: center; color: var(--accent); font-weight: 700;">2</td>
       </tr>
     </tbody>
@@ -1615,6 +1694,7 @@
   <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
   <h4>Roadmap</h4>
   <h2>Phases <span class="accent">3 & 4</span></h2>
+  <p style="margin-bottom: 20px;">Later phases build on the stable foundation. These can be reordered based on business priority.</p>
   <div class="grid-2">
     <div>
       <h3 style="margin-bottom: 8px;">Phase 3: Engagement & Support</h3>
@@ -1623,32 +1703,39 @@
         <thead>
           <tr>
             <th>Module</th>
-            <th style="text-align: center;">Weeks</th>
+            <th>Key Complexity</th>
+            <th style="text-align: center;">Wks</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Favorites & Recent Locations</td>
+            <td>Favorites & Recents</td>
+            <td>Save/unsave stations, recent trips list, quick rebook. Lightweight - mostly local storage + simple UI.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">1</td>
           </tr>
           <tr>
-            <td>In-App Support (Chat / Tickets)</td>
+            <td>In-App Support</td>
+            <td>Chat SDK integration (e.g., Intercom/Zendesk) or ticket-based form with photo attachment. Requires SDK config per platform.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">2</td>
           </tr>
           <tr>
-            <td>Multi-Language Polish</td>
+            <td>Multi-Language</td>
+            <td>Full English string review (300+ keys), RTL/LTR dynamic switching, date/number/currency locale formatting, layout QA in both directions.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">1.5</td>
           </tr>
           <tr>
-            <td>Advanced Analytics Dashboard</td>
+            <td>Analytics Dashboard</td>
+            <td>Charts (Recharts): bookings/day, revenue trends, utilization heatmap, user growth. Data aggregation queries + responsive chart layouts.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">1.5</td>
           </tr>
           <tr>
-            <td>Subscription / Membership Tiers</td>
+            <td>Subscriptions</td>
+            <td>Plan selection UI, pricing cards, payment integration for recurring charges, plan status in profile. Depends on backend subscription logic.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">1</td>
           </tr>
           <tr>
-            <td>Car Rating System</td>
+            <td>Car Ratings</td>
+            <td>Post-rental rating prompt (1-5 stars + optional comment), average rating on car cards, admin view of ratings. Simple CRUD.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">1</td>
           </tr>
         </tbody>
@@ -1661,36 +1748,42 @@
         <thead>
           <tr>
             <th>Module</th>
-            <th style="text-align: center;">Weeks</th>
+            <th>Key Complexity</th>
+            <th style="text-align: center;">Wks</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>International Expansion (languages, docs, payments)</td>
+            <td>International</td>
+            <td>Additional languages (translation pipeline), country-specific ID documents (EU cards, int'l licenses), local payment providers. Architecture is ready from P1, but each country needs config + QA.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">3</td>
           </tr>
           <tr>
-            <td>Bluetooth / NFC Car Unlock</td>
+            <td>BLE/NFC Unlock</td>
+            <td>Bluetooth LE car communication protocol, NFC fallback, native module for iOS + Android (Expo module or bare workflow), hardware partner SDK integration, security (encrypted handshake). <strong>High uncertainty</strong> - depends on car hardware partner.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">3</td>
           </tr>
           <tr>
-            <td>In-App Turn-by-Turn Navigation</td>
+            <td>In-App Navigation</td>
+            <td>Mapbox Navigation SDK or Google Directions API, turn-by-turn UI overlay, walking directions to car location. Moderate - SDK handles heavy lifting.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">1.5</td>
           </tr>
           <tr>
-            <td>Business / Corporate Accounts</td>
+            <td>Business Accounts</td>
+            <td>Company profile, employee management (invite/remove), centralized billing, expense tagging per rental, admin reporting per company. Moderate - new user role + billing logic.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">1.5</td>
           </tr>
           <tr>
-            <td>Third-Party Public API</td>
+            <td>Public API</td>
+            <td>API documentation site, developer portal, API key management, rate limiting UI. Assumes backend API already exists - this is the developer-facing layer.</td>
             <td style="text-align: center; color: var(--accent); font-weight: 700;">1</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
-  <div class="highlight-box" style="margin-top: 24px;">
-    <p>Phase 3 & 4 estimates assume the foundation from Phases 1-2 is stable. These phases can overlap or be reordered based on business priority. Bluetooth/NFC depends on hardware partner integration timelines.</p>
+  <div class="highlight-box" style="margin-top: 16px;">
+    <p>Phase 3 & 4 estimates assume the P1-P2 foundation is stable. BLE/NFC unlock has the highest uncertainty due to hardware partner dependency - estimate could expand to 5 weeks if the car's SDK is poorly documented. International expansion is per-country: the 3-week estimate covers the framework + first country; each additional country adds ~1 week.</p>
   </div>
   <div class="slide-number">17</div>
 </div>
