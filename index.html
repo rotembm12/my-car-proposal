@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Car - App Rewrite Proposal</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --bg: #0a0a0a;
+    --surface: #141414;
+    --surface-2: #1e1e1e;
+    --surface-3: #282828;
+    --accent: #00D47E;
+    --accent-dim: #00a863;
+    --accent-glow: rgba(0, 212, 126, 0.15);
+    --text: #f0f0f0;
+    --text-secondary: #9a9a9a;
+    --text-muted: #666;
+    --red: #ff4757;
+    --orange: #ffa502;
+    --blue: #3742fa;
+    --purple: #a855f7;
+    --border: #2a2a2a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  .slide {
+    min-height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.03;
+    background: radial-gradient(circle at 30% 40%, var(--accent), transparent 60%);
+    pointer-events: none;
+  }
+
+  .slide-number {
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+
+  .logo-bar {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .logo-bar .bar {
+    width: 24px;
+    height: 4px;
+    border-radius: 2px;
+  }
+
+  .logo-bar .bar-1 { background: #0d9488; }
+  .logo-bar .bar-2 { background: var(--accent); }
+
+  .logo-bar span {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-left: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* Title Slide */
+  .slide-title {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .slide-title h1 {
+    font-size: 72px;
+    font-weight: 900;
+    letter-spacing: -3px;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, var(--text), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .slide-title .subtitle {
+    font-size: 24px;
+    color: var(--text-secondary);
+    font-weight: 300;
+    margin-bottom: 48px;
+  }
+
+  .slide-title .meta {
+    font-size: 14px;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* Section Headers */
+  h2 {
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -2px;
+    margin-bottom: 40px;
+    line-height: 1.1;
+  }
+
+  h2 .accent {
+    color: var(--accent);
+  }
+
+  h3 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+  }
+
+  h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  p {
+    font-size: 18px;
+    color: var(--text-secondary);
+    max-width: 800px;
+    line-height: 1.7;
+  }
+
+  /* Grid Layouts */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 20px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    margin-top: 20px;
+  }
+
+  .grid-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    transition: all 0.3s ease;
+  }
+
+  .card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 30px var(--accent-glow);
+    transform: translateY(-2px);
+  }
+
+  .card .card-icon {
+    font-size: 32px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .card .card-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .card .card-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* Problem Cards */
+  .problem-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--red);
+    border-radius: 0 12px 12px 0;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+  }
+
+  .problem-card .problem-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--red);
+    margin-bottom: 6px;
+  }
+
+  .problem-card .problem-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* Stats */
+  .stat-row {
+    display: flex;
+    gap: 48px;
+    margin: 32px 0;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat .stat-value {
+    font-size: 56px;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+
+  .stat .stat-label {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Comparison Table */
+  .compare-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 24px;
+    font-size: 15px;
+  }
+
+  .compare-table th {
+    padding: 16px 20px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    border-bottom: 2px solid var(--border);
+  }
+
+  .compare-table th:last-child {
+    color: var(--accent);
+  }
+
+  .compare-table td {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+
+  .compare-table tr td:first-child {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .compare-table tr td:last-child {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .compare-table .old {
+    color: var(--red);
+    opacity: 0.8;
+  }
+
+  /* Flow Steps */
+  .flow {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin: 16px 0;
+  }
+
+  .flow-step {
+    flex: 1;
+    position: relative;
+    text-align: center;
+  }
+
+  .flow-step .step-num {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 16px;
+    margin: 0 auto 12px;
+  }
+
+  .flow-step .step-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+
+  .flow-step .step-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .flow-arrow {
+    color: var(--text-muted);
+    font-size: 24px;
+    padding-top: 8px;
+    flex-shrink: 0;
+  }
+
+  /* Timeline / Phases */
+  .phase {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 28px;
+    align-items: flex-start;
+  }
+
+  .phase-marker {
+    flex-shrink: 0;
+    width: 80px;
+    text-align: center;
+  }
+
+  .phase-marker .phase-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .phase-1 .phase-badge { background: var(--accent); color: var(--bg); }
+  .phase-2 .phase-badge { background: var(--blue); color: white; }
+  .phase-3 .phase-badge { background: var(--purple); color: white; }
+  .phase-4 .phase-badge { background: var(--orange); color: var(--bg); }
+
+  .phase-content {
+    flex: 1;
+  }
+
+  .phase-content h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+
+  .phase-content p {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--surface-2);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+  }
+
+  /* Tech Stack */
+  .tech-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .tech-card .tech-name {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .tech-card .tech-role {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Module List */
+  .module-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .module-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .module-item .module-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+
+  .module-item .module-name {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .module-item .module-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  /* KPI */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 24px;
+  }
+
+  .kpi-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+  }
+
+  .kpi-card .kpi-value {
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--accent);
+    letter-spacing: -1px;
+  }
+
+  .kpi-card .kpi-unit {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--accent-dim);
+  }
+
+  .kpi-card .kpi-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Divider */
+  .divider {
+    min-height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px;
+    position: relative;
+  }
+
+  .divider h2 {
+    font-size: 64px;
+    margin-bottom: 16px;
+  }
+
+  .divider p {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Bullet List */
+  .bullet-list {
+    list-style: none;
+    margin-top: 12px;
+  }
+
+  .bullet-list li {
+    padding: 8px 0;
+    padding-left: 24px;
+    position: relative;
+    font-size: 15px;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .bullet-list li:last-child {
+    border-bottom: none;
+  }
+
+  .bullet-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 16px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* Two Column Layout */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .highlight-box {
+    background: var(--accent-glow);
+    border: 1px solid rgba(0, 212, 126, 0.2);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+
+  .highlight-box p {
+    color: var(--accent);
+    font-weight: 500;
+    font-size: 15px;
+  }
+
+  /* Print Styles */
+  @media print {
+    .slide { page-break-after: always; }
+    body { background: white; color: #111; }
+    .card, .problem-card, .module-item, .tech-card, .kpi-card {
+      border: 1px solid #ddd;
+      background: #f9f9f9;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: Title -->
+<div class="slide slide-title">
+  <div class="logo-bar">
+    <div class="bar bar-1"></div>
+    <div class="bar bar-2"></div>
+    <span>My Car</span>
+  </div>
+  <h1>My Car 2.0</h1>
+  <p class="subtitle">Mobile & Web App Rewrite<br>UI/UX Rebranding & Flow Optimization</p>
+  <p class="meta">Product Requirements & Technical Proposal</p>
+  <div class="slide-number">01</div>
+</div>
+
+<!-- SLIDE 2: What Is My Car -->
+<div class="slide">
+  <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
+  <h4>Overview</h4>
+  <h2>What is <span class="accent">My Car</span>?</h2>
+  <p style="margin-bottom: 40px;">An Israeli car-sharing platform that lets users find, book, unlock, and drive shared vehicles on demand. Full self-service lifecycle from registration to payment.</p>
+  <div class="stat-row">
+    <div class="stat">
+      <div class="stat-value">2</div>
+      <div class="stat-label">Platforms</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">91</div>
+      <div class="stat-label">Screens Documented</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">11</div>
+      <div class="stat-label">Core Modules</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">4</div>
+      <div class="stat-label">Rollout Phases</div>
+    </div>
+  </div>
+  <div class="grid-4" style="margin-top: 40px;">
+    <div class="card">
+      <span class="card-icon">&#128273;</span>
+      <div class="card-title">Register & Verify</div>
+      <div class="card-desc">Phone OTP, ID upload, license verification, contract signing</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">&#128506;</span>
+      <div class="card-title">Find & Book</div>
+      <div class="card-desc">Map-based discovery, filters, immediate or scheduled booking</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">&#128663;</span>
+      <div class="card-title">Unlock & Drive</div>
+      <div class="card-desc">Get unlock code, navigate to car, drive, real-time cost tracking</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">&#128179;</span>
+      <div class="card-title">Pay & Review</div>
+      <div class="card-desc">Automated billing, receipts, rental history, damage documentation</div>
+    </div>
+  </div>
+  <div class="slide-number">02</div>
+</div>
+
+<!-- SLIDE 3: Divider - The Problem -->
+<div class="divider">
+  <h2>The <span class="accent">Problem</span></h2>
+  <p>The current app works, but it's showing its age. Every friction point is a lost customer.</p>
+  <div class="slide-number">03</div>
+</div>
+
+<!-- SLIDE 4: Current Problems -->
+<div class="slide">
+  <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
+  <h4>Current State</h4>
+  <h2>What's <span style="color:var(--red)">Broken</span></h2>
+  <div class="grid-2">
+    <div>
+      <div class="problem-card">
+        <div class="problem-title">15+ Screen Registration</div>
+        <div class="problem-desc">3-part onboarding with info walls, separate document uploads, and an iframe payment form. Users drop off before finishing.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-title">8-Tap Booking Flow</div>
+        <div class="problem-desc">Location > dates > search > loading > result > pricing > confirm > done. Every extra tap loses users.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-title">Hidden Unlock Code</div>
+        <div class="problem-desc">Users must "slide right" to reveal the car code - a non-standard gesture that confuses first-timers standing at the car.</div>
+      </div>
+    </div>
+    <div>
+      <div class="problem-card">
+        <div class="problem-title">Dated Visual Design</div>
+        <div class="problem-desc">Flat mint green, generic illustrations, browser-alert modals, no dark mode. Doesn't inspire trust in a premium service.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-title">Broken Web Experience</div>
+        <div class="problem-desc">Pricing tables, terms, and payments open in embedded web views that break the native feel. Web app can't do full booking.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-title">No Modern Auth or Payments</div>
+        <div class="problem-desc">No biometric login (Face ID / fingerprint). No Apple Pay or Google Pay. Payment via Tranzila iframe feels insecure.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-number">04</div>
+</div>
+
+<!-- SLIDE 5: Divider - The Solution -->
+<div class="divider">
+  <h2>The <span class="accent">Solution</span></h2>
+  <p>A complete rewrite. New design system. Streamlined flows. Modern stack. Full platform parity.</p>
+  <div class="slide-number">05</div>
+</div>
+
+<!-- SLIDE 6: Before vs After -->
+<div class="slide">
+  <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
+  <h4>Transformation</h4>
+  <h2>Before <span class="accent">vs</span> After</h2>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Area</th>
+        <th>Current</th>
+        <th>Proposed</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Registration</td>
+        <td class="old">15+ screens, 3 parts, iframe payment</td>
+        <td>5 screens, single flow, native payment</td>
+      </tr>
+      <tr>
+        <td>Booking</td>
+        <td class="old">~8 taps, no price estimate, round-trip only</td>
+        <td>~3 taps, price estimator, one-way supported</td>
+      </tr>
+      <tr>
+        <td>Active Rental</td>
+        <td class="old">Slide-to-reveal code, no cost visibility</td>
+        <td>Code visible, real-time cost ticker, navigate-to-car</td>
+      </tr>
+      <tr>
+        <td>Damage Reporting</td>
+        <td class="old">None</td>
+        <td>Mandatory guided photos (before + after)</td>
+      </tr>
+      <tr>
+        <td>Navigation</td>
+        <td class="old">Hamburger menu hides key actions</td>
+        <td>Bottom tab bar - everything 1 tap away</td>
+      </tr>
+      <tr>
+        <td>Authentication</td>
+        <td class="old">Phone + OTP every time</td>
+        <td>Biometric login + OTP fallback</td>
+      </tr>
+      <tr>
+        <td>Payments</td>
+        <td class="old">Tranzila iframe, cards only</td>
+        <td>Native UI, Apple Pay, Google Pay, multi-provider</td>
+      </tr>
+      <tr>
+        <td>Design</td>
+        <td class="old">Flat mint green, no dark mode, generic icons</td>
+        <td>New brand guidelines, dark mode, custom components</td>
+      </tr>
+      <tr>
+        <td>Web App</td>
+        <td class="old">Limited functionality, breaks to web views</td>
+        <td>Full feature parity with mobile</td>
+      </tr>
+      <tr>
+        <td>Admin Panel</td>
+        <td class="old">Internal staff only</td>
+        <td>Staff + fleet partner portal</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="slide-number">06</div>
+</div>
+
+<!-- SLIDE 7: New Registration Flow -->
+<div class="slide">
+  <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
+  <h4>Flow Redesign</h4>
+  <h2>Registration: <span class="accent">5 Steps</span>, Not 15</h2>
+  <p style="margin-bottom: 32px;">Consolidated flow with progress indicator. Form state persisted locally so users can resume if interrupted.</p>
+  <div class="flow">
+    <div class="flow-step">
+      <div class="step-num">1</div>
+      <div class="step-title">Phone + OTP</div>
+      <div class="step-desc">Enter number, verify via SMS. Single screen.</div>
+    </div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">
+      <div class="step-num">2</div>
+      <div class="step-title">Personal Details</div>
+      <div class="step-desc">Name, DOB, address with Google Maps autocomplete. One scrollable form.</div>
+    </div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">
+      <div class="step-num">3</div>
+      <div class="step-title">Documents</div>
+      <div class="step-desc">License photo + selfie with guided camera overlay. Combined screen.</div>
+    </div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">
+      <div class="step-num">4</div>
+      <div class="step-title">Payment</div>
+      <div class="step-desc">Apple Pay / Google Pay / card entry. Native UI, no iframe.</div>
+    </div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">
+      <div class="step-num">5</div>
+      <div class="step-title">Rules + Sign</div>
+      <div class="step-desc">Swipeable carousel of key rules. Digital signature. Done.</div>
+    </div>
+  </div>
+  <div class="highlight-box" style="margin-top: 32px;">
+    <p>While waiting for admin approval, users can browse the map, see available cars, and view pricing. The "Book" button prompts them to complete registration or wait for approval. This reduces drop-off during the approval wait period.</p>
+  </div>
+  <div class="slide-number">07</div>
+</div>
+
+<!-- SLIDE 8: New Booking Flow -->
+<div class="slide">
+  <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
+  <h4>Flow Redesign</h4>
+  <h2>Booking: <span class="accent">3 Taps</span>, Not 8</h2>
+  <p style="margin-bottom: 32px;">Map-first discovery with bottom sheet details. Filter, tap, book.</p>
+  <div class="flow">
+    <div class="flow-step">
+      <div class="step-num">1</div>
+      <div class="step-title">Discover</div>
+      <div class="step-desc">Map with color-coded car markers. Filter chips at top (type, price, distance). Toggle to list view.</div>
+    </div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">
+      <div class="step-num">2</div>
+      <div class="step-title">Select</div>
+      <div class="step-desc">Tap car marker. Bottom sheet shows photo, model, price, distance. "Book Now" or pick dates for scheduled. Select drop-off for one-way.</div>
+    </div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">
+      <div class="step-num">3</div>
+      <div class="step-title">Confirm</div>
+      <div class="step-desc">Price estimate breakdown. Confirm booking. Push notification sent. Appears in "My Bookings" tab.</div>
+    </div>
+  </div>
+  <div class="grid-3" style="margin-top: 40px;">
+    <div class="card">
+      <span class="card-icon">&#9889;</span>
+      <div class="card-title">Immediate Booking</div>
+      <div class="card-desc">"Book Now" for instant access. Get the code, go to car, drive.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">&#128197;</span>
+      <div class="card-title">Scheduled Booking</div>
+      <div class="card-desc">Pick start/end date and time. Get reminders before rental starts.</div>
+    </div>
+    <div class="card">
+      <span class="card-icon">&#10132;</span>
+      <div class="card-title">One-Way Rental</div>
+      <div class="card-desc">Pick up at location A, drop off at location B. Select return station during booking.</div>
+    </div>
+  </div>
+  <div class="slide-number">08</div>
+</div>
+
+<!-- SLIDE 9: Active Rental Dashboard -->
+<div class="slide">
+  <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
+  <h4>Flow Redesign</h4>
+  <h2>Active Rental: <span class="accent">One Screen</span></h2>
+  <p style="margin-bottom: 32px;">Everything the driver needs, visible at a glance. No hidden gestures, no buried info.</p>
+  <div class="grid-2">
+    <div>
+      <div class="card" style="margin-bottom: 16px;">
+        <span class="card-icon">&#128273;</span>
+        <div class="card-title">Unlock Code - Front & Center</div>
+        <div class="card-desc">Large, prominent display. No "slide to reveal". Copy-to-clipboard button for quick entry. Visible the moment you open the rental screen.</div>
+      </div>
+      <div class="card" style="margin-bottom: 16px;">
+        <span class="card-icon">&#9201;</span>
+        <div class="card-title">Countdown Timer</div>
+        <div class="card-desc">Shows time remaining. Color shifts from green to orange to red as the end time approaches. Extend button always visible.</div>
+      </div>
+      <div class="card" style="margin-bottom: 16px;">
+        <span class="card-icon">&#128176;</span>
+        <div class="card-title">Real-Time Cost Ticker</div>
+        <div class="card-desc">Live cost that updates as the rental progresses. Based on time elapsed and estimated km. No billing surprises.</div>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom: 16px;">
+        <span class="card-icon">&#128205;</span>
+        <div class="card-title">Navigate to Car</div>
+        <div class="card-desc">One tap opens Apple Maps, Google Maps, or Waze with the car's exact parked location. Find it without wandering.</div>
+      </div>
+      <div class="card" style="margin-bottom: 16px;">
+        <span class="card-icon">&#128247;</span>
+        <div class="card-title">Damage Reporting</div>
+        <div class="card-desc">Mandatory guided photo flow before pickup and after return. 5 angles (front, rear, left, right, interior) with frame guides and optional notes.</div>
+      </div>
+      <div class="card" style="margin-bottom: 16px;">
+        <span class="card-icon">&#9209;</span>
+        <div class="card-title">End Rental</div>
+        <div class="card-desc">Clear "End Rental" button with confirmation dialog showing trip summary (duration, cost). "Car returned successfully" confirmation.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-number">09</div>
+</div>
+
+<!-- SLIDE 10: Module Architecture -->
+<div class="slide">
+  <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
+  <h4>Architecture</h4>
+  <h2>Core <span class="accent">Modules</span></h2>
+  <div class="module-grid">
+    <div class="module-item">
+      <div class="module-icon">&#127912;</div>
+      <div>
+        <div class="module-name">Design System <span style="color: var(--accent); font-size: 12px; font-weight: 600;">3 + 2w</span></div>
+        <div class="module-desc">Shared component library (React Native + Web). Figma tokens, light/dark theme, full RTL support. Components: buttons, inputs, cards, bottom sheets, modals, map markers, photo capture, cost ticker.</div>
+      </div>
+    </div>
+    <div class="module-item">
+      <div class="module-icon">&#128274;</div>
+      <div>
+        <div class="module-name">Auth <span style="color: var(--accent); font-size: 12px; font-weight: 600;">2w</span></div>
+        <div class="module-desc">Phone + OTP, biometric login (Face ID / Touch ID), session persistence, unapproved user read-only mode.</div>
+      </div>
+    </div>
+    <div class="module-item">
+      <div class="module-icon">&#128221;</div>
+      <div>
+        <div class="module-name">Registration <span style="color: var(--accent); font-size: 12px; font-weight: 600;">3w</span></div>
+        <div class="module-desc">5-step form with progress indicator, Google Maps autocomplete, guided camera, digital signature, resumable state.</div>
+      </div>
+    </div>
+    <div class="module-item">
+      <div class="module-icon">&#128506;</div>
+      <div>
+        <div class="module-name">Map & Discovery <span style="color: var(--accent); font-size: 12px; font-weight: 600;">3w</span></div>
+        <div class="module-desc">Provider-agnostic map, clustered markers by category, list view, filter chips, location search, real-time polling.</div>
+      </div>
+    </div>
+    <div class="module-item">
+      <div class="module-icon">&#128197;</div>
+      <div>
+        <div class="module-name">Booking <span style="color: var(--accent); font-size: 12px; font-weight: 600;">3w</span></div>
+        <div class="module-desc">Immediate + scheduled, one-way rentals, price estimator, cancel/extend, insurance toggle, push notifications.</div>
+      </div>
+    </div>
+    <div class="module-item">
+      <div class="module-icon">&#128663;</div>
+      <div>
+        <div class="module-name">Active Rental <span style="color: var(--accent); font-size: 12px; font-weight: 600;">2 + 1w</span></div>
+        <div class="module-desc">Dashboard with code, timer, navigate-to-car, extend, end rental with confirmation. Cost ticker in P2.</div>
+      </div>
+    </div>
+    <div class="module-item">
+      <div class="module-icon">&#128247;</div>
+      <div>
+        <div class="module-name">Damage Reporting <span style="color: var(--accent); font-size: 12px; font-weight: 600;">2w</span></div>
+        <div class="module-desc">Mandatory guided photo flow (5 angles), before + after, frame guides, optional notes, progress indicator.</div>
+      </div>
+    </div>
+    <div class="module-item">
+      <div class="module-icon">&#128179;</div>
+      <div>
+        <div class="module-name">Payment <span style="color: var(--accent); font-size: 12px; font-weight: 600;">2w</span></div>
+        <div class="module-desc">Provider-agnostic interface (Stripe, PayMe, Tranzila). Apple Pay / Google Pay. Native card entry. Multi-market ready.</div>
+      </div>
+    </div>
+    <div class="module-item">
+      <div class="module-icon">&#128100;</div>
+      <div>
+        <div class="module-name">Profile <span style="color: var(--accent); font-size: 12px; font-weight: 600;">2w</span></div>
+        <div class="module-desc">Unified screen via bottom tab. Edit personal info, license, payment methods, credits. Self-service contact changes.</div>
+      </div>
+    </div>
+    <div class="module-item">
+      <div class="module-icon">&#128202;</div>
+      <div>
+        <div class="module-name">Admin Panel <span style="color: var(--blue); font-size: 12px; font-weight: 600;">P2: 6w</span></div>
+        <div class="module-desc">Web-only. Role-based: internal staff (full control) + fleet partners (own cars only). Approvals, fleet, pricing, analytics, damage review.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-number">10</div>
+</div>
+
+<!-- SLIDE 11: Tech Stack -->
+<div class="slide">
+  <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
+  <h4>Technology</h4>
+  <h2>Tech <span class="accent">Stack</span></h2>
+  <p style="margin-bottom: 32px;">Client-side rewrite only. Existing backend retained. Monorepo with shared packages across platforms.</p>
+  <div class="grid-4">
+    <div class="tech-card">
+      <div class="tech-name">React Native + Expo</div>
+      <div class="tech-role">Mobile App</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-name">Next.js + React</div>
+      <div class="tech-role">Web App + Admin</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-name">Turborepo / Nx</div>
+      <div class="tech-role">Monorepo</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-name">TypeScript</div>
+      <div class="tech-role">Language</div>
+    </div>
+  </div>
+  <div class="grid-4" style="margin-top: 16px;">
+    <div class="tech-card">
+      <div class="tech-name">Figma Tokens</div>
+      <div class="tech-role">Design System</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-name">i18next</div>
+      <div class="tech-role">Internationalization</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-name">Maps (Flexible)</div>
+      <div class="tech-role">Google / Mapbox</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-name">Polling</div>
+      <div class="tech-role">Real-Time Updates</div>
+    </div>
+  </div>
+  <h3 style="margin-top: 40px;">Monorepo Structure</h3>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-title">@mycar/ui</div>
+      <div class="card-desc">Shared design system components. Used by mobile, web, and admin. Themed, dark mode, RTL-ready.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">@mycar/api</div>
+      <div class="card-desc">API client, TypeScript types, request/response contracts. Single source of truth for backend communication.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">@mycar/shared</div>
+      <div class="card-desc">Business logic, constants, utilities, validation schemas. Shared across all apps.</div>
+    </div>
+  </div>
+  <div class="slide-number">11</div>
+</div>
+
+<!-- SLIDE 12: Navigation Architecture -->
+<div class="slide">
+  <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
+  <h4>UX Architecture</h4>
+  <h2>Navigation: <span class="accent">Bottom Tabs</span>, Not Hamburger</h2>
+  <p style="margin-bottom: 32px;">Every primary action is one tap away. The hamburger menu is eliminated.</p>
+  <div class="grid-4">
+    <div class="card" style="text-align:center; border-color: var(--accent);">
+      <span class="card-icon" style="font-size:40px;">&#128506;</span>
+      <div class="card-title">Map</div>
+      <div class="card-desc">Home screen. Find & book cars. Transforms into Active Rental dashboard when a rental is live.</div>
+    </div>
+    <div class="card" style="text-align:center;">
+      <span class="card-icon" style="font-size:40px;">&#128197;</span>
+      <div class="card-title">My Bookings</div>
+      <div class="card-desc">Upcoming reservations. Extend, cancel, or start early. One-tap access to scheduled rentals.</div>
+    </div>
+    <div class="card" style="text-align:center;">
+      <span class="card-icon" style="font-size:40px;">&#128336;</span>
+      <div class="card-title">History</div>
+      <div class="card-desc">Past rentals with full details. Cost breakdowns, damage photos, downloadable receipts.</div>
+    </div>
+    <div class="card" style="text-align:center;">
+      <span class="card-icon" style="font-size:40px;">&#128100;</span>
+      <div class="card-title">Profile</div>
+      <div class="card-desc">Personal info, license, payments, credits, settings, language, support, pricing, terms.</div>
+    </div>
+  </div>
+  <div class="highlight-box" style="margin-top: 32px;">
+    <p>Secondary items (pricing table, usage instructions, terms, contact us, language toggle) move into Profile > Settings. Nothing is hidden - it's just organized by frequency of use.</p>
+  </div>
+  <div class="slide-number">12</div>
+</div>
+
+<!-- SLIDE 13: Admin Panel -->
+<div class="slide">
+  <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
+  <h4>Admin</h4>
+  <h2>Admin <span class="accent">Panel</span></h2>
+  <p style="margin-bottom: 24px;">Web-only admin with role-based access for internal staff and fleet partners.</p>
+  <div class="two-col">
+    <div>
+      <h3>Internal Staff</h3>
+      <ul class="bullet-list">
+        <li>User registration approval queue with document viewer</li>
+        <li>Fleet management (add/remove cars, assign stations, update availability)</li>
+        <li>Pricing configuration (per category, seasonal surcharges, promotions)</li>
+        <li>Damage report review (side-by-side before/after photos)</li>
+        <li>Analytics dashboards (bookings, revenue, utilization, growth)</li>
+        <li>User account management (suspend, credits, document reset)</li>
+        <li>Push notification composer (all users or segments)</li>
+        <li>Promo codes and credit management</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Fleet Partners</h3>
+      <ul class="bullet-list">
+        <li>Dashboard showing only their cars' performance</li>
+        <li>Booking and utilization metrics per vehicle</li>
+        <li>Availability window management (block for maintenance)</li>
+        <li>Damage reports with photos for their fleet</li>
+        <li>Revenue reports and payout summaries</li>
+      </ul>
+    </div>
+  </div>
+  <div class="slide-number">13</div>
+</div>
+
+<!-- SLIDE 14: Divider - Roadmap -->
+<div class="divider">
+  <h2>Phased <span class="accent">Roadmap</span></h2>
+  <p>Ship value early. Layer on capabilities. Build toward international scale.<br><span style="color:var(--text-muted); font-size: 15px; margin-top: 12px; display: inline-block;">Based on 1 frontend developer + dedicated QA + UI/UX designer + DevOps</span></p>
+  <div class="stat-row" style="margin-top: 40px; justify-content: center;">
+    <div class="stat">
+      <div class="stat-value">~12</div>
+      <div class="stat-label">Months Total</div>
+    </div>
+  </div>
+  <div class="slide-number">14</div>
+</div>
+
+<!-- SLIDE 15: Phase 1 Detail -->
+<div class="slide">
+  <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
+  <h4>Roadmap</h4>
+  <h2>Phase 1: <span class="accent">MVP</span> <span style="font-size: 28px; color: var(--text-muted); font-weight: 400;">~20 weeks</span></h2>
+  <p style="margin-bottom: 24px;">The complete core rental experience. Users can register, find, book, rent, report damage, and pay.</p>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Module</th>
+        <th>Scope</th>
+        <th style="text-align: center;">Dev Weeks</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Project Setup & Design System</td>
+        <td>Monorepo, Expo + Next.js scaffold, shared component library (buttons, inputs, cards, bottom sheets, modals), Figma token integration, RTL support, navigation structure</td>
+        <td style="text-align: center; color: var(--accent); font-weight: 700;">3</td>
+      </tr>
+      <tr>
+        <td>Auth</td>
+        <td>Phone + OTP flow, session persistence (SecureStore / cookies), biometric login, unapproved user read-only gating</td>
+        <td style="text-align: center; color: var(--accent); font-weight: 700;">2</td>
+      </tr>
+      <tr>
+        <td>Registration</td>
+        <td>5-step form with progress indicator, Google Maps autocomplete, guided camera overlay for license + selfie, digital signature pad, resumable form state</td>
+        <td style="text-align: center; color: var(--accent); font-weight: 700;">3</td>
+      </tr>
+      <tr>
+        <td>Map & Discovery</td>
+        <td>Map with clustered car markers (color-coded by category), list view toggle, filter chips (type, price, distance), location search, car detail bottom sheet, polling for availability</td>
+        <td style="text-align: center; color: var(--accent); font-weight: 700;">3</td>
+      </tr>
+      <tr>
+        <td>Booking</td>
+        <td>Immediate + scheduled booking, one-way rental with drop-off selector, price estimator, confirmation screen, upcoming bookings list, cancel/extend/insurance toggle</td>
+        <td style="text-align: center; color: var(--accent); font-weight: 700;">3</td>
+      </tr>
+      <tr>
+        <td>Active Rental</td>
+        <td>Dashboard with prominent code, countdown timer, navigate-to-car deep link, extend rental, end rental with confirmation dialog</td>
+        <td style="text-align: center; color: var(--accent); font-weight: 700;">2</td>
+      </tr>
+      <tr>
+        <td>Damage Reporting</td>
+        <td>Mandatory guided photo flow (5 angles), frame overlay guides, optional notes, before + after enforcement, progress indicator, background upload</td>
+        <td style="text-align: center; color: var(--accent); font-weight: 700;">2</td>
+      </tr>
+      <tr>
+        <td>Profile & Payments</td>
+        <td>Unified profile screen, edit personal info/license/payment methods. Payment provider abstraction layer, Apple Pay / Google Pay, native card entry</td>
+        <td style="text-align: center; color: var(--accent); font-weight: 700;">2</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="highlight-box" style="margin-top: 16px;">
+    <p>Web parity is built in parallel - shared monorepo components mean most screens work on both platforms. Add ~2 weeks for web-specific adjustments (responsive layouts, SSR, SEO). Total includes integration testing with QA.</p>
+  </div>
+  <div class="slide-number">15</div>
+</div>
+
+<!-- SLIDE 16: Phase 2 Detail -->
+<div class="slide">
+  <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
+  <h4>Roadmap</h4>
+  <h2>Phase 2: <span class="accent">Operations & Polish</span> <span style="font-size: 28px; color: var(--text-muted); font-weight: 400;">~12 weeks</span></h2>
+  <p style="margin-bottom: 24px;">Admin capabilities, history, and user-facing refinements.</p>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Module</th>
+        <th>Scope</th>
+        <th style="text-align: center;">Dev Weeks</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Admin Panel - Staff</td>
+        <td>Next.js admin app. User approval queue with document viewer, fleet CRUD, pricing rules editor, damage report review (side-by-side photos), user management (suspend/credits/reset)</td>
+        <td style="text-align: center; color: var(--accent); font-weight: 700;">4</td>
+      </tr>
+      <tr>
+        <td>Admin Panel - Fleet Partners</td>
+        <td>Role-based portal. Car performance dashboard, availability management, damage reports, revenue/payout summaries</td>
+        <td style="text-align: center; color: var(--accent); font-weight: 700;">2</td>
+      </tr>
+      <tr>
+        <td>History & Receipts</td>
+        <td>Rental history list (sorted by date), detail view with full cost breakdown + damage photos, downloadable/shareable receipts, empty state</td>
+        <td style="text-align: center; color: var(--accent); font-weight: 700;">1.5</td>
+      </tr>
+      <tr>
+        <td>Real-Time Cost Ticker</td>
+        <td>Live cost updates during active rental via backend polling, time + estimated km calculation, synced display</td>
+        <td style="text-align: center; color: var(--accent); font-weight: 700;">1</td>
+      </tr>
+      <tr>
+        <td>Credits & Promotions</td>
+        <td>View credits in profile, apply credits at booking, admin promo code/credit management, push notification composer</td>
+        <td style="text-align: center; color: var(--accent); font-weight: 700;">1.5</td>
+      </tr>
+      <tr>
+        <td>Dark Mode</td>
+        <td>Full dark theme across all screens, theme toggle in settings, system preference detection</td>
+        <td style="text-align: center; color: var(--accent); font-weight: 700;">2</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="slide-number">16</div>
+</div>
+
+<!-- SLIDE 17: Phases 3-4 Detail -->
+<div class="slide">
+  <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
+  <h4>Roadmap</h4>
+  <h2>Phases <span class="accent">3 & 4</span></h2>
+  <div class="grid-2">
+    <div>
+      <h3 style="margin-bottom: 8px;">Phase 3: Engagement & Support</h3>
+      <p style="font-size: 16px; margin-bottom: 16px; color: var(--purple); font-weight: 600;">~8 weeks</p>
+      <table class="compare-table" style="font-size: 13px;">
+        <thead>
+          <tr>
+            <th>Module</th>
+            <th style="text-align: center;">Weeks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Favorites & Recent Locations</td>
+            <td style="text-align: center; color: var(--accent); font-weight: 700;">1</td>
+          </tr>
+          <tr>
+            <td>In-App Support (Chat / Tickets)</td>
+            <td style="text-align: center; color: var(--accent); font-weight: 700;">2</td>
+          </tr>
+          <tr>
+            <td>Multi-Language Polish</td>
+            <td style="text-align: center; color: var(--accent); font-weight: 700;">1.5</td>
+          </tr>
+          <tr>
+            <td>Advanced Analytics Dashboard</td>
+            <td style="text-align: center; color: var(--accent); font-weight: 700;">1.5</td>
+          </tr>
+          <tr>
+            <td>Subscription / Membership Tiers</td>
+            <td style="text-align: center; color: var(--accent); font-weight: 700;">1</td>
+          </tr>
+          <tr>
+            <td>Car Rating System</td>
+            <td style="text-align: center; color: var(--accent); font-weight: 700;">1</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h3 style="margin-bottom: 8px;">Phase 4: Scale & Expand</h3>
+      <p style="font-size: 16px; margin-bottom: 16px; color: var(--orange); font-weight: 600;">~10 weeks</p>
+      <table class="compare-table" style="font-size: 13px;">
+        <thead>
+          <tr>
+            <th>Module</th>
+            <th style="text-align: center;">Weeks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>International Expansion (languages, docs, payments)</td>
+            <td style="text-align: center; color: var(--accent); font-weight: 700;">3</td>
+          </tr>
+          <tr>
+            <td>Bluetooth / NFC Car Unlock</td>
+            <td style="text-align: center; color: var(--accent); font-weight: 700;">3</td>
+          </tr>
+          <tr>
+            <td>In-App Turn-by-Turn Navigation</td>
+            <td style="text-align: center; color: var(--accent); font-weight: 700;">1.5</td>
+          </tr>
+          <tr>
+            <td>Business / Corporate Accounts</td>
+            <td style="text-align: center; color: var(--accent); font-weight: 700;">1.5</td>
+          </tr>
+          <tr>
+            <td>Third-Party Public API</td>
+            <td style="text-align: center; color: var(--accent); font-weight: 700;">1</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="highlight-box" style="margin-top: 24px;">
+    <p>Phase 3 & 4 estimates assume the foundation from Phases 1-2 is stable. These phases can overlap or be reordered based on business priority. Bluetooth/NFC depends on hardware partner integration timelines.</p>
+  </div>
+  <div class="slide-number">17</div>
+</div>
+
+<!-- SLIDE 18: Full Timeline View -->
+<div class="slide">
+  <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
+  <h4>Timeline</h4>
+  <h2>Full Project <span class="accent">Timeline</span></h2>
+  <p style="margin-bottom: 24px;">Team: 1 Frontend Dev + QA + UI/UX Designer + DevOps. All estimates include testing and QA cycles.</p>
+  <div style="margin-top: 20px;">
+    <!-- Phase bars -->
+    <div style="display: flex; align-items: center; margin-bottom: 20px; gap: 16px;">
+      <div style="width: 120px; text-align: right; font-weight: 700; font-size: 14px; color: var(--text-muted);">PHASE 1</div>
+      <div style="flex: 20; background: var(--accent); border-radius: 8px; padding: 14px 20px; position: relative;">
+        <div style="font-weight: 800; font-size: 15px; color: var(--bg);">MVP - Core Rental Experience</div>
+        <div style="font-size: 12px; color: rgba(0,0,0,0.6); margin-top: 2px;">Weeks 1-20 &bull; Auth, Registration, Map, Booking, Rental, Damage, Profile, Payments, Web Parity</div>
+      </div>
+      <div style="width: 60px; text-align: center; font-weight: 900; font-size: 18px; color: var(--accent);">20w</div>
+    </div>
+    <div style="display: flex; align-items: center; margin-bottom: 20px; gap: 16px;">
+      <div style="width: 120px; text-align: right; font-weight: 700; font-size: 14px; color: var(--text-muted);">PHASE 2</div>
+      <div style="flex: 12; background: var(--blue); border-radius: 8px; padding: 14px 20px;">
+        <div style="font-weight: 800; font-size: 15px; color: white;">Operations & Polish</div>
+        <div style="font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 2px;">Weeks 21-32 &bull; Admin Panel (Staff + Fleet), History, Cost Ticker, Credits, Dark Mode</div>
+      </div>
+      <div style="flex: 8;"></div>
+      <div style="width: 60px; text-align: center; font-weight: 900; font-size: 18px; color: var(--blue);">12w</div>
+    </div>
+    <div style="display: flex; align-items: center; margin-bottom: 20px; gap: 16px;">
+      <div style="width: 120px; text-align: right; font-weight: 700; font-size: 14px; color: var(--text-muted);">PHASE 3</div>
+      <div style="flex: 8; background: var(--purple); border-radius: 8px; padding: 14px 20px;">
+        <div style="font-weight: 800; font-size: 15px; color: white;">Engagement & Support</div>
+        <div style="font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 2px;">Weeks 33-40 &bull; Favorites, In-App Chat, i18n, Analytics, Subscriptions, Ratings</div>
+      </div>
+      <div style="flex: 12;"></div>
+      <div style="width: 60px; text-align: center; font-weight: 900; font-size: 18px; color: var(--purple);">8w</div>
+    </div>
+    <div style="display: flex; align-items: center; margin-bottom: 20px; gap: 16px;">
+      <div style="width: 120px; text-align: right; font-weight: 700; font-size: 14px; color: var(--text-muted);">PHASE 4</div>
+      <div style="flex: 10; background: var(--orange); border-radius: 8px; padding: 14px 20px;">
+        <div style="font-weight: 800; font-size: 15px; color: var(--bg);">Scale & Expand</div>
+        <div style="font-size: 12px; color: rgba(0,0,0,0.6); margin-top: 2px;">Weeks 41-50 &bull; International, BLE/NFC Unlock, Navigation, Business Accounts, Public API</div>
+      </div>
+      <div style="flex: 10;"></div>
+      <div style="width: 60px; text-align: center; font-weight: 900; font-size: 18px; color: var(--orange);">10w</div>
+    </div>
+  </div>
+  <div class="kpi-grid" style="margin-top: 16px;">
+    <div class="kpi-card">
+      <div class="kpi-value">50<span class="kpi-unit">w</span></div>
+      <div class="kpi-label">Total Dev Weeks</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">~12<span class="kpi-unit">mo</span></div>
+      <div class="kpi-label">Total Duration</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">20<span class="kpi-unit">w</span></div>
+      <div class="kpi-label">Time to MVP</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">5<span class="kpi-unit">mo</span></div>
+      <div class="kpi-label">MVP in Market</div>
+    </div>
+  </div>
+  <div class="highlight-box" style="margin-top: 16px;">
+    <p>Estimates include buffer for QA cycles, bug fixes, and design iteration. Adding a second frontend dev could compress Phases 1-2 by ~30%. Phases 3-4 can run in parallel with ongoing maintenance of Phases 1-2.</p>
+  </div>
+  <div class="slide-number">18</div>
+</div>
+
+<!-- SLIDE 19: Performance Targets -->
+<div class="slide">
+  <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
+  <h4>Quality</h4>
+  <h2>Performance <span class="accent">Targets</span></h2>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-value">&lt;2<span class="kpi-unit">s</span></div>
+      <div class="kpi-label">App Cold Start</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">&lt;1.5<span class="kpi-unit">s</span></div>
+      <div class="kpi-label">Map Load</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">&lt;1<span class="kpi-unit">s</span></div>
+      <div class="kpi-label">Booking Confirm</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">&lt;5<span class="kpi-unit">min</span></div>
+      <div class="kpi-label">Registration</div>
+    </div>
+  </div>
+  <h3 style="margin-top: 48px;">Accessibility & Standards</h3>
+  <div class="grid-2" style="margin-top: 16px;">
+    <div class="card">
+      <div class="card-title">WCAG 2.1 AA</div>
+      <div class="card-desc">All interactive elements meet contrast ratios. Minimum 44x44pt touch targets. Support for dynamic text sizing and font scaling.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Screen Reader Support</div>
+      <div class="card-desc">Full VoiceOver (iOS) and TalkBack (Android) compatibility. Meaningful labels on all interactive elements.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">RTL Native Support</div>
+      <div class="card-desc">Hebrew (RTL) as primary language. Layout flips automatically. i18next from day one with externalized strings.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Offline Resilience</div>
+      <div class="card-desc">Cached data shown on poor connectivity. Actions queued and synced when connection restores. Never stranded mid-rental.</div>
+    </div>
+  </div>
+  <div class="slide-number">19</div>
+</div>
+
+<!-- SLIDE 20: Testing Strategy -->
+<div class="slide">
+  <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
+  <h4>Quality Assurance</h4>
+  <h2>Testing <span class="accent">Strategy</span></h2>
+  <p style="margin-bottom: 32px;">Test external behavior, not implementation details. Prefer integration tests over unit tests for UI flows.</p>
+  <div class="grid-2">
+    <div>
+      <h3>What We Test</h3>
+      <ul class="bullet-list">
+        <li>Auth flow: OTP, biometrics, session, approval gating</li>
+        <li>Registration: full 5-step E2E, validation, persistence</li>
+        <li>Booking: immediate, scheduled, one-way, cancel, extend</li>
+        <li>Damage reporting: all 5 angles, skip prevention, upload retry</li>
+        <li>Payment: provider abstraction, card entry, Apple/Google Pay</li>
+        <li>Map: filters, view toggle, bottom sheet, location search</li>
+        <li>Admin: role-based access, CRUD operations, approval flow</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Tools</h3>
+      <div class="card" style="margin-bottom: 12px;">
+        <div class="card-title">Jest + React Native Testing Library</div>
+        <div class="card-desc">Component and integration tests. Mock API with MSW.</div>
+      </div>
+      <div class="card" style="margin-bottom: 12px;">
+        <div class="card-title">Detox / Maestro</div>
+        <div class="card-desc">End-to-end tests on real mobile devices and simulators.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Playwright</div>
+        <div class="card-desc">End-to-end tests for the web app and admin panel.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-number">20</div>
+</div>
+
+<!-- SLIDE 21: Migration -->
+<div class="slide">
+  <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
+  <h4>Rollout</h4>
+  <h2>Migration <span class="accent">Strategy</span></h2>
+  <div class="grid-2">
+    <div>
+      <h3>Continuity</h3>
+      <ul class="bullet-list">
+        <li>Published as update to existing app listings (preserves ratings, downloads, store presence)</li>
+        <li>Existing users log in with same phone number and see full history</li>
+        <li>Feature flag rollout - gradually enable for user segments</li>
+        <li>Rollback plan: keep old app version deployable during transition</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Dependencies</h3>
+      <ul class="bullet-list">
+        <li><strong>UI/UX Brand Guidelines:</strong> New design system depends on guidelines currently in development. Component work can start with placeholder tokens.</li>
+        <li><strong>API Documentation:</strong> Comprehensive docs needed for existing backend endpoints.</li>
+        <li><strong>App Store Accounts:</strong> Existing Apple Developer and Google Play Console accounts.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="slide-number">21</div>
+</div>
+
+<!-- SLIDE 22: Summary / CTA -->
+<div class="slide slide-title" style="background: linear-gradient(135deg, var(--bg), #0d1f17);">
+  <div class="logo-bar"><div class="bar bar-1"></div><div class="bar bar-2"></div><span>My Car</span></div>
+  <h1 style="font-size: 56px;">Let's Build<br><span style="background: linear-gradient(135deg, var(--accent), #0d9488); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">My Car 2.0</span></h1>
+  <p class="subtitle" style="margin-top: 24px;">Modern design. Streamlined flows.<br>Full platform parity. Built to scale.</p>
+  <div class="stat-row" style="margin-top: 48px; justify-content: center;">
+    <div class="stat">
+      <div class="stat-value">86</div>
+      <div class="stat-label">User Stories</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">11</div>
+      <div class="stat-label">Modules</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">4</div>
+      <div class="stat-label">Phases</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">2</div>
+      <div class="stat-label">Platforms</div>
+    </div>
+  </div>
+  <div class="slide-number">22</div>
+</div>
+
+</body>
+</html>
