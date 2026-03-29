@@ -1297,26 +1297,41 @@
     height: 6px;
   }
 
-  /* Section headers in nav */
+  /* Section headers always visible */
   .side-nav .nav-section .nav-label {
     font-size: 11px;
     font-weight: 600;
+    opacity: 0.5;
+    transform: none;
+    transition: all 0.3s ease;
   }
 
-  /* Collapse sub-items until parent section is nearby */
+  /* Active section styling */
+  .side-nav .nav-section.section-active .nav-label {
+    opacity: 1;
+    color: var(--accent);
+  }
+
+  .side-nav .nav-section.section-active .nav-dot {
+    background: var(--accent);
+    box-shadow: 0 0 6px var(--accent-glow);
+    width: 8px;
+    height: 8px;
+  }
+
+  /* Collapse sub-items until parent section is active */
   .side-nav .nav-sub {
     max-height: 0;
     overflow: hidden;
     margin: 0;
     padding: 0;
     opacity: 0;
-    transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.2s ease;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
   }
 
   .side-nav .nav-sub.section-visible {
     max-height: 24px;
     opacity: 1;
-    margin: 0;
   }
 
   /* Top progress bar */
@@ -2462,6 +2477,8 @@
     return sectionRanges.find(r => slideIdx >= r.from && slideIdx <= r.to);
   }
 
+  const navSections = document.querySelectorAll('.side-nav .nav-section');
+
   // Track active slide
   const slideObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -2470,9 +2487,16 @@
         const idx = parseInt(id.replace('sl-', ''));
         const section = getSection(idx);
 
-        // Highlight active nav item
+        // Highlight active nav item (sub or section)
         navLinks.forEach(link => {
           link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+
+        // Highlight active section header
+        navSections.forEach(sec => {
+          const secIdx = parseInt(sec.getAttribute('href').replace('#sl-', ''));
+          const secSection = getSection(secIdx);
+          sec.classList.toggle('section-active', section && secSection && secSection.navIdx === section.navIdx);
         });
 
         // Show/hide sub-items for current section
