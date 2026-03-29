@@ -1277,6 +1277,48 @@
     background: var(--text-secondary);
   }
 
+  /* Sub-nav items */
+  .side-nav .nav-sub {
+    gap: 8px;
+  }
+
+  .side-nav .nav-sub .nav-label {
+    font-size: 10px;
+    letter-spacing: 0.02em;
+  }
+
+  .side-nav .nav-sub .dot-sm {
+    width: 4px;
+    height: 4px;
+  }
+
+  .side-nav .nav-sub.active .dot-sm {
+    width: 6px;
+    height: 6px;
+  }
+
+  /* Section headers in nav */
+  .side-nav .nav-section .nav-label {
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  /* Collapse sub-items until parent section is nearby */
+  .side-nav .nav-sub {
+    max-height: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.2s ease;
+  }
+
+  .side-nav .nav-sub.section-visible {
+    max-height: 24px;
+    opacity: 1;
+    margin: 0;
+  }
+
   /* Top progress bar */
   .progress-bar {
     position: fixed;
@@ -2311,13 +2353,35 @@
 
 <!-- Right-side navigation -->
 <nav class="side-nav" id="sideNav">
-  <a href="#s-overview" data-section="overview"><span class="nav-label">Overview</span><span class="nav-dot"></span></a>
-  <a href="#s-problem" data-section="problem"><span class="nav-label">Problem</span><span class="nav-dot"></span></a>
-  <a href="#s-solution" data-section="solution"><span class="nav-label">Solution</span><span class="nav-dot"></span></a>
-  <a href="#s-architecture" data-section="architecture"><span class="nav-label">Architecture</span><span class="nav-dot"></span></a>
-  <a href="#s-roadmap" data-section="roadmap"><span class="nav-label">Roadmap</span><span class="nav-dot"></span></a>
-  <a href="#s-quality" data-section="quality"><span class="nav-label">Quality</span><span class="nav-dot"></span></a>
-  <a href="#s-closing" data-section="closing"><span class="nav-label">Let's Go</span><span class="nav-dot"></span></a>
+  <a href="#sl-0" class="nav-section"><span class="nav-label">Title</span><span class="nav-dot"></span></a>
+  <a href="#sl-1" class="nav-sub"><span class="nav-label">What is My Car</span><span class="nav-dot dot-sm"></span></a>
+
+  <a href="#sl-2" class="nav-section"><span class="nav-label">Problem</span><span class="nav-dot"></span></a>
+  <a href="#sl-3" class="nav-sub"><span class="nav-label">Registration Dropout</span><span class="nav-dot dot-sm"></span></a>
+  <a href="#sl-4" class="nav-sub"><span class="nav-label">Booking Friction</span><span class="nav-dot dot-sm"></span></a>
+  <a href="#sl-5" class="nav-sub"><span class="nav-label">Design Debt</span><span class="nav-dot dot-sm"></span></a>
+
+  <a href="#sl-6" class="nav-section"><span class="nav-label">Solution</span><span class="nav-dot"></span></a>
+  <a href="#sl-7" class="nav-sub"><span class="nav-label">Before vs After</span><span class="nav-dot dot-sm"></span></a>
+  <a href="#sl-8" class="nav-sub"><span class="nav-label">Registration Flow</span><span class="nav-dot dot-sm"></span></a>
+  <a href="#sl-9" class="nav-sub"><span class="nav-label">Booking Flow</span><span class="nav-dot dot-sm"></span></a>
+  <a href="#sl-10" class="nav-sub"><span class="nav-label">Active Rental</span><span class="nav-dot dot-sm"></span></a>
+
+  <a href="#sl-11" class="nav-section"><span class="nav-label">Architecture</span><span class="nav-dot"></span></a>
+  <a href="#sl-12" class="nav-sub"><span class="nav-label">Tech Stack</span><span class="nav-dot dot-sm"></span></a>
+  <a href="#sl-13" class="nav-sub"><span class="nav-label">Navigation</span><span class="nav-dot dot-sm"></span></a>
+
+  <a href="#sl-14" class="nav-section"><span class="nav-label">Roadmap</span><span class="nav-dot"></span></a>
+  <a href="#sl-15" class="nav-sub"><span class="nav-label">Delivery Model</span><span class="nav-dot dot-sm"></span></a>
+  <a href="#sl-16" class="nav-sub"><span class="nav-label">Phase 1 Detail</span><span class="nav-dot dot-sm"></span></a>
+  <a href="#sl-17" class="nav-sub"><span class="nav-label">Phases 2 & 3</span><span class="nav-dot dot-sm"></span></a>
+  <a href="#sl-18" class="nav-sub"><span class="nav-label">Timeline</span><span class="nav-dot dot-sm"></span></a>
+
+  <a href="#sl-19" class="nav-section"><span class="nav-label">Quality</span><span class="nav-dot"></span></a>
+  <a href="#sl-20" class="nav-sub"><span class="nav-label">Testing</span><span class="nav-dot dot-sm"></span></a>
+  <a href="#sl-21" class="nav-sub"><span class="nav-label">Migration</span><span class="nav-dot dot-sm"></span></a>
+
+  <a href="#sl-22" class="nav-section"><span class="nav-label">Let's Go</span><span class="nav-dot"></span></a>
 </nav>
 
 <script>
@@ -2376,39 +2440,52 @@
     progressBar.style.width = progress + '%';
   });
 
-  // Side navigation active state
-  const sections = [
-    { id: 'overview', start: 0 },
-    { id: 'problem', start: 2 },
-    { id: 'solution', start: 6 },
-    { id: 'architecture', start: 10 },
-    { id: 'roadmap', start: 13 },
-    { id: 'quality', start: 17 },
-    { id: 'closing', start: 19 }
+  // Side navigation - assign IDs to all slides
+  const slides = document.querySelectorAll('.slide, .divider');
+  slides.forEach((s, i) => { s.id = 'sl-' + i; });
+
+  const navLinks = document.querySelectorAll('.side-nav a');
+  const navSubs = document.querySelectorAll('.side-nav .nav-sub');
+
+  // Map which section each slide belongs to (section nav indices)
+  const sectionRanges = [
+    { navIdx: 0, from: 0, to: 1 },   // Title + What is My Car
+    { navIdx: 2, from: 2, to: 5 },   // Problem
+    { navIdx: 6, from: 6, to: 10 },  // Solution
+    { navIdx: 11, from: 11, to: 13 }, // Architecture
+    { navIdx: 14, from: 14, to: 18 }, // Roadmap
+    { navIdx: 19, from: 19, to: 21 }, // Quality
+    { navIdx: 22, from: 22, to: 22 }, // Closing
   ];
 
-  const slides = document.querySelectorAll('.slide, .divider');
-  const navLinks = document.querySelectorAll('.side-nav a');
+  function getSection(slideIdx) {
+    return sectionRanges.find(r => slideIdx >= r.from && slideIdx <= r.to);
+  }
 
-  // Add section IDs to slides
-  sections.forEach(s => {
-    if (slides[s.start]) slides[s.start].id = 's-' + s.id;
-  });
-
-  const sectionObserver = new IntersectionObserver((entries) => {
+  // Track active slide
+  const slideObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const id = entry.target.id;
+        const idx = parseInt(id.replace('sl-', ''));
+        const section = getSection(idx);
+
+        // Highlight active nav item
         navLinks.forEach(link => {
           link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+
+        // Show/hide sub-items for current section
+        navSubs.forEach(sub => {
+          const subIdx = parseInt(sub.getAttribute('href').replace('#sl-', ''));
+          const subSection = getSection(subIdx);
+          sub.classList.toggle('section-visible', section && subSection && subSection.navIdx === section.navIdx);
         });
       }
     });
   }, { threshold: 0.3 });
 
-  sections.forEach(s => {
-    if (slides[s.start]) sectionObserver.observe(slides[s.start]);
-  });
+  slides.forEach(s => slideObserver.observe(s));
 
   // Smooth scroll for nav clicks
   navLinks.forEach(link => {
