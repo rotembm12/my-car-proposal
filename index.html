@@ -32,7 +32,7 @@
 
   html {
     scroll-behavior: smooth;
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: y proximity;
   }
 
   body {
@@ -2419,16 +2419,30 @@
     });
   });
 
-  // Keyboard navigation
+  // Keyboard navigation - navigate to next/prev slide element
+  let currentSlideIdx = 0;
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
       e.preventDefault();
-      window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+      currentSlideIdx = Math.min(currentSlideIdx + 1, slides.length - 1);
+      slides[currentSlideIdx].scrollIntoView({ behavior: 'smooth' });
     } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
       e.preventDefault();
-      window.scrollBy({ top: -window.innerHeight, behavior: 'smooth' });
+      currentSlideIdx = Math.max(currentSlideIdx - 1, 0);
+      slides[currentSlideIdx].scrollIntoView({ behavior: 'smooth' });
     }
   });
+
+  // Keep currentSlideIdx in sync with manual scrolling
+  const slideTracker = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = Array.from(slides).indexOf(entry.target);
+        if (idx !== -1) currentSlideIdx = idx;
+      }
+    });
+  }, { threshold: 0.5 });
+  slides.forEach(s => slideTracker.observe(s));
 })();
 </script>
 
